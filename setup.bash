@@ -43,7 +43,7 @@ for index in "${!scripts[@]}"; do
 done
 
 # now execute installation tests
-bash test.sh
+bash test.bash
 
 # if must reboot, ask for reboot
 if $reboot;

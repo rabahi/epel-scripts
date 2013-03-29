@@ -13,7 +13,7 @@ do
         "prerequistes")
             echo "you chose choice 1"
             directory=$opt
-            scripts=("script1.bash" "script2.bash")
+            scripts=("network.bash" "ntp.bash" "selinux.bash" "firewall.bash" "usefullcmd.bash" "httpd.bash" "mysql.bash" "autoupdate.bash")
             reboot=true
             break
             ;;

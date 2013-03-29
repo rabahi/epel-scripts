@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # load check_functions.
-. ../check_functions/check_functions.sh
+. ../check_functions/check_functions.bash
 

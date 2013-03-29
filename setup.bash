@@ -5,23 +5,40 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("prerequistes" "srv-1" "srv-2" "Quit")
+options=("prerequistes" "srv-build-linux" "srv-cit" "srv-monitoring" "srv-redmine" "srv-scm" "srv-smtp" "Quit")
 
 select opt in "${options[@]}"
 do
+    directory=$opt
     case $opt in
         "prerequistes")
-            echo "you chose choice 1"
-            directory=$opt
             scripts=("network.bash" "ntp.bash" "selinux.bash" "firewall.bash" "usefullcmd.bash" "httpd.bash" "mysql.bash" "autoupdate.bash")
             reboot=true
             break
             ;;
-        "Option 2")
-            echo "you chose choice 2"
+        "srv-build-linux")
+            scripts=("mock.bash" "rpm.bash" "repos.bash")
+            reboot=false
+            ;;            
+        "srv-cit")
+            scripts=("javatools.bash" "jenkins.bash" "nexus.bash" "sonar.bash")
+            reboot=false
+            ;;        
+        "srv-monitoring")
+            scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "glpi.bash")
+            reboot=false
             ;;
-        "Option 3")
-            echo "you chose choice 3"
+        "srv-redmine")
+            scripts=("setup.bash")
+            reboot=false
+            ;;
+        "srv-scm")
+            scripts=("subversion.bash" "git.bash" "hg.bash")
+            reboot=false
+            ;;
+        "srv-smtp")
+            scripts=("setup.bash")
+            reboot=false
             ;;
         "Quit")
             exit 0

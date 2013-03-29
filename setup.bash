@@ -19,26 +19,32 @@ do
         "srv-build-linux")
             scripts=("mock.bash" "rpm.bash" "repos.bash")
             reboot=false
+            break
             ;;            
         "srv-cit")
             scripts=("javatools.bash" "jenkins.bash" "nexus.bash" "sonar.bash")
             reboot=false
+            break
             ;;        
         "srv-monitoring")
             scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "glpi.bash")
             reboot=false
+            break
             ;;
         "srv-redmine")
             scripts=("setup.bash")
             reboot=false
+            break
             ;;
         "srv-scm")
             scripts=("subversion.bash" "git.bash" "hg.bash")
             reboot=false
+            break
             ;;
         "srv-smtp")
             scripts=("setup.bash")
             reboot=false
+            break
             ;;
         "Quit")
             exit 0

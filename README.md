@@ -4,7 +4,7 @@ centos-scripts
 Usage:
 ------
 
-bash setup.sh
+bash setup.bash
 
 How does it work?
 ----------------

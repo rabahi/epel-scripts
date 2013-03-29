@@ -13,7 +13,7 @@ do
         "prerequistes")
             echo "you chose choice 1"
             directory=$opt
-            scripts=("script1.sh" "script2.sh")
+            scripts=("script1.bash" "script2.bash")
             reboot=true
             break
             ;;

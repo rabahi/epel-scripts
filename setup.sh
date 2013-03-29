@@ -24,7 +24,7 @@ do
             echo "you chose choice 3"
             ;;
         "Quit")
-            break
+            exit 0
             ;;
         *) echo "invalid option $REPLY";;
     esac

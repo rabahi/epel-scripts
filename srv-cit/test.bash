@@ -8,7 +8,7 @@ check_command java
 
 # check pages
 check_web_function jenkins http://localhost/jenkins
-check_web_function nexus http://localhost/nexus
+check_web_function Nexus http://localhost/nexus
 check_web_function sonar http://localhost/sonar
 
 # check services:

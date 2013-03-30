@@ -4,7 +4,7 @@
 . ../check_functions/check_functions.bash
 
 # check pages
-check_web_function nagios http://localhost/nagios/
+check_web_function nagios "http://localhost/nagios/ --http-user=nagiosadmin --http-password=nagiosadmin"
 check_web_function Centreon http://localhost/centreon/
 check_web_function ocsreports http://localhost/ocsreports/
 check_web_function GLPI http://localhost/glpi/install/install.php

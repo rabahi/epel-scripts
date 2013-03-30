@@ -81,10 +81,10 @@ function check_command()
 function check_web_function()
 {  
   local word=$1
-  local url=$1
+  local url=$2
   
   title="Checking word $word exists in url $url"
-  command="wget -O /tmp/url $url; grep $word /tmp/url"
+  command="wget -q -O /tmp/url $url; grep $word /tmp/url"
   check "$title" "$command"
 }
 

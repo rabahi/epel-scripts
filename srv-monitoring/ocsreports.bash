@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install ocsinventory"
-yum -y install ocsinventory
+yum -y install ocsinventory*
  
 echo "create database ocsweb, user/password ocs/ocs":
 mysql --user=root --password=root -e "CREATE USER 'ocs'@'localhost' IDENTIFIED BY 'ocs';"

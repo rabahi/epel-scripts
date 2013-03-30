@@ -22,7 +22,7 @@ do
             break
             ;;            
         "srv-cit")
-            scripts=("javatools.bash" "jenkins.bash" "nexus.bash" "sonar.bash")
+            scripts=("jenkins.bash" "nexus.bash" "sonar.bash")
             reboot=false
             break
             ;;

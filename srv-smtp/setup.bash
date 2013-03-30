@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "install sendmail"
+yum -y install sendmail postfix
+ 
+echo "start service"
+service sendmail start
+
 echo "configure postfix"
 
 # comments all:

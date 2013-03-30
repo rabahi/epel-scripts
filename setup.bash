@@ -5,7 +5,7 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("prerequistes" "srv-build-linux" "srv-cit" "srv-monitoring" "srv-redmine" "srv-scm" "srv-smtp" "Quit")
+options=("prerequistes" "srv-build-linux" "srv-cit" "srv-intranet" "srv-monitoring" "srv-redmine" "srv-scm" "srv-smtp" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -25,7 +25,12 @@ do
             scripts=("javatools.bash" "jenkins.bash" "nexus.bash" "sonar.bash")
             reboot=false
             break
-            ;;        
+            ;;
+        "srv-intranet")
+            scripts=("setup.bash")
+            reboot=false
+            break
+            ;;
         "srv-monitoring")
             scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "glpi.bash")
             reboot=false

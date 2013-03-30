@@ -75,3 +75,16 @@ function check_command()
   check "$title" "$command"
 }
 
+# Check if word exists in url page
+# usage: check_web_function myWord myUrl
+# example check_web_function google http://google.com
+function check_web_function()
+{  
+  local word=$1
+  local url=$1
+  
+  title="Checking word $word exists in url $url"
+  command="wget -O /tmp/url $url; grep $word /tmp/url"
+  check "$title" "$command"
+}
+

@@ -21,6 +21,12 @@ Usage:
   bash setup.bash
 ```
 
+Recommandations
+----------------
+
+- First, install prerequistes and reboot your server
+- Then, install your server (i.e. srv-***)
+
 How does it work?
 ----------------
 

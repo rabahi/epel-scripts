@@ -32,7 +32,7 @@ do
             break
             ;;
         "srv-monitoring")
-            scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "glpi.bash")
+            scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "setup-glpi.bash")
             reboot=false
             break
             ;;

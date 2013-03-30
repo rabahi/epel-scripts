@@ -1,19 +1,32 @@
 #!/bin/bash
 
 echo "create nexus auto-update script"
+mkdir -p /opt/nexus/bundle
 mkdir -p /opt/nexus/scripts
-mkdir -p /opt/nexus/home
+
+echo "create user nexus"
+useradd nexus
 
 cat > /opt/nexus/scripts/autoupdate.sh << "EOF"
-/etc/init.d/tomcat6 stop > /dev/null 2>&1
+#remove nexus as a service
+service nexus stop
+chkconfig --del nexus
+rm -f /etc/init.d/nexus
 
-mkdir -p /opt/nexus/previous
-rm -f /opt/nexus/previous/nexus.war > /dev/null 2>&1
-mv /opt/java/apache-tomcat-6.0.36/webapps/nexus.war /opt/nexus/previous
+# download latest bundle
+rm -fr /opt/nexus/bundle/*
+mkdir -p /opt/nexus/download
+#wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
+tar xvfz /opt/nexus/download/nexus-latest-bundle.tar.gz -C /opt/nexus/bundle
+chown nexus:nexus /opt/nexus/bundle -R
 
-wget -O /opt/java/apache-tomcat-6.0.36/webapps/nexus.war http://www.sonatype.org/downloads/nexus-latest.war
-
-/etc/init.d/tomcat6 start
+#set nexus as a service
+nexusDirectory=`ls /opt/nexus/bundle/ | grep nexus`
+ln -s /opt/nexus/bundle/$nexusDirectory/bin/nexus /etc/init.d/nexus
+sed -i "s/^#\(RUN_AS_USER=\s*\).*/\1nexus/" /opt/nexus/bundle/$nexusDirectory/bin/nexus
+chkconfig --add nexus
+chkconfig --levels 345 nexus on
+service nexus start
 EOF
 
 echo "add autoupdate script to crontab"
@@ -34,11 +47,21 @@ echo "######## NEXUS #######" >> ~/.bashrc
 source ~/.bashrc
 fi
 
+echo "configure httpd (create /etc/httpd/conf.d/nexus.conf)"
+cat > /etc/httpd/conf.d/nexus.conf << "EOF"
+ProxyPreserveHost On
+Proxypass /nexus http://localhost:8081/nexus
+Proxypassreverse /nexus http://localhost:8081/nexus
+ProxyRequests     Off
+EOF
+service httpd restart
+
 echo "install nexus"
 chmod a+x /opt/nexus/scripts/autoupdate.sh
 /opt/nexus/scripts/autoupdate.sh
 
+
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
-echo "Now meet you here: http://$myip:8080/nexus"
+echo "Now meet you here: http://$myip/nexus"
 
 

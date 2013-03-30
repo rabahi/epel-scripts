@@ -16,7 +16,7 @@ rm -f /etc/init.d/nexus
 # download latest bundle
 rm -fr /opt/nexus/bundle/*
 mkdir -p /opt/nexus/download
-#wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
+wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
 tar xvfz /opt/nexus/download/nexus-latest-bundle.tar.gz -C /opt/nexus/bundle
 chown nexus:nexus /opt/nexus/bundle -R
 

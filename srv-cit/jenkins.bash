@@ -1,43 +1,40 @@
 #!/bin/bash
 
-echo "create jenkins auto-update script"
-mkdir -p /opt/jenkins/scripts
-mkdir -p /opt/jenkins/home
+echo "import repository jenkins"
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 
-cat > /opt/jenkins/scripts/autoupdate.sh << "EOF"
-/etc/init.d/tomcat6 stop > /dev/null 2>&1
+echo "install java and jenkins"
+yum -y install java-1.6.0-openjdk jenkins
 
-mkdir -p /opt/jenkins/previous
-rm -f /opt/jenkins/previous/jenkins.war > /dev/null 2>&1
-mv /opt/java/apache-tomcat-6.0.36/webapps/jenkins.war /opt/jenkins/previous
 
-wget -O /opt/java/apache-tomcat-6.0.36/webapps/jenkins.war http://mirrors.jenkins-ci.org/war/latest/jenkins.war
-
-/etc/init.d/tomcat6 start
+echo "configure httpd (create /etc/httpd/conf.d/jenkins.conf)"
+cat > /etc/httpd/conf.d/jenkins.conf << "EOF"
+ProxyPreserveHost On
+Proxypass /jenkins http://localhost:8080/jenkins
+Proxypassreverse /jenkins http://localhost:8080/jenkins
+ProxyRequests     Off
 EOF
 
-echo "add autoupdate script to crontab"
-if ! grep -q JENKINS /etc/crontab; then
-echo "" >> /etc/crontab
-echo "######## JENKINS #######" >> /etc/crontab
-echo "every saturday at 8h05" >> /etc/crontab
-echo "5 8 * * 6 root chmod a+x /opt/jenkins/scripts/autoupdate.sh; /opt/jenkins/scripts/autoupdate.sh" >> /etc/crontab
-echo "######## JENKINS #######" >> /etc/crontab
-fi
 
-echo "set JENKINS_HOME"
-if ! grep -q JENKINS ~/.bashrc; then
-echo "" >> ~/.bashrc
-echo "######## JENKINS #######" >> ~/.bashrc
-echo "export JENKINS_HOME=/opt/jenkins/home" >> ~/.bashrc
-echo "######## JENKINS #######" >> ~/.bashrc
-source ~/.bashrc
-fi
+echo "configure jenkins"
 
-echo "install jenkins"
-chmod a+x /opt/jenkins/scripts/autoupdate.sh
-/opt/jenkins/scripts/autoupdate.sh
+#change home directory
+mkdir -p /opt/jenkins_home
+chown jenkins:jenkins /opt/jenkins_home -R
+sed -i "s/^\(JENKINS_HOME=\).*/\1\"\/opt\/jenkins_home\"/" /etc/sysconfig/jenkins
+
+#configure jenkins prefix tu run begin apache:
+sed -i "s/^\(JENKINS_ARGS=\).*/\1\"--prefix=\/jenkins\"/" /etc/sysconfig/jenkins
+
+#Security-Enhanced Linux (SE-Linux)
+setsebool -P httpd_can_network_connect true
+
+echo "start jenkins"
+service httpd restart
+service jenkins start
+
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
-echo "Now meet you here: http://$myip:8080/jenkins"
+echo "Now meet you here: http://$myip/jenkins"
 

@@ -27,7 +27,7 @@ do
             break
             ;;
         "srv-intranet")
-            scripts=("setup.bash")
+            scripts=("wordpress.bash")
             reboot=false
             break
             ;;

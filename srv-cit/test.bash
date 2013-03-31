@@ -4,8 +4,8 @@
 . ../check_functions/check_functions.bash
 
 #wait program started:
-wait_started jenkins /var/log/jenkins/jenkins.log
-wait_started sonar /opt/sonar/logs/sonar.log 30
+wait_started jenkins /var/log/jenkins/jenkins.log 60
+wait_started sonar /opt/sonar/logs/sonar.log 60
 
 #check commands
 check_command java

@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install package"
-yum -y install rrdtool-perl sudo php-pear* net-snmp php-ldap ndoutils* wget
+yum -y install rrdtool-perl sudo php-pear* net-snmp php-ldap ndoutils*
  
 echo "create user/group centreon/centreon"
 groupadd centreon

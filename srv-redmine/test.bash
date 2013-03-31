@@ -4,7 +4,7 @@
 . ../check_functions/check_functions.bash
 
 # check pages
-check_web_function redmine http://localhost/redmine
+check_web_function Redmine http://localhost/redmine
 
 # check services:
 check_service httpd

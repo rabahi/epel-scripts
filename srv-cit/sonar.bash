@@ -14,11 +14,6 @@ yum -y install sonar
 echo "start sonar on boot"
 chkconfig sonar on
 
-echo "Append firewall rule to open port 9000"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 9000 -j ACCEPT
-service iptables save
-service iptables restart
-
 echo "Configure sonar"
 # add # before each sonar.jdbc.url that are not commented:
 sed -i "s/^\(sonar.jdbc.url\)/#\1/" /opt/sonar/conf/sonar.properties

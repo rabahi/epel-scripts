@@ -106,7 +106,7 @@ function wait_started()
   local logFile=$2
   
   echo "waiting for $program...."
-  wcPrevious=`$logFile | wc -l`
+  wcPrevious=`cat $logFile | wc -l`
   wcCurrent=-1
   while [ $wcCurrent -lt  $wcPrevious ];
   do

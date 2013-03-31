@@ -4,7 +4,7 @@ centos-scripts
 Prerequistes:
 -------------
 
-Centos 6.4 or higher.
+Centos 6.4 x64 or higher.
 
 Usage:
 ------

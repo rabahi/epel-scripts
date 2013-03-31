@@ -100,6 +100,11 @@ function check_web_function()
 #      TOOLS FUNCTIONS 
 ##################################################
 
+# Wait program finish to start (it will stop to write in log file)
+# usage: wait_started myProgram myLogFile [myWaitTime]
+# examples:
+#   wait_started httpd /var/log/httpd/access.log
+#   wait_started httpd /var/log/httpd/access.log 2
 function wait_started()
 {
   local program=$1

@@ -55,11 +55,6 @@ cp database.yml.example database.yml
 sed -i "s/username: root/username: redmine/g" /var/www/html/redmine/config/database.yml
 sed -i "s/password: \"\"/password: redmine/g" /var/www/html/redmine/config/database.yml
 
-echo "configure sub-uri /redmine"
-if ! grep -q relative_url_root /var/www/html/redmine/config/environment.rb; then
-echo 'Redmine::Utils::relative_url_root = "/redmine"'  >> /var/www/html/redmine/config/environment.rb 
-fi
-
 echo "now populate database"
 cd /var/www/html/redmine
 rake generate_secret_token

@@ -4,7 +4,7 @@
 . ../check_functions/check_functions.bash
 
 # check pages
-check_web_function wordpress http://localhost/wordpress
+check_web_function WordPress http://localhost/wordpress
 
 # check services:
 check_service httpd

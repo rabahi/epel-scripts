@@ -96,6 +96,19 @@ function check_web_function()
   check "$title" "$command"
 }
 
+# Check if file exists
+# usage: check_file_exists myFile
+# example check_file_exists /etc/issue
+function check_file_exists()
+{  
+  local file=$1  
+  
+  title="Checking file $file exists"
+  command="test -e $file"
+  check "$title" "$command"
+}
+
+
 ##################################################
 #      TOOLS FUNCTIONS 
 ##################################################

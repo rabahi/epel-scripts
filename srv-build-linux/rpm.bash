@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install rpmdevtools automake autoconf gcc"
-yum -y install rpmdevtools automake autoconf gcc make
+yum -y install rpmdevtools rpmlint automake autoconf gcc make
 
 echo "clean rpmbuild directory"
 rm ~/rpmbuild/ -fr

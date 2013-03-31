@@ -104,8 +104,12 @@ function wait_started()
 {
   local program=$1
   local logFile=$2
-  
-  echo "waiting for $program...."
+  local waitTime=10 #in second
+  if [ -n "$3" ]; then
+    waitTime=$3 
+  fi
+ 
+  echo "waiting for $program (check every $waitTime s)..."
   wcPrevious=`cat $logFile | wc -l`
   wcCurrent=-1
   while [ $wcCurrent -lt  $wcPrevious ];
@@ -113,7 +117,7 @@ function wait_started()
    wcPrevious=$wcCurrent
    wcCurrent=`cat $logFile | wc -l`
    echo -n "$program has $wcCurrent lines in log"
-   sleep 2
+   sleep $waitTime
   done
   echo
 }

@@ -5,7 +5,7 @@
 
 #wait program started:
 wait_started jenkins /var/log/jenkins/jenkins.log
-wait_started sonar /opt/sonar/logs/sonar.log
+wait_started sonar /opt/sonar/logs/sonar.log 30
 
 #check commands
 check_command java

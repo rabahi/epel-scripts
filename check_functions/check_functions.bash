@@ -6,6 +6,10 @@ echo "############## TEST INSTALLATION #############"
 echo "##############################################"
 echo
 
+##################################################
+#      PRIVATE FUNCTIONS 
+##################################################
+
 echo -n "include init.d functions"
 . /etc/rc.d/init.d/functions
 echo_success
@@ -28,6 +32,10 @@ function check
   fi
   echo
 }
+
+##################################################
+#      CHECK FUNCTIONS
+##################################################
 
 # Check if tcp port is open
 # usage: check_tcp myPort
@@ -88,3 +96,24 @@ function check_web_function()
   check "$title" "$command"
 }
 
+##################################################
+#      TOOLS FUNCTIONS 
+##################################################
+
+function wait_started()
+{
+  local program=$1
+  local logFile=$2
+  
+  echo "waiting for $program...."
+  wcPrevious=`$logFile | wc -l`
+  wcCurrent=-1
+  while [ $wcCurrent -lt  $wcPrevious ];
+  do
+   wcPrevious=$wcCurrent
+   wcCurrent=`cat $logFile | wc -l`
+   echo -n "$program has $wcCurrent lines in log"
+   sleep 2
+  done
+  echo
+}

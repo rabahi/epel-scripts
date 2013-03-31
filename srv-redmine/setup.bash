@@ -1,5 +1,15 @@
 #!/bin/bash
 
+##################################################
+#      PARAMETERS 
+##################################################
+
+redmine_install_url=http://rubyforge.org/frs/download.php/76863/redmine-2.2.4.tar.gz
+redmine_version=redmine-2.2.4
+
+##################################################
+#      INSTALLATION SCRIPT
+##################################################
 echo "create database redmine, user/password redmine/redmine":
 mysql --user=root --password=root -e "CREATE USER 'redmine'@'localhost' IDENTIFIED BY 'redmine';"
 mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS redmine;"
@@ -42,9 +52,9 @@ EOF
 echo "get redmine"
 mkdir -p /opt/redmine/download
 cd /opt/redmine/download
-wget http://rubyforge.org/frs/download.php/76863/redmine-2.2.4.tar.gz  # GET LATEST VERSION ON RUBYFORGE
-tar xvfz redmine-2.2.4.tar.gz
-mv redmine-2.2.4 ../redmine
+wget $redmine_install_url  # GET LATEST VERSION ON RUBYFORGE
+tar xvfz $redmine_version.tar.gz
+mv $redmine_version ../redmine
 
 echo "install redmine"
 cd /opt/redmine/redmine

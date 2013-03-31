@@ -23,8 +23,8 @@ PassengerRuby               /usr/bin/ruby
  
 <VirtualHost *:80>
    ServerName redmine.mycompany.com
-   DocumentRoot /var/www/html/redmine/public
-   <Directory /var/www/html/redmine/public>
+   DocumentRoot /opt/redmine/redmine/public
+   <Directory /opt/redmine/redmine/public>
       # This relaxes Apache security settings.
       AllowOverride all
       # MultiViews must be turned off.
@@ -40,23 +40,24 @@ EOF
 
 
 echo "get redmine"
-cd /var/www/html
-wget http://rubyforge.org/frs/download.php/76771/redmine-2.2.3.tar.gz  # GET LATEST VERSION ON RUBYFORGE
-tar xvfz redmine-2.2.3.tar.gz
-mv redmine-2.2.3 redmine
+mkdir -p /opt/redmine/download
+cd /opt/redmine/download
+wget http://rubyforge.org/frs/download.php/76863/redmine-2.2.4.tar.gz  # GET LATEST VERSION ON RUBYFORGE
+tar xvfz redmine-2.2.4.tar.gz
+mv redmine-2.2.4 ../redmine
 
 echo "install redmine"
-cd /var/www/html/redmine
+cd /opt/redmine/redmine
 bundle install
 
 echo "configure database"
-cd /var/www/html/redmine/config
+cd /opt/redmine/redmine/config
 cp database.yml.example database.yml
-sed -i "s/username: root/username: redmine/g" /var/www/html/redmine/config/database.yml
-sed -i "s/password: \"\"/password: redmine/g" /var/www/html/redmine/config/database.yml
+sed -i "s/username: root/username: redmine/g" /opt/redmine/redmine/config/database.yml
+sed -i "s/password: \"\"/password: redmine/g" /opt/redmine/redmine/config/database.yml
 
 echo "now populate database"
-cd /var/www/html/redmine
+cd /opt/redmine/redmine
 rake generate_secret_token
 rake db:migrate RAILS_ENV="production"
 rake redmine:load_default_data RAILS_ENV="production"

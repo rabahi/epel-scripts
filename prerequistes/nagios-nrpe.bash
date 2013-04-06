@@ -3,6 +3,9 @@
 echo "install nrpe"
 yum -y install nrpe nagios-plugins*
 
+echo "uninstall nagios (installed by some nagios-plugins)"
+yum -y remove nagios
+
 echo "start nrpe on boot"
 chkconfig nrpe on
 

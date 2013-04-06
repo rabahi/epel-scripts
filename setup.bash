@@ -46,8 +46,8 @@ do
             reboot=false
             break
             ;;
-        "srv-smtp")
-            scripts=("setup.bash")
+        "srv-mail")
+            scripts=("setup-smtp.bash" "setup-imap-pop.bash")
             reboot=false
             break
             ;;

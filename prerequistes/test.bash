@@ -14,6 +14,7 @@ check_service ntpd
 check_service httpd
 check_service mysqld
 check_service yum-cron
+check_service nrpe
 
 # check commands:
 check_command locate
@@ -26,4 +27,5 @@ check_command telnet
 check_tcp 22 #sshd
 check_tcp 80 #httpd
 check_tcp 3306 #mysqld
+check_tcp 5666 #nrpe
 

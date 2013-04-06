@@ -1,10 +1,11 @@
 #!/bin/bash
 
-echo "install sendmail"
-yum -y install sendmail postfix
+echo "install postfix"
+yum -y install postfix
+yum -y remove sendmail # make postfix the default MTA
  
 echo "start service"
-service sendmail start
+service postfix start
 
 echo "configure postfix"
 

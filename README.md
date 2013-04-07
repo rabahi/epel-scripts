@@ -1,6 +1,11 @@
 centos-scripts
 ==============
 
+What's this??
+-------------
+These scripts are 'getting started' scripts.
+
+
 Prerequistes:
 -------------
 
@@ -26,6 +31,9 @@ Recommandations
 
 - First, install prerequistes and reboot your server
 - Then, install your server (i.e. srv-***)
+- Finally, update the security policy (depends on your own case)
+
+Enjoy :)
 
 How does it work?
 ----------------

@@ -5,49 +5,54 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("prerequistes" "srv-build-linux" "srv-cit" "srv-intranet" "srv-monitoring" "srv-redmine" "srv-scm" "srv-smtp" "Quit")
+options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Other/srv-tomcat" "Quit")
 
 select opt in "${options[@]}"
 do
     directory=$opt
     case $opt in
-        "prerequistes")
+        "Prerequistes")
             scripts=("fedora-rpm.bash" "network.bash" "ntp.bash" "selinux.bash" "firewall.bash" "usefullcmd.bash" "httpd.bash" "mysql.bash" "autoupdate.bash" "nagios-nrpe.bash")
             reboot=true
             break
             ;;
-        "srv-build-linux")
+        "Build/srv-build-linux")
             scripts=("mock.bash" "rpm.bash" "repos.bash")
             reboot=false
             break
             ;;            
-        "srv-cit")
+        "Build/srv-cit")
             scripts=("jenkins.bash" "nexus.bash" "sonar.bash")
             reboot=false
             break
             ;;
-        "srv-intranet")
+        "Production/srv-intranet")
             scripts=("wordpress.bash")
             reboot=false
             break
             ;;
-        "srv-monitoring")
+        "Production/srv-monitoring")
             scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "setup-glpi.bash")
             reboot=false
             break
             ;;
-        "srv-redmine")
+        "Production/srv-redmine")
             scripts=("setup.bash")
             reboot=false
             break
             ;;
-        "srv-scm")
+        "SCM/srv-scm")
             scripts=("subversion.bash" "git.bash" "hg.bash")
             reboot=false
             break
             ;;
-        "srv-mail")
+        "Network/srv-mail")
             scripts=("setup-smtp.bash" "setup-imap-pop.bash")
+            reboot=false
+            break
+            ;;
+        "Other/srv-tomcat")    
+            scripts=("setup-tomcat.bash")
             reboot=false
             break
             ;;

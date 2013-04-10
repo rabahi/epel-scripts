@@ -5,7 +5,7 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Other/srv-tomcat" "Quit")
+options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Network/srv-dhcp" "Network/srv-dns" "Network/srv-ldap" "Other/srv-tomcat" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -48,6 +48,21 @@ do
             ;;
         "Network/srv-mail")
             scripts=("setup-smtp.bash" "setup-imap-pop.bash")
+            reboot=false
+            break
+            ;;
+        "Network/srv-dhcp")
+            scripts=("setup-dhcp.bash")
+            reboot=false
+            break
+            ;;
+        "Network/srv-dns")
+            scripts=("setup-dns.bash")
+            reboot=false
+            break
+            ;;
+        "Network/srv-ldap")
+            scripts=("setup-ldap.bash")
             reboot=false
             break
             ;;

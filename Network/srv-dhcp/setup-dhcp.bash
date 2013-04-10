@@ -26,13 +26,17 @@ option routers a.b.c.1;
 option domain-name-servers a.b.c.1;
 option domain-name "centos.local";
 subnet a.b.c.0 netmask 255.255.255.0 {
- range a.b.c.10 a.b.c.100;
+ range a.b.c.10 a.b.c.254;
 }
 EOF
 
 sed -i "s/a.b.c/$myprefixIP/g" /etc/dhcp/dhcpd.conf
 
 
+echo "Open port 67"
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 67 -j ACCEPT
+service iptables save
+service iptables restart
 
 echo "start service"
 service dhcpd start

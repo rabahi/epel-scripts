@@ -27,7 +27,7 @@ time server = yes
 os level = 255
 log file = /var/log/samba/log.%m
 max log size = 50
-hosts allow = 192.168.0.
+hosts allow = a.b.c.
 hosts deny = ALL
 interfaces = lo eth0
 bind interfaces only = Yes
@@ -41,11 +41,17 @@ public = yes
 writable = no
 create mask = 0777
 EOF
- 
+
+myprefixIP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
+sed -i "s/a.b.c/$myprefixIP/g" /etc/samba/smb.conf
+
 echo "enable rules in firewall"
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 445 -j ACCEPT
 service iptables save
 service iptables restart
+ 
+echo "restart samba"
+service smb restart
  
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: file://$myip"

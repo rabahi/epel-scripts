@@ -60,7 +60,7 @@ zone "my-domain.local" {
         type master;
         file "my-domain.local.fwd";
 };
-zone "1mylocalIP3.mylocalIP2.mylocalIP1.in-addr.arpa" {
+zone "mylocalIP3.mylocalIP2.mylocalIP1.in-addr.arpa" {
         type master;
         file "my-domain.local.rev";
 };
@@ -70,5 +70,11 @@ sed -i "s/mylocalIP1/$mylocalIP1/g" /etc/named.conf
 sed -i "s/mylocalIP2/$mylocalIP2/g" /etc/named.conf
 sed -i "s/mylocalIP3/$mylocalIP3/g" /etc/named.conf
 
+echo "Now enable query from all network (WARNING you should have a look at this to improve your network security!)"
+sed -i "s/\(listen-on port\)/\/\/\1/g" /etc/named.conf
+sed -i "s/\(listen-on-v6 port\)/\/\/\1/g" /etc/named.conf
+sed -i "s/\(allow-query\)/\/\/\1/g" /etc/named.conf
+
+
 echo "start service"
-service named start
+service named restart

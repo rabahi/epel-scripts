@@ -77,3 +77,6 @@ service iptables restart
 
 echo "launch tomcat6"
 /etc/init.d/tomcat6 start
+
+myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+echo "Now meet you there: http://$myip:8080"

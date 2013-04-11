@@ -5,7 +5,10 @@ yum -y install dovecot
 
 echo "configure dovecot"
 sed -i "s/^#\(protocols\s*=\)/\1/" /etc/dovecot/dovecot.conf
- 
+
+echo "start service dovecot on boot"
+chkconfig dovecot on
+
 echo "start service"
 service dovecot start
 

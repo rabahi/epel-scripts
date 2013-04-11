@@ -5,7 +5,7 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Network/srv-dhcp" "Network/srv-dns" "Network/srv-ldap" "Other/srv-tomcat" "Quit")
+options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Network/srv-dhcp" "Network/srv-dns" "Network/srv-ldap" "Other/srv-ftp" "Other/srv-tomcat" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -68,6 +68,11 @@ do
             ;;
         "Other/srv-tomcat")    
             scripts=("setup-tomcat.bash")
+            reboot=false
+            break
+            ;;
+        "Other/srv-ftp")    
+            scripts=("setup-ftp.bash")
             reboot=false
             break
             ;;

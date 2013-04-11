@@ -49,10 +49,10 @@ mylocalIP2=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f2|
 mylocalIP3=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f3| awk '{ print $1}'`
 mylocalIP4=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f4| awk '{ print $1}'`
 
-sed -i "s/mylocalIP1/$mylocalIP1/g" /var/named/my-domain.local.fwd
-sed -i "s/mylocalIP2/$mylocalIP2/g" /var/named/my-domain.local.fwd
-sed -i "s/mylocalIP3/$mylocalIP3/g" /var/named/my-domain.local.fwd
-sed -i "s/mylocalIP4/$mylocalIP4/g" /var/named/my-domain.local.fwd
+sed -i "s/mylocalIP1/$mylocalIP1/g" /var/named/my-domain.local.rev
+sed -i "s/mylocalIP2/$mylocalIP2/g" /var/named/my-domain.local.rev
+sed -i "s/mylocalIP3/$mylocalIP3/g" /var/named/my-domain.local.rev
+sed -i "s/mylocalIP4/$mylocalIP4/g" /var/named/my-domain.local.rev
 
 echo "Now add zone to named.conf"
 cat >> /etc/named.conf << "EOF"
@@ -60,11 +60,15 @@ zone "my-domain.local" {
         type master;
         file "my-domain.local.fwd";
 };
-zone "184.168.192.in-addr.arpa" {
+zone "1mylocalIP3.mylocalIP2.mylocalIP1.in-addr.arpa" {
         type master;
         file "my-domain.local.rev";
 };
 EOF
+
+sed -i "s/mylocalIP1/$mylocalIP1/g" /etc/named.conf
+sed -i "s/mylocalIP2/$mylocalIP2/g" /etc/named.conf
+sed -i "s/mylocalIP3/$mylocalIP3/g" /etc/named.conf
 
 echo "start service"
 service named start

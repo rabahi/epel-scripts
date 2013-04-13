@@ -5,7 +5,7 @@
 ###################################################################
 
 PS3="Please enter your choice: "
-options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Network/srv-dhcp" "Network/srv-dns" "Network/srv-ldap" "Other/srv-ftp" "Other/srv-tomcat" "Other/srv-samba" "Quit")
+options=("Prerequistes" "SCM/srv-scm" "Production/srv-monitoring" "Production/srv-redmine" "Production/srv-intranet" "Build/srv-build-linux" "Build/srv-cit" "Network/srv-mail" "Network/srv-dhcp" "Network/srv-dns" "Network/srv-ldap" "Other/srv-ftp" "Other/srv-tomcat" "Other/srv-samba" "Other/srv-nfs" "Quit")
 
 select opt in "${options[@]}"
 do
@@ -78,6 +78,11 @@ do
             ;;
         "Other/srv-samba")    
             scripts=("setup-samba.bash")
+            reboot=false
+            break
+            ;;
+        "Other/srv-nfs")    
+            scripts=("setup-nfs.bash")
             reboot=false
             break
             ;;

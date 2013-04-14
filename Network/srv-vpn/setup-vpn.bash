@@ -7,7 +7,7 @@ echo "start service openvpn at boot"
 chkconfig openvpn on
 
 echo "Append firewall rule to open port 1194 "
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 1194  -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 1194  -j ACCEPT
 service iptables save
 service iptables restart
 

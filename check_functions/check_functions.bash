@@ -43,8 +43,19 @@ function check
 function check_tcp()
 {
   local port=$1
-  title="Checking port $port"
+  title="Checking tcp port $port"
   command="netstat -nap | grep :$port"
+  check "$title" "$command"
+}
+
+# Check if udp port is open
+# usage: check_udp myPort
+# example check_udp 80
+function check_udp()
+{
+  local port=$1
+  title="Checking udp port $port"
+  command="nmap -p $port -sU localhost"
   check "$title" "$command"
 }
 

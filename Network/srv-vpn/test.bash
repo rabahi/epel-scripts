@@ -6,5 +6,5 @@
 # check services:
 check_service openvpn
 
-# check tcp port:
-check_tcp 1194 #openvpn
+# check udp port:
+check_udp 1194 #openvpn

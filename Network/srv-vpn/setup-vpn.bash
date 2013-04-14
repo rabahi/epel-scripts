@@ -11,5 +11,9 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 1194  -j ACCEPT
 service iptables save
 service iptables restart
 
+echo "configure vpn"
+rm -f /etc/openvpn/server.conf
+cp /usr/share/doc/openvpn-*/sample-config-files/server.conf /etc/openvpn/ 
+
 echo "start service"
 service openvpn start

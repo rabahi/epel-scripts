@@ -7,7 +7,7 @@ echo "start service openvpn at boot"
 chkconfig openvpn on
 
 echo "Append firewall rule to open port 1194 "
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 1194  -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 1194 -j ACCEPT
 service iptables save
 service iptables restart
 
@@ -24,6 +24,24 @@ sed -i "s/^\(server \)/#\1/g" /etc/openvpn/server.conf
 sed -i "s/^\(ifconfig-pool-persist \)/#\1/g" /etc/openvpn/server.conf
 sed -i "s/^\;\(log\)/\1/g" /etc/openvpn/server.conf
 sed -i "s/\(openvpn.log\)/\/var\/log\/\1/g" /etc/openvpn/server.conf
+
+
+# echo "SSL Part (disabled)"
+# echo "If uncomment:"
+# echo " - Remember to sign and commit (when it will be asked)"
+# echo " - In /etc/openvpn/server.conf:"
+# echo "       * update ca, cert, key dh path"
+# echo "       * uncomment and configure the server-bridge (syntax [VPN server's IP] [subnetmask] [the range of IP for client])"
+# echo "       * uncomment and configure the 'push \"route\ (...)\" (syntax [network VPN server in] [subnetmask])"
+# cp -R /usr/share/openvpn/easy-rsa/2.0 /etc/openvpn/easy-rsa
+# cd /etc/openvpn/easy-rsa
+# ln -s openssl-1.0.0.cnf openssl.cnf
+# source ./vars
+# ./clean-all
+# ./build-ca
+# ./build-key-server server 
+# ./build-dh
+# ./build-key-pass client 
 
 echo "start service"
 service openvpn start

@@ -55,7 +55,7 @@ function check_udp()
 {
   local port=$1
   title="Checking udp port $port"
-  command="nmap -p $port -sU localhost"
+  command="netstat -nap | grep :$port"
   check "$title" "$command"
 }
 

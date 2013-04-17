@@ -32,4 +32,4 @@ check_tcp 10000 #webmin
 
 # check pages
 check_web_function Webmin http://localhost:10000/
-check_web_function phpmyadmin "http://localhost/phpmyadmin/ --http-user=root --http-password=root"
+check_web_function phpMyAdmin "http://localhost/phpMyAdmin/ --http-user=root --http-password=root"

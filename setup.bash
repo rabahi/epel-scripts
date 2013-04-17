@@ -12,7 +12,7 @@ do
     directory=$opt
     case $opt in
         "Prerequistes")
-            scripts=("fedora-rpm.bash" "network.bash" "ntp.bash" "selinux.bash" "firewall.bash" "usefullcmd.bash" "httpd.bash" "mysql.bash" "autoupdate.bash" "nagios-nrpe.bash")
+            scripts=("external-repos.bash" "network.bash" "ntp.bash" "selinux.bash" "firewall.bash" "usefullcmd.bash" "httpd.bash" "mysql.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash")
             reboot=true
             break
             ;;

@@ -103,7 +103,8 @@ EXPECTED_ARGS=2
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` {user} {password}"  
+  echo "Usage: `basename $0` {user} {password}"
+  exit 1
 fi
 
 user=$1
@@ -133,7 +134,8 @@ EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` {user}"  
+  echo "Usage: `basename $0` {user}"
+  exit 1
 fi
 
 user=$1
@@ -148,7 +150,8 @@ EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` {user}"  
+  echo "Usage: `basename $0` {user}"
+  exit 1
 fi
 
 user=$1
@@ -163,7 +166,8 @@ EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` {user}"  
+  echo "Usage: `basename $0` {user}"
+  exit 1
 fi
 
 user=$1

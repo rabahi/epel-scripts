@@ -172,7 +172,7 @@ fi
 
 user=$1
 
-mysql --user=root --password=root -e 'use vsftpd; DELETE FROM `vsftpd`.`users` WHERE `users`.`id_user` = "'$user'"'
+mysql --user=root --password=root -e 'use vsftpd; DELETE FROM `vsftpd`.`users` WHERE `users`.`login` = "'$user'"'
 
 rm -f /etc/vsftpd/vsftpd_user_conf/$user
 rm -fr /home/ftpsecure/$user

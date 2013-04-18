@@ -65,7 +65,8 @@ chroot_local_user=YES
 max_clients=50
 
 # Maximum number of connections from the same IP
-max_per_ip=1
+# Note, if you set value to 1, you won't be able to upload / download files (because it will create a new connection)
+max_per_ip=10
 
 # Record specific user configuration
 user_config_dir=/etc/vsftpd/vsftpd_user_conf
@@ -98,6 +99,13 @@ mkdir -p /opt/vsftpd/scripts
 cat > /opt/vsftpd/scripts/user_create.bash << "EOF"
 #!/bin/bash
 
+EXPECTED_ARGS=2
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: `basename $0` {user} {password}"  
+fi
+
 user=$1
 password=$2
 
@@ -121,15 +129,42 @@ EOF
 cat > /opt/vsftpd/scripts/user_disable.bash << "EOF"
 #!/bin/bash
 
+EXPECTED_ARGS=1
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: `basename $0` {user}"  
+fi
+
 user=$1
 
 mysql --user=root --password=root -e 'use vsftpd; UPDATE `vsftpd`.`users` SET `active` = '0' WHERE `users`.`login` ="'$user'";'
-
 EOF
 
+cat > /opt/vsftpd/scripts/user_enable.bash << "EOF"
+#!/bin/bash
+
+EXPECTED_ARGS=1
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: `basename $0` {user}"  
+fi
+
+user=$1
+
+mysql --user=root --password=root -e 'use vsftpd; UPDATE `vsftpd`.`users` SET `active` = '1' WHERE `users`.`login` ="'$user'";'
+EOF
 
 cat > /opt/vsftpd/scripts/user_delete.bash << "EOF"
 #!/bin/bash
+
+EXPECTED_ARGS=1
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: `basename $0` {user}"  
+fi
 
 user=$1
 

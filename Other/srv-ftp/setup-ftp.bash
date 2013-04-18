@@ -87,24 +87,57 @@ auth required /lib64/security/pam_mysql.so verbose=0 user=vsftpd passwd=vsftpd h
 account required /lib64/security/pam_mysql.so verbose=0 user=vsftpd passwd=vsftpd host=127.0.0.1 db=vsftpd table=users usercolumn=login passwdcolumn=password crypt=3 where=users.active=1 sqllog=yes logtable=log logmsgcolumn=message logusercolumn=login logpidcolumn=pid loghostcolumn=host logtimecolumn=time
 EOF
 
+echo "generate script to create new user"
+mkdir -p /opt/vsftpd/scripts
+cat > /opt/vsftpd/scripts/user_create.bash << "EOF"
+#!/bin/bash
+
+user=$1
+password=$2
+
+echo "create new user $user/$password (i.e. user/password)"
+mysql --user=root --password=root -e 'use vsftpd; INSERT INTO `vsftpd`.`users` (`id_user`, `login`, `password`, `active`) VALUES (NULL, "'$user'", MD5("'$password'"), 1);'
+
+mkdir -p mkdir /home/ftpsecure/$user
+chown ftpsecure:users /home/ftpsecure/$user -R
+chmod 700 /home/ftpsecure/$user -R
+
+# configuration file
+echo "local_root=$user" > /etc/vsftpd/vsftpd_user_conf/$user
+echo "write_enable=YES" >> /etc/vsftpd/vsftpd_user_conf/$user
+echo "anon_upload_enable=YES" >> /etc/vsftpd/vsftpd_user_conf/$user
+echo "anon_mkdir_write_enable=YES" >> /etc/vsftpd/vsftpd_user_conf/$user
+echo "anon_other_write_enable=YES" >> /etc/vsftpd/vsftpd_user_conf/$user
+
+EOF
+
+
+cat > /opt/vsftpd/scripts/user_disable.bash << "EOF"
+#!/bin/bash
+
+user=$1
+
+mysql --user=root --password=root -e 'use vsftpd; UPDATE `vsftpd`.`users` SET `active` = '0' WHERE `users`.`login` ="'$user'";'
+
+EOF
+
+
+cat > /opt/vsftpd/scripts/user_delete.bash << "EOF"
+#!/bin/bash
+
+user=$1
+
+mysql --user=root --password=root -e 'use vsftpd; DELETE FROM `vsftpd`.`users` WHERE `users`.`id_user` = "'$user'"'
+
+rm -f /etc/vsftpd/vsftpd_user_conf/$user
+rm -fr /home/ftpsecure/$user
+EOF
 
 echo "create /etc/vsftpd/vsftpd_user_conf directory"
 mkdir -p /etc/vsftpd/vsftpd_user_conf
 
 echo "create new user myuser/mypassword (i.e. user/password)"
-mysql --user=root --password=root -e 'use vsftpd; INSERT INTO `vsftpd`.`users` (`id_user`, `login`, `password`, `active`) VALUES (NULL, 'myuser', MD5('mypassword'), '1');'
-
-mkdir -p mkdir /home/ftpsecure/myuser
-chown ftpsecure:users /home/ftpsecure/myuser -R
-chmod 700 /home/ftpsecure/myuser -R
-
-cat > /etc/vsftpd/vsftpd_user_conf/myuser << "EOF"
-local_root=myuser
-write_enable=YES
-anon_upload_enable=YES
-anon_mkdir_write_enable=YES
-anon_other_write_enable=YES
-EOF
+bash /opt/vsftpd/scripts/user_create.bash myuser mypassword
 
 echo "launch vsftpd at startup"
 chkconfig vsftpd on

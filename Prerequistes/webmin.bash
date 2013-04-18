@@ -17,11 +17,11 @@ allow from all
 </Proxy>
 EOF
 
-echo "reload httpd"
-service httpd reload
-
 echo "launch webmin"
 service webmin start
+
+echo "reload httpd"
+service httpd restart
 
 echo "launch webmin on boot"
 chkconfig webmin on

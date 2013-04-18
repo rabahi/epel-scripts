@@ -6,6 +6,7 @@ yum -y install vsftpd pam_mysql
 echo "Append firewall rule to open port 21"
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
 service iptables save
+sed -i "s/\(IPTABLES_MODULES=\)/\1\"ip_conntrack_ftp\"/i" /etc/sysconfig/iptables-config
 service iptables restart
 
 echo "create database vsftpd, user/password vsftpd/vsftpd":
@@ -72,6 +73,11 @@ user_config_dir=/etc/vsftpd/vsftpd_user_conf
 # The target log file can be vsftpd_log_file or xferlog_file.
 # This depends on setting xferlog_std_format parameter
 xferlog_enable=YES
+
+# PASV - passive ports for FTP (range 44000 - 44100 ; 100 PASV ports, OPEN FIREWALL FOR ALLOWING CONNECTIONS
+pasv_enable=YES
+pasv_min_port=44000
+pasv_max_port=44100
 EOF
 chmod 600 /etc/vsftpd/vsftpd.conf
 

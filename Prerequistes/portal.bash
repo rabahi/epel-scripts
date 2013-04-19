@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat > /var/www/html/index.html << "EOF"
+cat > /var/www/html/index.php << "EOF"
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -12,12 +12,19 @@ cat > /var/www/html/index.html << "EOF"
  
 <center><h1>Administration portal</h1></center>
  
-<h2>Source Code Management</h2>
+<h2>Prerequistes</h2>
 <ul>
-  <li><a href="webmin/">Webmin</a></li>
-  <li><a href="phpMyAdmin/">phpMyAdmin</a></li>
+  <li><a href="webmin/">Webmin</a> (use login: root; password: root)</li>
+  <li><a href="phpMyAdmin/">phpMyAdmin</a> (use login: root; password: root)</li>
 </ul>
- 
+
+<?php 
+ if(file_exists("portal.inc.php"))
+ {
+   include("portal.inc.php");
+ }
+?>
+
 </body>
 </html>
 EOF

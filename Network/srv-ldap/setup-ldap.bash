@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install openldap"
-yum -y install openldap-servers openldap-clients
+yum -y install openldap-servers openldap-clients phpldapadmin
 
 echo "start service slapd at boot"
 chkconfig slapd on
@@ -86,3 +86,13 @@ ldapsearch -x  -b ”dc=my-domain,dc=local”
 
 echo "start service"
 service slapd start
+
+
+echo "Note: by default only local users can access to phpldapadmin."
+echo "Let's update the file /etc/httpd/conf.d/phpldapadmin.conf and allow everyone."
+sed -i "s/\(Deny\s*from\s*All\)/#\1/i" /etc/httpd/conf.d/phpldapadmin.conf
+sed -i "s/\(Allow\s*from\s*127.0.0.1\)/#\1/i" /etc/httpd/conf.d/phpldapadmin.conf
+sed -i "s/\(Allow\s*from\s*::1\)/#\1/i" /etc/httpd/conf.d/phpldapadmin.conf
+
+echo "restart httpd"
+service httpd restart

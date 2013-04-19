@@ -110,6 +110,12 @@ for index in "${!scripts[@]}"; do
   bash "${scripts[$index]}";
 done
 
+# update portal
+if [ -f portal.bash ]
+then
+    bash portal.bash
+fi
+
 # now execute installation tests
 bash test.bash
 

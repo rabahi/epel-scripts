@@ -34,21 +34,24 @@ cat > /etc/httpd/conf.d/redmine.conf << "EOF"
 LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
 PassengerRoot               /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19
 PassengerRuby               /usr/bin/ruby
-
-   
-<VirtualHost *>
-  ServerName YOUR_SERVER
-  DocumentRoot /var/www/html
-  RailsEnv production
-  RailsBaseURI /redmine
-  PassengerDefaultUser apache
+ 
+<VirtualHost *:80>
+   ServerName redmine.mycompany.com
+   DocumentRoot /opt/redmine/redmine/public
+   <Directory /opt/redmine/redmine/public>
+      # This relaxes Apache security settings.
+      AllowOverride all
+      # MultiViews must be turned off.
+      Options -MultiViews
+      allow from all
+   </Directory>
 
    ErrorLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-error.%Y-%m-%d.log 86400"
    CustomLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-access.%Y-%m-%d.log 86400" "%h %l %u %t %D \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
 
 </VirtualHost>
 EOF
-ln -s /opt/redmine/redmine/public /var/www/html/redmine
+
 
 echo "get redmine"
 mkdir -p /opt/redmine/download
@@ -73,9 +76,36 @@ rake generate_secret_token
 rake db:migrate RAILS_ENV="production"
 rake redmine:load_default_data RAILS_ENV="production"
 
-
-
 echo "start httpd service"
+service httpd restart
+
+
+##################################################
+#      CONFIGURATION SUB-URI
+##################################################
+# NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
+
+cat > /etc/httpd/conf.d/redmine.conf << "EOF"
+LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
+PassengerRoot               /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19
+PassengerRuby               /usr/bin/ruby
+
+   
+<VirtualHost *>
+  ServerName YOUR_SERVER
+  DocumentRoot /var/www/html
+  RailsEnv production
+  RailsBaseURI /redmine
+  PassengerDefaultUser apache
+
+   ErrorLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-error.%Y-%m-%d.log 86400"
+   CustomLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-access.%Y-%m-%d.log 86400" "%h %l %u %t %D \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
+
+</VirtualHost>
+EOF
+ln -s /opt/redmine/redmine/public /var/www/html/redmine
+
+echo "restart httpd service"
 service httpd restart
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`

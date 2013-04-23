@@ -105,6 +105,9 @@ PassengerRuby               /usr/bin/ruby
 EOF
 ln -s /opt/redmine/redmine/public /var/www/html/redmine
 
+echo "sleep 5s (wait httpd to start and configure redmine)"
+sleep 5
+
 echo "restart httpd service"
 service httpd restart
 

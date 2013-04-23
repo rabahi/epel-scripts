@@ -57,15 +57,15 @@ wget $redmine_install_url  # GET LATEST VERSION ON RUBYFORGE
 tar xvfz $redmine_version.tar.gz
 mv $redmine_version ../redmine
 
-echo "install redmine"
-cd /opt/redmine/redmine
-bundle install
-
 echo "configure database"
 cd /opt/redmine/redmine/config
 cp database.yml.example database.yml
 sed -i "s/username: root/username: redmine/g" /opt/redmine/redmine/config/database.yml
 sed -i "s/password: \"\"/password: redmine/g" /opt/redmine/redmine/config/database.yml
+
+echo "install redmine"
+cd /opt/redmine/redmine
+bundle install
 
 echo "now populate database"
 cd /opt/redmine/redmine

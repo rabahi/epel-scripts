@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://rubyforge.org/frs/download.php/76863/redmine-2.2.4.tar.gz
-redmine_version=redmine-2.2.4
+redmine_install_url=http://rubyforge.org/frs/download.php/76867/redmine-2.3.0.tar.gz
+redmine_version=redmine-2.3.0
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -16,10 +16,14 @@ mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS redmine;"
 mysql --user=root --password=root -e "use redmine; GRANT ALL PRIVILEGES ON redmine.* TO 'redmine'@'localhost' WITH GRANT OPTION;"
 
 echo "install redmine dependencies"
-yum -y install make gcc gcc-c++ zlib-devel ruby-devel rubygems ruby-libs apr-devel apr-util-devel httpd-devel mysql-devel mysql-server automake autoconf ImageMagick ImageMagick-devel curl-devel postgresql-devel sqlite-devel
+yum -y install make gcc gcc-c++ zlib-devel ruby-devel rubygems ruby-libs apr-devel apr-util-devel httpd-devel mysql-devel mysql-server automake autoconf ImageMagick ImageMagick-devel curl-devel postgresql-devel sqlite-devel rubygem-nokogiri
 
 echo "install bundle"
 gem install bundle
+
+echo "install nokogiri (because package rubygem-nokogiri has not the expected version (i.e. 1.5.9)"
+yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
+gem install nokogiri
 
 echo "install passenger"
 gem install passenger
@@ -30,24 +34,21 @@ cat > /etc/httpd/conf.d/redmine.conf << "EOF"
 LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
 PassengerRoot               /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19
 PassengerRuby               /usr/bin/ruby
- 
-<VirtualHost *:80>
-   ServerName redmine.mycompany.com
-   DocumentRoot /opt/redmine/redmine/public
-   <Directory /opt/redmine/redmine/public>
-      # This relaxes Apache security settings.
-      AllowOverride all
-      # MultiViews must be turned off.
-      Options -MultiViews
-      allow from all
-   </Directory>
+
+   
+<VirtualHost *>
+  ServerName YOUR_SERVER
+  DocumentRoot /var/www/html
+  RailsEnv production
+  RailsBaseURI /redmine
+  PassengerDefaultUser apache
 
    ErrorLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-error.%Y-%m-%d.log 86400"
    CustomLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-access.%Y-%m-%d.log 86400" "%h %l %u %t %D \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
 
 </VirtualHost>
 EOF
-
+ln -s /opt/redmine/redmine/public /var/www/html/redmine
 
 echo "get redmine"
 mkdir -p /opt/redmine/download

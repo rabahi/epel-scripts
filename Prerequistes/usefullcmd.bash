@@ -12,3 +12,6 @@ yum -y install dos2unix
 
 echo "install telnet client"
 yum -y install telnet
+
+echo "install zip tools"
+yum -y install zip unzip

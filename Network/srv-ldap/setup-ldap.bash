@@ -28,7 +28,7 @@ echo "quick tests"
 echo URI ldap://127.0.0.1 >> /etc/openldap/ldap.conf
 echo BASE dc=my-domain,dc=local >> /etc/openldap/ldap.conf
 
-ldapsearch -x  -b ”dc=my-domain,dc=local”
+ldapsearch -x  -b "dc=my-domain,dc=local"
 
 cat > /etc/openldap/schema/base.ldif << "EOF"
 dn: dc=my-domain,dc=local
@@ -82,7 +82,7 @@ ldapadd -x -w root -D "cn=Manager,dc=my-domain,dc=local" -f /etc/openldap/schema
 ldapadd -x -w root -D "cn=Manager,dc=my-domain,dc=local" -f /etc/openldap/schema/people.ldif
 
 #Quick test
-ldapsearch -x  -b ”dc=my-domain,dc=local”
+ldapsearch -x  -b "dc=my-domain,dc=local"
 
 echo "start service"
 service slapd start

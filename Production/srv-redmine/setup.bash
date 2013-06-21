@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://rubyforge.org/frs/download.php/76867/redmine-2.3.0.tar.gz
-redmine_version=redmine-2.3.0
+redmine_install_url=http://rubyforge.org/frs/download.php/76933/redmine-2.3.1.tar.gz
+redmine_version=redmine-2.3.1
 
 ##################################################
 #      INSTALLATION SCRIPT

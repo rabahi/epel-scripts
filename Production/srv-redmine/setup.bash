@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://rubyforge.org/frs/download.php/76867/redmine-2.3.0.tar.gz
-redmine_version=redmine-2.3.0
+redmine_install_url=http://rubyforge.org/frs/download.php/76933/redmine-2.3.1.tar.gz
+redmine_version=redmine-2.3.1
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -15,25 +15,35 @@ mysql --user=root --password=root -e "CREATE USER 'redmine'@'localhost' IDENTIFI
 mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS redmine;"
 mysql --user=root --password=root -e "use redmine; GRANT ALL PRIVILEGES ON redmine.* TO 'redmine'@'localhost' WITH GRANT OPTION;"
 
-echo "install redmine dependencies"
-yum -y install make gcc gcc-c++ zlib-devel ruby-devel rubygems ruby-libs apr-devel apr-util-devel httpd-devel mysql-devel mysql-server automake autoconf ImageMagick ImageMagick-devel curl-devel postgresql-devel sqlite-devel rubygem-nokogiri
+echo "1 - install rvm (Ruby Version Manager)"
+yum -y install curl
+curl -L get.rvm.io | bash -s stable
 
-echo "install bundle"
+source ~/.bash_profile
+rvm get stable --auto
+rvm requirements
+
+echo "2- install ruby"
+rvm install 1.9.3
+rvm use 1.9.3 --default
+
+echo "3- install rubygem"
+rvm rubygems current
+
+echo "install bundle and nokogiri"
 gem install bundle
-
-echo "install nokogiri (because package rubygem-nokogiri has not the expected version (i.e. 1.5.9)"
-yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
 gem install nokogiri
 
 echo "install passenger"
+yum -y install curl-devel httpd-devel
 gem install passenger
 passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
-PassengerRoot               /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19
-PassengerRuby               /usr/bin/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5
+PassengerRuby               /usr/local/rvm/bin/ruby
  
 <VirtualHost *:80>
    ServerName redmine.mycompany.com
@@ -67,6 +77,7 @@ sed -i "s/username: root/username: redmine/g" /opt/redmine/redmine/config/databa
 sed -i "s/password: \"\"/password: redmine/g" /opt/redmine/redmine/config/database.yml
 
 echo "install redmine"
+yum -y install mysql-devel ImageMagick-devel freetds-devel
 cd /opt/redmine/redmine
 bundle install
 
@@ -75,6 +86,9 @@ cd /opt/redmine/redmine
 rake generate_secret_token
 rake db:migrate RAILS_ENV="production"
 rake redmine:load_default_data RAILS_ENV="production"
+
+echo "set chmod on tmp directory"
+chmod 777 /opt/redmine/redmine/tmp/ -R
 
 echo "start httpd service"
 service httpd restart
@@ -86,9 +100,9 @@ service httpd restart
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
-PassengerRoot               /usr/lib/ruby/gems/1.8/gems/passenger-3.0.19
-PassengerRuby               /usr/bin/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5
+PassengerRuby               /usr/local/rvm/bin/ruby
 
    
 <VirtualHost *>

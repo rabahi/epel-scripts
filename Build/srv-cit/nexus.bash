@@ -26,6 +26,11 @@ ln -s /opt/nexus/bundle/$nexusDirectory/bin/nexus /etc/init.d/nexus
 sed -i "s/^#\(RUN_AS_USER=\s*\).*/\1nexus/" /opt/nexus/bundle/$nexusDirectory/bin/nexus
 chkconfig --add nexus
 chkconfig --levels 345 nexus on
+
+rm -fr /opt/nexus/bundle/sonatype-work
+ln -s /opt/nexus/sonatype-work /opt/nexus/bundle/sonatype-work
+chown nexus:nexus /opt/nexus/sonatype-work/ -R
+
 service nexus start
 EOF
 

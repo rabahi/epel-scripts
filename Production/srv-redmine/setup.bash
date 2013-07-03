@@ -24,8 +24,8 @@ rvm get stable --auto
 rvm requirements
 
 echo "2- install ruby"
-rvm install 1.9.3
-rvm use 1.9.3 --default
+rvm install 2.0.0
+rvm use 2.0.0 --default
 
 echo "3- install rubygem"
 rvm rubygems current
@@ -41,8 +41,8 @@ passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p195/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p195/gems/passenger-4.0.5
 PassengerRuby               /usr/local/rvm/bin/ruby
  
 <VirtualHost *:80>
@@ -100,8 +100,8 @@ service httpd restart
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-1.9.3-p429/gems/passenger-4.0.5
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p195/gems/passenger-4.0.5/libout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p195/gems/passenger-4.0.5
 PassengerRuby               /usr/local/rvm/bin/ruby
 
    

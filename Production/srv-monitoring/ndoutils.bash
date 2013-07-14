@@ -30,7 +30,7 @@ echo "update /etc/nagios/nagios.cfg"
 sed -i "s/event_broker_options=-1/event_broker_options=-1/g" /etc/nagios/nagios.cfg
 sed -i "s/#broker_module=\/somewhere\/module1.o/broker_module=\/usr\/lib64\/nagios\/brokers\/ndomod.so config_file=\/etc\/nagios\/ndomod.cfg/g" /etc/nagios/nagios.cfg
 
-chown apache:apache /etc/nagios/ -R
+chown nagios:nagios /etc/nagios/ -R
 
 service ndo2db restart
 service nagios restart

@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://rubyforge.org/frs/download.php/76933/redmine-2.3.1.tar.gz
-redmine_version=redmine-2.3.1
+redmine_install_url=http://rubyforge.org/frs/download.php/77138/redmine-2.3.3.tar.gz
+redmine_version=redmine-2.3.3
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -32,7 +32,9 @@ rvm rubygems current
 
 echo "install bundle and nokogiri"
 gem install bundle
-gem install nokogiri
+
+yum -y install libxml2-devel libxslt-devel
+gem install nokogiri -v '1.5.10'
 
 echo "install passenger"
 yum -y install curl-devel httpd-devel
@@ -41,8 +43,8 @@ passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.8/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.8
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19
 PassengerRuby               /usr/local/rvm/bin/ruby
  
 <VirtualHost *:80>
@@ -100,8 +102,8 @@ service httpd restart
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.8/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.8
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19
 PassengerRuby               /usr/local/rvm/bin/ruby
 
    

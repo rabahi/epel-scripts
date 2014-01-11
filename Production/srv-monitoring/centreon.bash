@@ -191,5 +191,132 @@ mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON cent
 mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES ON centreon_storage.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
+echo "centreon wizard silent installation"
+cat > /usr/local/centreon/www/install/silent-install.php << "EOF"
+<?php
+
+error_reporting(E_ALL);
+
+function postToUrl($url, $data=array())
+{
+  $myvars = http_build_query($data);
+  
+  $ch = curl_init();
+  
+  // Configuration:
+  curl_setopt( $ch, CURLOPT_URL, $url);
+  curl_setopt( $ch, CURLOPT_POST, 1);
+  curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+  curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+  curl_setopt( $ch, CURLOPT_HEADER, 0);
+  curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+  
+  curl_setopt ($ch, CURLOPT_COOKIEJAR, COOKIE_FILE); 
+  curl_setopt ($ch, CURLOPT_COOKIEFILE, COOKIE_FILE); 
+
+  if( ! $result = curl_exec($ch))
+  {
+      trigger_error(curl_error($ch));
+  }
+  
+  curl_close($ch);  
+  return $result;
+}
+
+function urlExists($url)
+{
+  $file_headers = @get_headers($url);
+  return strcmp($file_headers[0],'HTTP/1.1 404 Not Found')!=0;
+}
+
+function doUrl($url, $step, $title, $data=array())
+{
+  echo "\n";
+  echo "<tr>\n";
+  echo " <th>$step - $title</th>\n";
+  $response=postToUrl($url, $data);
+  echo " <th>$response</th>\n";
+  echo "</tr>\n";
+}
+
+function step($step, $title, $data=array())
+{
+  doUrl("http://localhost/centreon/install/steps/step$step.php", $step, $title, $data);  
+  
+  if(urlExists("http://localhost/centreon/install/steps/process/process_step$step.php"))
+  {
+    doUrl("http://localhost/centreon/install/steps/process/process_step$step.php", $step, "$title (process)", $data);
+  }
+}
+
+echo "<h1>silent configuration</h1>";
+
+echo "\n";
+echo "<table>\n";
+
+echo "\n";
+echo "<tr>\n";
+echo " <th>action</th>\n";
+echo " <th>result</th>\n";
+echo "</tr>\n";
+
+// steps:
+step(1, "Welcome to Centreon Setup");
+step(2, "Dependency check up");
+
+$data=array(
+  "MONITORING_ENGINE"  => "nagios",
+  "INSTALL_DIR_NAGIOS" => "/usr/share/nagios",
+  "NAGIOSTATS_BINARY"  => "/usr/bin/nagiostats",
+  "NAGIOS_IMG"  => "/usr/share/nagios/html/images",
+  "EMBEDDED_PERL"  => ""
+);
+step(3, "Monitoring engine information", $data);
+
+$data=array(
+  "BROKER_MODULE"  => "ndoutils",
+  "NDOMOD_BINARY" => "/usr/lib64/nagios/brokers/ndomod.so"
+);
+step(4, "Broker module information", $data);
+
+
+$data=array(
+  "ADMIN_PASSWORD"  => "admin",  
+  "confirm_password"  => "admin",  
+  "firstname"  => "admin",  
+  "lastname"  => "admin",  
+  "email"  => "myemail@myprovider.com"
+);
+step(5, "Admin information", $data);
+
+$data=array(
+  "ADDRESS"  => "localhost",
+  "DB_PORT"  => "3306",
+  "root_password"  => "root",
+  "CONFIGURATION_DB"  => "centreon",
+  "STORAGE_DB"  => "centreon_storage",
+  "UTILS_DB"  => "centreon_status",
+  "DB_USER"  => "centreon",
+  "DB_PASS"  => "centreon",
+  "db_pass_confirm"  => "centreon"
+);
+step(6, "Database information", $data);
+
+step(7, "Installation");
+doUrl("http://localhost/centreon/install/steps/process/installConfigurationDb.php",7, "Configuration database");
+doUrl("http://localhost/centreon/install/steps/process/installStorageDb.php",7, "Storage database");
+doUrl("http://localhost/centreon/install/steps/process/installUtilsDb.php",7, "Utils database");
+doUrl("http://localhost/centreon/install/steps/process/createDbUser.php",7, "Creating database user");
+doUrl("http://localhost/centreon/install/steps/process/insertBaseConf.php",7, "Setting up basic configuration");
+doUrl("http://localhost/centreon/install/steps/process/configFileSetup.php",7, "Setting up configuration file");
+
+step(8, "Installation finished");
+
+
+echo "</table>";
+?>
+EOF
+wget /usr/local/centreon/www/install/silent-install.php -O /tmp/silent-install.php
+
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: http://$myip/centreon/"

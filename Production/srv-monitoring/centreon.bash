@@ -192,9 +192,9 @@ mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES
 mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
 echo "drop previous database (note dangerous!)"
-mysql --user=root --password=root -e "DROP DATABASE 'centreon';"
-mysql --user=root --password=root -e "DROP DATABASE 'centreon_status';"
-mysql --user=root --password=root -e "DROP DATABASE 'centreon_storage';"
+mysql --user=root --password=root -e "DROP DATABASE centreon;"
+mysql --user=root --password=root -e "DROP DATABASE centreon_status;"
+mysql --user=root --password=root -e "DROP DATABASE centreon_storage;"
 
 echo "centreon wizard silent installation"
 cat > /usr/local/centreon/www/install/silent-install.php << "EOF"

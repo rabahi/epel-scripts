@@ -191,6 +191,11 @@ mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON cent
 mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES ON centreon_storage.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
+echo "drop previous database (note dangerous!)"
+mysql --user=root --password=root -e "DROP DATABASE 'centreon';"
+mysql --user=root --password=root -e "DROP DATABASE 'centreon_status';"
+mysql --user=root --password=root -e "DROP DATABASE 'centreon_storage';"
+
 echo "centreon wizard silent installation"
 cat > /usr/local/centreon/www/install/silent-install.php << "EOF"
 <?php
@@ -316,7 +321,7 @@ step(8, "Installation finished");
 echo "</table>";
 ?>
 EOF
-wget /usr/local/centreon/www/install/silent-install.php -O /tmp/silent-install.php
+wget /usr/local/centreon/www/install/silent-install.php -o /tmp/silent-install.php
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: http://$myip/centreon/"

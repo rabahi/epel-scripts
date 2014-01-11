@@ -9,18 +9,18 @@ useradd -g centreon centreon
  
 echo "download archive"
 cd /tmp
-wget http://download.centreon.com/index.php?id=4273
+wget http://download.centreon.com/index.php?id=4298
  
 echo "unpack archive"
-tar xvfz centreon-2.4.1.tar.gz
+tar xvfz centreon-2.4.5.tar.gz
  
 echo "install centreon"
-cd centreon-2.4.1
+cd centreon-2.4.5
 export PATH="$PATH:/usr/sbin"
 chmod a+x install.sh
  
 echo "create response file"
-cat > /tmp/centreon-2.4.1/response << "EOF"
+cat > /tmp/centreon-2.4.5/response << "EOF"
 ## CentWeb: Web front Centreon for Nagios
 PROCESS_CENTREON_WWW=1
 ## CentStorage: Log and charts archiving.

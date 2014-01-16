@@ -185,11 +185,8 @@ EOF
 # install centreon and use the response file.
 ./install.sh -f ./response
  
-echo "create user/password centreon/centreon and apply grant to databases":
+echo "create user/password centreon/centreon":
 mysql --user=root --password=root -e "CREATE USER 'centreon'@'localhost' IDENTIFIED BY 'centreon';"
-mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON centreon.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
-mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES ON centreon_storage.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
-mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
 echo "drop previous database (note dangerous!)"
 mysql --user=root --password=root -e "DROP DATABASE centreon;"
@@ -321,7 +318,19 @@ step(8, "Installation finished");
 echo "</table>";
 ?>
 EOF
+
+echo "add option to innodb_file_per_table=1 mysql"
+if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
+  sed -i 's/\(\[mysqld\]\)/\1\ninnodb_file_per_table=1/' /etc/my.cnf
+  service mysqld restart
+fi;
+
 wget /usr/local/centreon/www/install/silent-install.php -o /tmp/silent-install.php
+
+echo "apply grant to databases":
+mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON centreon.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
+mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES ON centreon_storage.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
+mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: http://$myip/centreon/"

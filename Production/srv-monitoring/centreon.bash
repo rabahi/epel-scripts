@@ -188,11 +188,6 @@ EOF
 echo "create user/password centreon/centreon":
 mysql --user=root --password=root -e "CREATE USER 'centreon'@'localhost' IDENTIFIED BY 'centreon';"
 
-echo "drop previous database (note dangerous!)"
-mysql --user=root --password=root -e "DROP DATABASE centreon;"
-mysql --user=root --password=root -e "DROP DATABASE centreon_status;"
-mysql --user=root --password=root -e "DROP DATABASE centreon_storage;"
-
 echo "centreon wizard silent installation"
 cat > /usr/local/centreon/www/install/silent-install.php << "EOF"
 <?php
@@ -325,7 +320,7 @@ if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
   service mysqld restart
 fi;
 
-wget /usr/local/centreon/www/install/silent-install.php -o /tmp/silent-install.php
+php /usr/local/centreon/www/install/silent-install.php
 
 echo "apply grant to databases":
 mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON centreon.* TO 'centreon'@'localhost' WITH GRANT OPTION;"

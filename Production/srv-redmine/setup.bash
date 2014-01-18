@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://rubyforge.org/frs/download.php/77138/redmine-2.3.3.tar.gz
-redmine_version=redmine-2.3.3
+redmine_install_url=http://www.redmine.org/releases/redmine-2.4.2.tar.gz
+redmine_version=redmine-2.4.2
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -20,6 +20,7 @@ yum -y install curl
 curl -L get.rvm.io | bash -s stable
 
 source ~/.bash_profile
+source /etc/profile.d/rvm.sh
 rvm get stable --auto
 rvm requirements
 
@@ -43,10 +44,10 @@ passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19
-PassengerRuby               /usr/local/rvm/bin/ruby
- 
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.0.0-p353/ruby
+
 <VirtualHost *:80>
    ServerName redmine.mycompany.com
    DocumentRoot /opt/redmine/redmine/public
@@ -102,11 +103,11 @@ service httpd restart
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.19
-PassengerRuby               /usr/local/rvm/bin/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.0.0-p353/ruby
 
-   
+
 <VirtualHost *>
   ServerName YOUR_SERVER
   DocumentRoot /var/www/html

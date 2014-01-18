@@ -25,8 +25,8 @@ rvm get stable --auto
 rvm requirements
 
 echo "2- install ruby"
-rvm install 2.0.0
-rvm use 2.0.0 --default
+rvm install 2.1.0
+rvm use 2.1.0 --default
 
 echo "3- install rubygem"
 rvm rubygems current
@@ -44,9 +44,9 @@ passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.0.0-p353/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.1.0/ruby
 
 <VirtualHost *:80>
    ServerName redmine.mycompany.com
@@ -103,9 +103,9 @@ service httpd restart
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.0.0-p353/gems/passenger-4.0.35
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.0.0-p353/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.1.0/ruby
 
 
 <VirtualHost *>

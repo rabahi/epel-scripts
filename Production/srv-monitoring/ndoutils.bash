@@ -3,28 +3,28 @@
 yum -y install ndoutils ndoutils-mysql
 
 echo "update /etc/nagios/ndomod.cfg"
-sed -i "s/instance_name=default/instance_name=Central/g" /etc/nagios/ndomod.cfg
-sed -i "s/output_type=unixsocket/output_type=unixsocket/g" /etc/nagios/ndomod.cfg
-sed -i "s/output=\/var\/run\/ndoutils\/ndoutils.sock/output=\/var\/run\/ndoutils\/ndoutils.sock/g" /etc/nagios/ndomod.cfg
-sed -i "s/tcp_port=5668/tcp_port=5668/g" /etc/nagios/ndomod.cfg
-sed -i "s/output_buffer_items=5000/output_buffer_items=5000/g" /etc/nagios/ndomod.cfg
-sed -i "s/output=\/var\/cache\/ndoutils\/ndomod.buffer/output=\/var\/cache\/ndoutils\/ndomod.buffer/g" /etc/nagios/ndomod.cfg
+sed -i "s/^\(instance_name=\).*/\1Central/g" /etc/nagios/ndomod.cfg
+sed -i "s/^\(output_type=\).*/\1tcpsocket/g" /etc/nagios/ndomod.cfg
+sed -i "s/^\(output=\).*/\1localhost/g" /etc/nagios/ndomod.cfg
+sed -i "s/^\(tcp_port=\).*/\15668/g" /etc/nagios/ndomod.cfg
+sed -i "s/^\(output_buffer_items=\).*/\15000/g" /etc/nagios/ndomod.cfg
 
 echo "update /etc/nagios/ndo2db.cfg"
-sed -i "s/ndo2db_user=nagios/ndo2db_user=nagios/g" /etc/nagios/ndo2db.cfg
-sed -i "s/ndo2db_group=nagios/ndo2db_group=nagios/g" /etc/nagios/ndo2db.cfg
+ln -s /var/run/ndoutils/ndoutils.sock /var/run/ndo.sock
+sed -i "s/^\(ndo2db_user=\).*/\1nagios/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(ndo2db_group=\).*/\1nagios/g" /etc/nagios/ndo2db.cfg
 
-sed -i "s/socket_type=unix/socket_type=unix/g" /etc/nagios/ndo2db.cfg
-sed -i "s/socket_name=\/var\/run\/ndoutils\/ndoutils.sock/socket_name=\/var\/run\/ndoutils\/ndoutils.sock/g" /etc/nagios/ndo2db.cfg
-sed -i "s/tcp_port=5668/tcp_port=5668/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(socket_type=\).*/\1tcp/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(socket_name=\).*/\1\/var\/run\/ndo.sock/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(tcp_port=\).*/\15668/g" /etc/nagios/ndo2db.cfg
 
-sed -i "s/db_servertype=mysql/db_servertype=mysql/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_host=localhost/db_host=localhost/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_port=3306/db_port=3306/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_name=nagios/db_name=centreon_status/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_prefix=nagios_/db_prefix=nagios_/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_user=ndouser/db_user=centreon/g" /etc/nagios/ndo2db.cfg
-sed -i "s/db_pass=ndopassword/db_pass=centreon/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_servertype=\).*/\1mysql/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_host=\).*/\1localhost/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_port=\).*/\13306/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_name=\).*/\1centreon_status/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_prefix=\).*/\1nagios_/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_user=\).*/\1centreon/g" /etc/nagios/ndo2db.cfg
+sed -i "s/^\(db_pass=\).*/\1centreon/g" /etc/nagios/ndo2db.cfg
 
 echo "update /etc/nagios/nagios.cfg"
 sed -i "s/event_broker_options=-1/event_broker_options=-1/g" /etc/nagios/nagios.cfg

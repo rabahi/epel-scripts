@@ -5,7 +5,11 @@ yum -y install nagios nagios-devel nagios-plugins*
 
 echo "enable start nagios on boot"
 chkconfig nagios on
- 
+
+echo "set config owner"
+chown nagios:nagios /etc/nagios/ -R
+service nagios reload
+
 echo "check_http get a 403 'forbidden' if index.html is missing. so we create it"
 touch /var/www/html/index.html
  

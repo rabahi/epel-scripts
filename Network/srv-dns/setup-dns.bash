@@ -6,6 +6,9 @@ yum -y install  bind bind-libs bind-utils
 echo "start service named at boot"
 chkconfig named on
 
+echo "get current network interface"
+currentEth=`ls /sys/class/net | grep eth | head -1`
+
 echo "Open port 53"
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
 service iptables save
@@ -27,7 +30,7 @@ www                                     IN      A       mylocalIP
 
 EOF
 
-mylocalIP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+mylocalIP=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 sed -i "s/mylocalIP/$mylocalIP/g" /var/named/my-domain.local.fwd
 
 echo "create my-domain.local.rev"
@@ -44,10 +47,10 @@ mylocalIP4     IN      PTR     dns.my-domain.local.
 
 EOF
 
-mylocalIP1=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1| awk '{ print $1}'`
-mylocalIP2=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f2| awk '{ print $1}'`
-mylocalIP3=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f3| awk '{ print $1}'`
-mylocalIP4=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f4| awk '{ print $1}'`
+mylocalIP1=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1| awk '{ print $1}'`
+mylocalIP2=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f2| awk '{ print $1}'`
+mylocalIP3=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f3| awk '{ print $1}'`
+mylocalIP4=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f4| awk '{ print $1}'`
 
 sed -i "s/mylocalIP1/$mylocalIP1/g" /var/named/my-domain.local.rev
 sed -i "s/mylocalIP2/$mylocalIP2/g" /var/named/my-domain.local.rev

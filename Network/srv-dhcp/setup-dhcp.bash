@@ -5,14 +5,17 @@ yum -y install dhcp
  
 echo "start service dhcpd at boot"
 chkconfig dhcpd on
- 
+
+echo "get current network interface"
+currentEth=`ls /sys/class/net | grep eth | head -1`
+
 echo "configure /etc/sysconfig/dhcpd and /etc/sysconfig/dhcpd6"
-sed -i "s/^(DHCPDARGS=\)$/\1eth0/" /etc/sysconfig/dhcpd
-sed -i "s/^(DHCPDARGS=\)$/\1eth0/" /etc/sysconfig/dhcpd6
+sed -i "s/^(DHCPDARGS=\).*/\1$currentEth/" /etc/sysconfig/dhcpd
+sed -i "s/^(DHCPDARGS=\).*/\1$currentEth/" /etc/sysconfig/dhcpd6
 
 echo "configure /etc/dhcp/dhcpd.conf"
 
-myprefixIP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
+myprefixIP=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
 
 cat > /etc/dhcp/dhcpd.conf << "EOF"
 ddns-update-style none;

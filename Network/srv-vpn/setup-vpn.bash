@@ -13,7 +13,7 @@ service iptables restart
 
 echo "configure vpn"
 rm -f /etc/openvpn/server.conf
-cp /usr/share/doc/openvpn-*/sample-config-files/server.conf /etc/openvpn/ 
+cp /usr/share/doc/openvpn-*/sample/sample-config-files/server.conf /etc/openvpn/ 
 
 sed -i "s/dev tun/dev tap0/g" /etc/openvpn/server.conf
 sed -i "s/^\(ca \)/#\1/g" /etc/openvpn/server.conf

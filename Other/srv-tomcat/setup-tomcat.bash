@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo "install java"
-yum -y install java-1.6.0-openjdk
+yum -y install java-1.7.0-openjdk
 
 echo "install tomcat"
 mkdir -p /opt/java
-wget -O /opt/java/apache-tomcat-6.0.36.tar.gz http://mirrors.ircam.fr/pub/apache/tomcat/tomcat-6/v6.0.36/bin/apache-tomcat-6.0.36.tar.gz
+wget -O /opt/java/apache-tomcat-6.0.37.tar.gz http://mirrors.ircam.fr/pub/apache/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
 cd /opt/java
-tar xvfz apache-tomcat-6.0.36.tar.gz
+tar xvfz apache-tomcat-6.0.37.tar.gz
 
 echo "create service /etc/init.d/tomcat6"
 cat > /etc/init.d/tomcat6 << "EOF"
@@ -16,7 +16,7 @@ cat > /etc/init.d/tomcat6 << "EOF"
 # description: Tomcat Server basic start/shutdown script
 # processname: tomcat6
 
-tomcat=/opt/java/apache-tomcat-6.0.36
+tomcat=/opt/java/apache-tomcat-6.0.37
 startup=$tomcat/bin/startup.sh
 shutdown=$tomcat/bin/shutdown.sh
 

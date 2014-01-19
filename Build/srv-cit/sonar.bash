@@ -21,12 +21,13 @@ sed -i "s/^\(sonar.jdbc.url\)/#\1/" /opt/sonar/conf/sonar.properties
 sed -i "s/^\(sonar.jdbc.driverClassName\)/#\1/" /opt/sonar/conf/sonar.properties
 
 # remove comment for the sonar.jdbc.url in mysql part:
-sed -i "s/^#\(sonar.jdbc.url:.*jdbc:mysql\)/\1/" /opt/sonar/conf/sonar.properties
+sed -i "s/^#\(sonar.jdbc.url=.*jdbc:mysql\)/\1/" /opt/sonar/conf/sonar.properties
 # remove comment for the sonar.jdbc.driverClassName in mysql part:
-sed -i "s/^#\(sonar.jdbc.driverClassName:.*com.mysql.jdbc.Driver\)/\1/" /opt/sonar/conf/sonar.properties
+sed -i "s/^#\(sonar.jdbc.driverClassName=.*com.mysql.jdbc.Driver\)/\1/" /opt/sonar/conf/sonar.properties
 
 # sonar web context
-sed -i "s/^#\(sonar.web.context:\s*\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties
+sed -i "s/^#\(sonar.web.context=\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties
+sed -i "s/^\(sonar.web.context=\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties
 
 echo "copy mysql-connector to /opt/sonar/lib"
 cp -f /opt/sonar/extensions/jdbc-driver/mysql/mysql-connector-java*.jar /opt/sonar/lib

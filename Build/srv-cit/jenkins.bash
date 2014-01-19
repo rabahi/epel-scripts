@@ -5,7 +5,7 @@ sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenk
 sudo rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 
 echo "install java and jenkins"
-yum -y install java-1.6.0-openjdk jenkins
+yum -y install java-1.7.0-openjdk jenkins
 
 
 echo "configure httpd (create /etc/httpd/conf.d/jenkins.conf)"

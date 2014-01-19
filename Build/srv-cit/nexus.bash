@@ -29,6 +29,7 @@ chkconfig --levels 345 nexus on
 
 rm -fr /opt/nexus/bundle/sonatype-work
 ln -s /opt/nexus/sonatype-work /opt/nexus/bundle/sonatype-work
+mkdir -p /opt/nexus/sonatype-work
 chown nexus:nexus /opt/nexus/sonatype-work/ -R
 
 service nexus start

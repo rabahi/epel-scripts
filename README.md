@@ -9,7 +9,7 @@ These scripts are 'getting started' scripts.
 Prerequistes:
 -------------
 
-Centos 6.4 x64 or higher.
+Centos 6.5 x64 or higher.
 
 Usage:
 ------

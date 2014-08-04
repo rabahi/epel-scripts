@@ -4,7 +4,7 @@ echo "install samba"
 yum -y install samba
  
 echo "activate samba on boot"
-chkconfig smb on
+systemctl enable smb.service
  
 echo "backup /etc/samba/smb.conf (we will change it)"
 mv /etc/samba/smb.conf /etc/samba/smb.conf.backup
@@ -45,13 +45,11 @@ EOF
 myprefixIP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
 sed -i "s/a.b.c/$myprefixIP/g" /etc/samba/smb.conf
 
-echo "enable rules in firewall"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 445 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service smb (port 445) to firewall"
+firewall-cmd --permanent --add-service smb
  
 echo "restart samba"
-service smb restart
+systemctl restart smb.service
  
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: file://$myip"

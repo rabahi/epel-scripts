@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load check_functions.
-. ../../check_functions/check_functions.bash
+. ./check_functions/check_functions.bash
 
 #wait program started:
 wait_started jenkins /var/log/jenkins/jenkins.log 60

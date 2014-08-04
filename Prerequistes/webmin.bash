@@ -18,10 +18,10 @@ allow from all
 EOF
 
 echo "launch webmin"
-service webmin start
+systemctl start webmin.service
 
 echo "reload httpd"
-service httpd restart
+systemctl restart httpd.service
 
 echo "launch webmin on boot"
-chkconfig webmin on
+systemctl enable webmin.service

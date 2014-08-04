@@ -63,7 +63,7 @@ cat /etc/httpd/conf.d/repo.conf << "EOF"
 EOF
 
 echo "restart httpd"
-service httpd restart
+systemctl restart httpd.service
 
 ##################################################
 #            SIGN REPOSITORY

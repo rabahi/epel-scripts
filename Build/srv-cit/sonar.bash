@@ -12,7 +12,7 @@ echo "install sonar"
 yum -y install sonar
 
 echo "start sonar on boot"
-chkconfig sonar on
+systemctl enable sonar.service
 
 echo "Configure sonar"
 # add # before each sonar.jdbc.url that are not commented:
@@ -41,8 +41,8 @@ ProxyRequests     Off
 EOF
 
 echo "start service"
-service httpd restart
-service sonar start
+systemctl restart httpd.service
+systemctl start sonar.service
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: http://$myip/sonar"

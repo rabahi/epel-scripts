@@ -94,7 +94,7 @@ echo "set chmod on tmp directory"
 chmod 777 /opt/redmine/redmine/tmp/ -R
 
 echo "start httpd service"
-service httpd restart
+systemctl restart httpd.service
 
 
 ##################################################
@@ -126,7 +126,7 @@ echo "sleep 5s (wait httpd to start and configure redmine)"
 sleep 5
 
 echo "restart httpd service"
-service httpd restart
+systemctl restart httpd.service
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you here: http://$myip"

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "install ifconfig"
+yum -y install net-tools
+
 echo "install locate"
 yum -y install mlocate
 updatedb

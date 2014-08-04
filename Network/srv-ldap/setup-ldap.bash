@@ -4,12 +4,10 @@ echo "install openldap"
 yum -y install openldap-servers openldap-clients phpldapadmin
 
 echo "start service slapd at boot"
-chkconfig slapd on
+systemctl enable slapd.service
 
-echo "Append firewall rule to open port 389"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 389 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service slap (port 389) to firewall"
+firewall-cmd --permanent --add-service slap
  
 echo "configure ldap"
 rm -f /var/lib/ldap/DB_CONFIG
@@ -85,7 +83,7 @@ ldapadd -x -w root -D "cn=Manager,dc=my-domain,dc=local" -f /etc/openldap/schema
 ldapsearch -x  -b "dc=my-domain,dc=local"
 
 echo "start service"
-service slapd start
+systemctl start slapd.service
 
 
 echo "Note: by default only local users can access to phpldapadmin."
@@ -95,4 +93,4 @@ sed -i "s/\(Allow\s*from\s*127.0.0.1\)/#\1/i" /etc/httpd/conf.d/phpldapadmin.con
 sed -i "s/\(Allow\s*from\s*::1\)/#\1/i" /etc/httpd/conf.d/phpldapadmin.conf
 
 echo "restart httpd"
-service httpd restart
+systemctl restart httpd.service

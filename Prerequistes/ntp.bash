@@ -4,7 +4,7 @@ echo "install ntp"
 yum -y install ntp
 
 echo "activate ntp on boot"
-chkconfig ntpd on
+systemctl enable ntpd.service
 
 echo "start ntp service"
-service ntpd start
+systemctl start ntpd.service

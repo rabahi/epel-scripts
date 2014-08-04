@@ -1,13 +1,13 @@
 #!/bin/bash
 
-echo "install mysql-server"
-yum -y install mysql-server phpMyAdmin
+echo "install mariadb-server"
+yum -y install mariadb-server phpMyAdmin
 
-echo "activate mysqld at startup"
-chkconfig mysqld on
+echo "activate mariadb at startup"
+systemctl enable mariadb.service
 
 echo "start the server"
-service mysqld start
+systemctl start mariadb.service
 
 echo "set password for root. WARN! for this example we choose unsecure password root"
 /usr/bin/mysqladmin -u root password 'root'

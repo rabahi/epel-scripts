@@ -4,7 +4,7 @@ echo "install dhcp"
 yum -y install dhcp
  
 echo "start service dhcpd at boot"
-chkconfig dhcpd on
+systemctl enable dhcpd.service
 
 echo "get current network interface"
 currentEth=`ls /sys/class/net | grep eth | head -1`
@@ -36,10 +36,8 @@ EOF
 sed -i "s/a.b.c/$myprefixIP/g" /etc/dhcp/dhcpd.conf
 
 
-echo "Open port 67"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 67 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service dhcp (port 67) to firewall"
+firewall-cmd --permanent --add-service dhcp
 
 echo "start service"
-service dhcpd start
+systemctl start dhcpd.service

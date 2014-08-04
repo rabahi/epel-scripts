@@ -4,7 +4,7 @@ echo "install tools nagios"
 yum -y install nagios nagios-devel nagios-plugins*
 
 echo "enable start nagios on boot"
-chkconfig nagios on
+systemctl enable nagios.service
 
 echo "set config owner"
 chown nagios:nagios /etc/nagios/ -R

@@ -4,7 +4,7 @@ echo "install yum-cron"
 yum -y install yum-cron
 
 echo "activate yum-cron at startup"
-chkconfig yum-cron on
+systemctl enable yum-cron.service
 
 echo "start service"
-service yum-cron start
+systemctl start yum-cron.service

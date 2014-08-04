@@ -7,14 +7,11 @@ echo "configure dovecot"
 sed -i "s/^#\(protocols\s*=\)/\1/" /etc/dovecot/dovecot.conf
 
 echo "start service dovecot on boot"
-chkconfig dovecot on
+systemctl enable dovecot.service
 
 echo "start service"
-service dovecot start
+systemctl start dovecot.service
 
 
 echo "open pop3 port (i.e 110) and imap (i.e. 143)"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 110 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 143 -j ACCEPT
-service iptables save
-service iptables restart
+firewall-cmd --permanent --add-service dovecot

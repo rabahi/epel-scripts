@@ -4,15 +4,13 @@ echo "install bind"
 yum -y install  bind bind-libs bind-utils
  
 echo "start service named at boot"
-chkconfig named on
+systemctl enable named.service
 
 echo "get current network interface"
 currentEth=`ls /sys/class/net | grep eth | head -1`
 
-echo "Open port 53"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service name (port 53) to firewall"
+firewall-cmd --permanent --add-service name
 
 echo "create my-domain.local.fwd"
 cat > /var/named/my-domain.local.fwd << "EOF"
@@ -80,4 +78,4 @@ sed -i "s/\(allow-query\)/\/\/\1/g" /etc/named.conf
 
 
 echo "start service"
-service named restart
+systemctl restart named.service

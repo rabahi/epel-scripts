@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load check_functions.
-. ../../check_functions/check_functions.bash
+. ./check_functions/check_functions.bash
 
 # check pages
 check_web_function WordPress http://localhost/wordpress

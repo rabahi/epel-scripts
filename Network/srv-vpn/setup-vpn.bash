@@ -4,12 +4,10 @@ echo "install openvpn"
 yum -y install openvpn
 
 echo "start service openvpn at boot"
-chkconfig openvpn on
+systemctl enable openvpn.service
 
-echo "Append firewall rule to open port 1194 "
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 1194 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service openvpn (port 1194) to firewall"
+firewall-cmd --permanent --add-service openvpn
 
 echo "configure vpn"
 rm -f /etc/openvpn/server.conf
@@ -44,4 +42,4 @@ sed -i "s/\(openvpn.log\)/\/var\/log\/\1/g" /etc/openvpn/server.conf
 # ./build-key-pass client 
 
 echo "start service"
-service openvpn start
+systemctl start openvpn.service

@@ -32,6 +32,6 @@ sed -i "s/#broker_module=\/somewhere\/module1.o/broker_module=\/usr\/lib64\/nagi
 
 chown nagios:nagios /etc/nagios/ -R
 
-service ndo2db restart
-service nagios restart
+systemctl restart ndo2db.service
+systemctl restart nagios.service
 

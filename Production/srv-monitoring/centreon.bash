@@ -317,7 +317,7 @@ EOF
 echo "add option to innodb_file_per_table=1 mysql"
 if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
   sed -i 's/\(\[mysqld\]\)/\1\ninnodb_file_per_table=1/' /etc/my.cnf
-  service mysqld restart
+  systemctl restart mysqld.service
 fi;
 
 php /usr/local/centreon/www/install/silent-install.php

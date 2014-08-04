@@ -9,7 +9,7 @@ These scripts are 'getting started' scripts.
 Prerequistes:
 -------------
 
-Centos 6.5 x64 or higher.
+epel-7 or higher.
 
 Usage:
 ------
@@ -23,17 +23,32 @@ Usage:
 - execute:
 ```bash
   cd /opt/centos-scripts
-  bash setup.bash
+  bash main.bash --help
 ```
 
 Recommandations
 ----------------
 
-- First, install prerequistes and reboot your server
+- First, ask for the script help:
+```bash
+  echo "display the help"
+  bash main.bash --help
+```
+
 - Then, install your server (i.e. srv-***)
+```bash  
+  echo "install my server"
+  bash main.bash -s SERVER-NAME
+```
+
 - Finally, update the security policy (depends on your own case)
 
 Enjoy :)
+
+Script Options
+----------------
+ * skip-prerequistes : bash main.bash -s SERVER-NAME --skip-prerequistes true
+
 
 How does it work?
 ----------------

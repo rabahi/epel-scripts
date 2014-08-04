@@ -66,15 +66,13 @@ chmod a+x /etc/init.d/tomcat6
 chkconfig --add tomcat6
 
 echo "launch tomcat6 at startup"
-chkconfig tomcat6 on
+systemctl enable tomcat6.service
 
-echo "Append firewall rule to open port 8080"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service tomcat6 (port 8080) to firewall"
+firewall-cmd --permanent --add-service tomcat6
 
 echo "launch tomcat6"
-/etc/init.d/tomcat6 start
+systemctl start tomcat6
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you there: http://$myip:8080"

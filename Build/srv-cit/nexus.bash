@@ -25,14 +25,14 @@ nexusDirectory=`ls /opt/nexus/bundle/ | grep nexus`
 ln -s /opt/nexus/bundle/$nexusDirectory/bin/nexus /etc/init.d/nexus
 sed -i "s/^#\(RUN_AS_USER=\s*\).*/\1nexus/" /opt/nexus/bundle/$nexusDirectory/bin/nexus
 chkconfig --add nexus
-chkconfig --levels 345 nexus on
+systemctl enable --levels 345 nexus.service
 
 rm -fr /opt/nexus/bundle/sonatype-work
 ln -s /opt/nexus/sonatype-work /opt/nexus/bundle/sonatype-work
 mkdir -p /opt/nexus/sonatype-work
 chown nexus:nexus /opt/nexus/sonatype-work/ -R
 
-service nexus start
+systemctl start nexus.service
 EOF
 
 echo "add autoupdate script to crontab"
@@ -60,7 +60,7 @@ Proxypass /nexus http://localhost:8081/nexus
 Proxypassreverse /nexus http://localhost:8081/nexus
 ProxyRequests     Off
 EOF
-service httpd restart
+systemctl restart httpd.service
 
 echo "install nexus"
 chmod a+x /opt/nexus/scripts/autoupdate.sh

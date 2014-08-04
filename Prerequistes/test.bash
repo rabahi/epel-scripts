@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # load check_functions.
-. ../check_functions/check_functions.bash
+. ./check_functions/check_functions.bash
 
 # check network on boot:
-check_grep "ONBOOT=yes" "/etc/sysconfig/network-scripts/ifcfg-eth0"
+check_grep "ONBOOT=yes" "/etc/sysconfig/network-scripts/ifcfg-ens33"
 
 # check selinux
 check_grep "SELINUX=disabled" "/etc/selinux/config"

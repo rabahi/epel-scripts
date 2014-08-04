@@ -3,11 +3,8 @@
 echo "install vsftpd"
 yum -y install vsftpd pam_mysql
 
-echo "Append firewall rule to open port 21"
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
-service iptables save
-sed -i "s/\(IPTABLES_MODULES=\)/\1\"ip_conntrack_ftp\"/i" /etc/sysconfig/iptables-config
-service iptables restart
+echo "add service vsftp (port 21) to firewall"
+firewall-cmd --permanent --add-service vsftp
 
 echo "create database vsftpd, user/password vsftpd/vsftpd":
 mysql --user=root --password=root -e "CREATE USER 'vsftpd'@'localhost' IDENTIFIED BY 'vsftpd';"
@@ -185,10 +182,10 @@ echo "create new user myuser/mypassword (i.e. user/password)"
 bash /opt/vsftpd/scripts/user_create.bash myuser mypassword
 
 echo "launch vsftpd at startup"
-chkconfig vsftpd on
+systemctl enable vsftpd.service
 
 echo "launch vsftpd"
-service vsftpd start
+systemctl start vsftpd.service
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you there: ftp://$myip"

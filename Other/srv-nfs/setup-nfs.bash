@@ -2,12 +2,12 @@ echo "install nfs tools"
 yum -y install nfs-utils nfs-utils-lib
  
 echo "start nfs on startup"
-chkconfig rpcbind on
-chkconfig nfs on
+systemctl enable rpcbind.service
+systemctl enable nfs.service
  
 echo "start service"
-service rpcbind start
-service nfs start
+systemctl start rpcbind.service
+systemctl start nfs.service
  
 echo "add right to anonymous user NFS (id 65534)"
 mkdir -p /opt/nfs
@@ -22,12 +22,5 @@ EOF
 echo "enable rules"
 exportfs -a
 
-echo "Open ports 111,2049,4045"
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 111 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 111 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 2049 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 2049 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4045 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4045 -j ACCEPT
-service iptables save
-service iptables restart
+echo "add service nfs (ports 111,2049,4045) to firewall"
+firewall-cmd --permanent --add-service nfs

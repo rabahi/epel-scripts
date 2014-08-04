@@ -31,8 +31,8 @@ sed -i "s/^\(JENKINS_ARGS=\).*/\1\"--prefix=\/jenkins\"/" /etc/sysconfig/jenkins
 setsebool -P httpd_can_network_connect true
 
 echo "start jenkins"
-service httpd restart
-service jenkins start
+systemctl restart httpd.service
+systemctl start jenkins.service
 
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`

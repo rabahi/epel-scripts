@@ -48,9 +48,8 @@ Enjoy :)
 Script Options
 ----------------
  * skip-prerequistes : 
-```bash
-   bash main.bash -s SERVER-NAME --skip-prerequistes true
-```
+`bash main.bash -s SERVER-NAME --skip-prerequistes true`
+
 
 How does it work?
 ----------------

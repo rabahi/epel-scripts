@@ -66,7 +66,7 @@ sed -i "s/^\(BuildRequires:\)/#\1/g" hello.spec
 sed -i "s/^\(Requires:\)/#\1/g" hello.spec
 sed -i "s/^\(\%prep\)/#\1/g" hello.spec
 sed -i "s/^\(\%doc\)/\1\\n\/usr\/bin\/hello/g" hello.spec
-sed -i "s/^\(\%changelog\)/\1\\n* Tue May 23 2010 cousiano <user@cousiano.com> 1.0-1\n- my hello world change log./g" hello.spec
+sed -i "s/^\(\%changelog\)/\1\\n* Tue May 02 2014 marc rabahi <marc.rabahi@gmail.com> 1.0-1\n- my hello world change log./g" hello.spec
 
 ##################################################
 #      BUILD RPM 

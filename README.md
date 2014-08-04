@@ -18,11 +18,11 @@ Usage:
 `yum -y install git`
 
 - get scripts
-`git clone https://github.com/cousiano/centos-scripts /opt/centos-scripts`
+`git clone https://github.com/rabahi/epel-scripts /opt/rabahi/epel-scripts`
 
 - execute:
 ```bash
-  cd /opt/centos-scripts
+  cd /opt/rabahi/epel-scripts
   bash main.bash --help
 ```
 

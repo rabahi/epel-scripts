@@ -1,4 +1,4 @@
-centos-scripts
+epel-scripts
 ==============
 
 What's this??

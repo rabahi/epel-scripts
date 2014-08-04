@@ -59,4 +59,4 @@ In each directory we must have:
 - some bash scripts
 - test.bash : this script will check if installation is well passed.
 
-**Note**: directory name must have the same name as the installation kind. 
+**Note**: directory name must match with the SERVER-NAME. 

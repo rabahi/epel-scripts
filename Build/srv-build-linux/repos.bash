@@ -26,7 +26,7 @@ EOF
 
 
 echo "create repository"
-mkdir -p $REPOSITORY_PATH/centos/6/x86_64
+mkdir -p $REPOSITORY_PATH/centos/7/x86_64
 
 echo "create script to update repo"
 mkdir -p /opt/rpm/scripts
@@ -34,8 +34,8 @@ cat > /opt/rpm/scripts/autoupdate.sh << "EOF"
 #!/bin/bash
 
 chown -R apache:apache /var/www/html/rpm/ -R
-createrepo --unique-md-filenames --checksum sha -d /var/www/html/rpm/centos/6/x86_64
-repoview /var/www/html/rpm/centos/6/x86_64
+createrepo --unique-md-filenames --checksum sha -d /var/www/html/rpm/centos/7/x86_64
+repoview /var/www/html/rpm/centos/7/x86_64
 EOF
 
 echo "add autoupdate script to crontab"
@@ -70,8 +70,8 @@ systemctl restart httpd.service
 ##################################################
 # echo "sign repository"
 # gpg --gen-key
-# gpg --detach-sign --armor $REPOSITORY_PATH/centos/6/x86_64/repodata/repomd.xml
+# gpg --detach-sign --armor $REPOSITORY_PATH/centos/7/x86_64/repodata/repomd.xml
 
 
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
-echo "Now meet you here: http://$myip/rpm/centos/6/x86_64/repoview/index.html"
+echo "Now meet you here: http://$myip/rpm/centos/7/x86_64/repoview/index.html"

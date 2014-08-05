@@ -137,7 +137,7 @@ case $g_server in
       shift
       ;;
   *) 
-     echo "invalid server $g_server";;
+     echo "invalid server $g_server";
      display_usage
 esac
 

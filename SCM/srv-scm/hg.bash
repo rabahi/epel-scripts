@@ -8,9 +8,9 @@ mkdir -p /opt/hg/cgi-bin
 mkdir -p /opt/hg/repos
 mkdir -p /opt/hg/bin
  
-echo "copy hgwebdir.cgi to /opt/hg/cgi-bin"
-cp /usr/share/doc/mercurial-1.4/hgwebdir.cgi /opt/hg/cgi-bin
-chmod a+x /opt/hg/cgi-bin/hgwebdir.cgi
+echo "copy hgweb.cgi to /opt/hg/cgi-bin"
+cp /usr/share/doc/mercurial-2.6.2/hgweb.cgi /opt/hg/cgi-bin
+chmod a+x /opt/hg/cgi-bin/hgweb.cgi
  
 echo "create file /opt/hg/cgi-bin/hgweb.config"
 cat > /opt/hg/cgi-bin/hgweb.config << "EOF"
@@ -26,7 +26,7 @@ EOF
  
 echo "configure httpd (create /etc/httpd/conf.d/hg.conf)"
 cat > /etc/httpd/conf.d/hg.conf << "EOF"
- ScriptAliasMatch ^/hg(.*)$ /opt/hg/cgi-bin/hgwebdir.cgi/$1
+ ScriptAliasMatch ^/hg(.*)$ /opt/hg/cgi-bin/hgweb.cgi/$1
  
  <Directory "/opt/hg/cgi-bin/">
    SetHandler cgi-script
@@ -51,7 +51,7 @@ echo "create a sample repository named 'myrepos'"
 /opt/hg/bin/create.sh myrepos
  
 echo "Now restart httpd"
-/etc/init.d/httpd restart
+systemctl restart httpd.service
  
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you there: http://$myip/hg"

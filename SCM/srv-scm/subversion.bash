@@ -67,7 +67,7 @@ echo "set authz on /opt/svn"
 chown apache:apache /opt/svn/ -R
  
 echo "Now restart httpd"
-/etc/init.d/httpd restart
+systemctl restart httpd.service
  
 myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "Now meet you there: http://$myip/svn/"

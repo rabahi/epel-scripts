@@ -23,6 +23,24 @@ display_usage() {
   echo
   echo -e "SERVER-NAME are:"
   echo -e "\t-Build/srv-build-linux"
+  echo -e "\t-Build/srv-cit"
+  echo -e "\t-Network/srv-dhcp"
+  echo -e "\t-Network/srv-dns"
+  echo -e "\t-Network/srv-ldap"
+  echo -e "\t-Network/srv-mail"
+  echo -e "\t-Network/srv-vpn"
+  echo -e "\t-Other/srv-ftp"
+  echo -e "\t-Other/srv-nfs"
+  echo -e "\t-Other/srv-samba"
+  echo -e "\t-Other/srv-tomcat"
+  echo -e "\t-Production/srv-intranet"
+  echo -e "\t-Production/srv-monitoring"
+  echo -e "\t-Production/srv-redmine"
+  echo -e "\t-SCM/srv-scm"
+  echo
+  echo
+  echo -e "EXAMPLE :"
+  echo -e "$0 -s Build/srv-build-linux"
   exit 0
 }
 

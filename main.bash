@@ -136,7 +136,9 @@ case $g_server in
       scripts=("setup-nfs.bash")
       shift
       ;;
-  *) echo "invalid option $REPLY";;
+  *) 
+     echo "invalid server $g_server";;
+     display_usage
 esac
 
 

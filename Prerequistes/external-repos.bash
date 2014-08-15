@@ -3,8 +3,6 @@
 echo "get release rpm from fedora"
 rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
 
-#echo "add sourceforge repository"
-#rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 
 echo "add webmin repository"
 cat > /etc/yum.repos.d/webmin.repo << "EOF"

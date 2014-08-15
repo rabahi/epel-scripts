@@ -73,5 +73,5 @@ systemctl restart httpd.service
 # gpg --detach-sign --armor $REPOSITORY_PATH/centos/7/x86_64/repodata/repomd.xml
 
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/rpm/centos/7/x86_64/repoview/index.html"

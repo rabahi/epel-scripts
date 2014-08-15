@@ -327,5 +327,5 @@ mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON cent
 mysql --user=root --password=root -e "use centreon_storage; GRANT ALL PRIVILEGES ON centreon_storage.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/centreon/"

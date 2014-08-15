@@ -35,6 +35,6 @@ systemctl restart httpd.service
 systemctl start jenkins.service
 
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/jenkins"
 

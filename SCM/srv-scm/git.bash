@@ -1,7 +1,7 @@
 #!/bin/bash
  
-echo "install tools git gitweb"
-yum -y install git gitweb
+echo "install tools git gitweb git-daemon"
+yum -y install git gitweb git-daemon
  
 echo "create trees in /opt/git"
 mkdir -p /opt/git/cgi-bin
@@ -92,5 +92,5 @@ echo "create a sample repository named 'myrepos'"
 echo "Now restart httpd"
 systemctl restart httpd.service
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/git/"

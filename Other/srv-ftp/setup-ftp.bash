@@ -187,6 +187,6 @@ systemctl enable vsftpd.service
 echo "launch vsftpd"
 systemctl start vsftpd.service
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you there: ftp://$myip"
 echo "NOTE: try to connect using login/password : myuser/mypassword"

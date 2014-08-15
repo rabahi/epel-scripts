@@ -11,6 +11,6 @@ mysql --user=root --password=root -e "use ocsweb; GRANT ALL PRIVILEGES ON ocsweb
 echo "restart httpd"
 systemctl restart httpd.service
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/ocsreports/"
 echo "Note the default user/password is admin/admin"

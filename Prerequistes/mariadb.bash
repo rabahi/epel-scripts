@@ -19,4 +19,4 @@ sed -i "s/\(Allow\s*from\s*127.0.0.1\)/#\1/i" /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i "s/\(Allow\s*from\s*::1\)/#\1/i" /etc/httpd/conf.d/phpMyAdmin.conf
 
 echo "Now reload httpd"
-service httpd reload
+systemctl reload httpd.service

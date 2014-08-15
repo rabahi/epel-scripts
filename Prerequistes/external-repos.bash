@@ -3,7 +3,6 @@
 echo "get release rpm from fedora"
 rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
 
-
 echo "add webmin repository"
 cat > /etc/yum.repos.d/webmin.repo << "EOF"
 [Webmin]

@@ -51,5 +51,5 @@ firewall-cmd --permanent --add-service smb
 echo "restart samba"
 systemctl restart smb.service
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: file://$myip"

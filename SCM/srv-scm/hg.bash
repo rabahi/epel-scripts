@@ -53,5 +53,5 @@ echo "create a sample repository named 'myrepos'"
 echo "Now restart httpd"
 systemctl restart httpd.service
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you there: http://$myip/hg"

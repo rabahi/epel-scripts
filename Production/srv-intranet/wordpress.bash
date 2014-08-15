@@ -33,5 +33,5 @@ sed -i "s/\password_here/$wp_password/" /usr/share/wordpress/wp-config.php
 echo "restart httpd"
 systemctl restart httpd.service
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/wordpress/"

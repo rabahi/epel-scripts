@@ -128,5 +128,5 @@ sleep 5
 echo "restart httpd service"
 systemctl restart httpd.service
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip"

@@ -74,5 +74,5 @@ firewall-cmd --permanent --add-service tomcat6
 echo "launch tomcat6"
 systemctl start tomcat6
 
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you there: http://$myip:8080"

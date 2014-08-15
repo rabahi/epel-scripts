@@ -13,6 +13,6 @@ service nagios reload
 echo "check_http get a 403 'forbidden' if index.html is missing. so we create it"
 touch /var/www/html/index.html
  
-myip=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+myip=`hostname -I`
 echo "Now meet you here: http://$myip/nagios/"
 echo "Note, login/passord is nagiosadmin/nagiosadmin"

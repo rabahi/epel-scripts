@@ -32,6 +32,7 @@ display_usage() {
   echo -e "\t-Other/srv-ftp"
   echo -e "\t-Other/srv-nfs"
   echo -e "\t-Other/srv-samba"
+  echo -e "\t-Other/srv-snmp"
   echo -e "\t-Other/srv-tomcat"
   echo -e "\t-Production/srv-intranet"
   echo -e "\t-Production/srv-monitoring"
@@ -120,23 +121,27 @@ case $g_server in
       scripts=("setup-vpn.bash")
       shift
       ;;
-  "Other/srv-tomcat")    
+  "Other/srv-tomcat")
       scripts=("setup-tomcat.bash")
       shift
       ;;
-  "Other/srv-ftp")    
+  "Other/srv-ftp")
       scripts=("setup-ftp.bash")
       shift
       ;;
-  "Other/srv-samba")    
+  "Other/srv-samba")
       scripts=("setup-samba.bash")
+      shift
+      ;;
+  "Other/srv-snmp")
+      scripts=("setup.bash")
       shift
       ;;
   "Other/srv-nfs")    
       scripts=("setup-nfs.bash")
       shift
       ;;
-  *) 
+  *)
      echo "invalid server $g_server";
      display_usage
 esac

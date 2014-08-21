@@ -24,6 +24,7 @@ display_usage() {
   echo -e "SERVER-NAME are:"
   echo -e "\t-Build/srv-build-linux"
   echo -e "\t-Build/srv-cit"
+  echo -e "\t-Database/srv-database"
   echo -e "\t-Network/srv-dhcp"
   echo -e "\t-Network/srv-dns"
   echo -e "\t-Network/srv-ldap"
@@ -76,7 +77,7 @@ done
 echo "server = $g_server"
 echo "skipPrerequistes = $g_skipPrerequistes"
 
-prerequistes_scripts=("external-repos.bash" "network.bash" "ntp.bash" "selinux.bash" "usefullcmd.bash" "httpd.bash" "mariadb.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash" "portal.bash")
+prerequistes_scripts=("external-repos.bash" "network.bash" "ntp.bash" "selinux.bash" "usefullcmd.bash" "httpd.bash" "../Database/srv-database/mariadb.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash" "portal.bash")
 case $g_server in
   "Build/srv-build-linux")
       scripts=("mock.bash" "rpm.bash" "repos.bash")
@@ -84,6 +85,10 @@ case $g_server in
       ;;            
   "Build/srv-cit")
       scripts=("jenkins.bash" "nexus.bash" "sonar.bash")
+      shift
+      ;;
+  "Database/srv-database")
+      scripts=("mariadb.bash" "postgres.bash")
       shift
       ;;
   "Production/srv-intranet")

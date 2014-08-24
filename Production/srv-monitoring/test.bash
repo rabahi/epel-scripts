@@ -8,6 +8,7 @@ check_web_function nagios "http://localhost/nagios/ --http-user=nagiosadmin --ht
 check_web_function Centreon http://localhost/centreon/
 check_web_function OCS http://localhost/ocsreports/install.php
 check_web_function GLPI http://localhost/glpi/install/install.php
+check_web_function ntopng http://localhost/ntopng
 
 # check services:
 check_service httpd
@@ -15,6 +16,8 @@ check_service mysqld
 
 check_service ndo2db
 check_service nagios
+
+check_service ntopng
 
 # check tcp port:
 check_tcp 80 #httpd

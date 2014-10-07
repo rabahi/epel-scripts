@@ -53,7 +53,7 @@ fi
 ##################################################
 
 echo "create /etc/httpd/conf.d/repo.conf"
-cat /etc/httpd/conf.d/repo.conf << "EOF"
+cat > /etc/httpd/conf.d/repo.conf << "EOF"
 <Directory /var/www/html/>
     Options Indexes
     Options Indexes FollowSymLinks

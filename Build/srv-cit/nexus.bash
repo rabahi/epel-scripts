@@ -9,14 +9,14 @@ useradd nexus
 
 cat > /opt/nexus/scripts/autoupdate.sh << "EOF"
 #remove nexus as a service
-service nexus stop
+systemctl stop nexus.service
 chkconfig --del nexus
 rm -f /etc/init.d/nexus
 
 # download latest bundle
 rm -fr /opt/nexus/bundle/*
 mkdir -p /opt/nexus/download
-wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
+wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://download.sonatype.com/nexus/oss/nexus-latest-bundle.tar.gz
 tar xvfz /opt/nexus/download/nexus-latest-bundle.tar.gz -C /opt/nexus/bundle
 chown nexus:nexus /opt/nexus/bundle -R
 

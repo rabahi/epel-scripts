@@ -29,9 +29,6 @@ sed -i "s/^#\(sonar.jdbc.driverClassName=.*com.mysql.jdbc.Driver\)/\1/" /opt/son
 sed -i "s/^#\(sonar.web.context=\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties
 sed -i "s/^\(sonar.web.context=\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties
 
-echo "copy mysql-connector to /opt/sonar/lib"
-cp -f /opt/sonar/extensions/jdbc-driver/mysql/mysql-connector-java*.jar /opt/sonar/lib
-
 echo "configure httpd (create /etc/httpd/conf.d/sonar.conf)"
 cat > /etc/httpd/conf.d/sonar.conf << "EOF"
 ProxyPreserveHost On

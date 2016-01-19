@@ -38,7 +38,10 @@ cat > /etc/httpd/conf.d/hg.conf << "EOF"
   ErrorLog /var/log/httpd/hg-error.log
   CustomLog /var/log/httpd/hg-access.log common
 EOF
- 
+
+echo "set selinux permissions. can check permission by using 'ls -alZ /opt/cgi-bin/hgweb.cgi"
+chcon --type=httpd_sys_rw_content_t /opt/cgi-bin/hgweb.cgi
+
 echo "create /opt/hg/bin/create.sh"
 cat > /opt/hg/bin/create.sh << "EOF"
 hg init /opt/hg/repos/$1

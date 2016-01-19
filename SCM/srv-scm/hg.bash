@@ -32,8 +32,11 @@ cat > /etc/httpd/conf.d/hg.conf << "EOF"
    SetHandler cgi-script
    AllowOverride All
    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-   Order allow,deny
-   Allow from all
+   # apache 2.2 (disabled)
+   #Order allow,deny
+   #Allow from all
+   # apache 2.4
+   Require all granted
   </Directory>
   ErrorLog /var/log/httpd/hg-error.log
   CustomLog /var/log/httpd/hg-access.log common

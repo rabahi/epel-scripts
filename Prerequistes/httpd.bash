@@ -20,3 +20,4 @@ systemctl start httpd.service
 
 echo "add service http (port 80) to firewall"
 firewall-cmd --permanent --add-service http
+firewall-cmd --reload

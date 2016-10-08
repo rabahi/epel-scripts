@@ -21,3 +21,13 @@ systemctl start httpd.service
 echo "add service http (port 80) to firewall"
 firewall-cmd --permanent --add-service http
 firewall-cmd --reload
+
+########################
+#### CONFIGURE  SSL ####
+########################
+
+yum -y install mod_ssl
+
+echo "add service http (port 443) to firewall"
+firewall-cmd --permanent --add-service https
+firewall-cmd --reload

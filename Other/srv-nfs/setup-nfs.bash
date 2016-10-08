@@ -22,5 +22,10 @@ EOF
 echo "enable rules"
 exportfs -a
 
-echo "add service nfs (ports 111,2049,4045) to firewall"
+echo "add service nfs (ports 111,2049) to firewall"
+echo "to find port list : rpcinfo -p"
 firewall-cmd --permanent --add-service nfs
+
+echo "reload firewall-cmd"
+firewall-cmd --reload
+

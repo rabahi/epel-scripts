@@ -79,7 +79,7 @@ function check_service()
 {
   local service=$1
   title="Checking service $service"
-  command="ps aux | grep -e '$service' | grep -v grep | wc -l | tr -s \"\n\""
+  command="pgrep '$service'"
   check "$title" "$command"
 }
 

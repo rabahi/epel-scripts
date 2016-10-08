@@ -10,6 +10,7 @@ check_grep "ONBOOT=yes" "/etc/sysconfig/network-scripts/ifcfg-ens33"
 check_grep "SELINUX=disabled" "/etc/selinux/config"
 
 # check services
+check_service firewalld
 check_service ntpd
 check_service httpd
 check_service mysqld
@@ -18,6 +19,7 @@ check_service nrpe
 check_service webmin
 
 # check commands:
+check_command firewall-cmd
 check_command locate
 check_command wget
 check_command dos2unix

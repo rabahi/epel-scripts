@@ -9,7 +9,7 @@ echo "start nfs on startup"
 systemctl enable rsyslog.service
 
 echo "configure rsyslog"
-mysql --user=root --password=root < /usr/share/doc/rsyslog-mysql-7.4.7/createDB.sql
+mysql --user=root --password=root < /usr/share/doc/rsyslog-mysql-8.18.0/createDB.sql
 
 mysql --user=root --password=root -e "CREATE USER 'rsyslog'@'localhost' IDENTIFIED BY 'rsyslog';"
 mysql --user=root --password=root -e "use Syslog; GRANT ALL PRIVILEGES ON Syslog.* TO 'rsyslog'@'localhost' WITH GRANT OPTION;"
@@ -38,13 +38,13 @@ systemctl start rsyslog.service
 ##################################
 
 echo "download loganalyzer"
-wget http://download.adiscon.com/loganalyzer/loganalyzer-3.6.5.tar.gz -O /tmp/loganalyzer-3.6.5.tar.gz
+wget http://download.adiscon.com/loganalyzer/loganalyzer-4.1.3.tar.gz -O /tmp/loganalyzer-4.1.3.tar.gz
 
 echo "configure loganalyzer"
 cd /tmp
-tar xvfz loganalyzer-3.6.5.tar.gz
+tar xvfz loganalyzer-4.1.3.tar.gz
 
-mv loganalyzer-3.6.5/src/* /var/www/html/loganalyzer
+mv loganalyzer-4.1.3/src/* /var/www/html/loganalyzer
 touch /var/www/html/loganalyzer/config.php
 chown apache:apache /var/www/html/loganalyzer/config.php
 chmod 755 /var/www/html/loganalyzer/config.php

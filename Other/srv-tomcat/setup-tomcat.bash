@@ -1,29 +1,29 @@
 #!/bin/bash
 
 echo "install java"
-yum -y install java-1.7.0-openjdk
+yum -y install java-1.8.0-openjdk
 
 echo "install tomcat"
 mkdir -p /opt/java
-wget -O /opt/java/apache-tomcat-6.0.37.tar.gz http://mirrors.ircam.fr/pub/apache/tomcat/tomcat-6/v6.0.37/bin/apache-tomcat-6.0.37.tar.gz
+wget -O /opt/java/apache-tomcat-8.5.5.tar.gz http://apache.mindstudios.com/tomcat/tomcat-8/v8.5.5/bin/apache-tomcat-8.5.5.tar.gz
 cd /opt/java
-tar xvfz apache-tomcat-6.0.37.tar.gz
+tar xvfz apache-tomcat-8.5.5.tar.gz
 
-ln -s /opt/java/apache-tomcat-6.0.37 /opt/java/apache-tomcat
+ln -s /opt/java/apache-tomcat-8.5.5 /opt/java/apache-tomcat
 
-echo "create service /etc/init.d/tomcat6"
-cat > /etc/init.d/tomcat6 << "EOF"
+echo "create service /etc/init.d/tomcat"
+cat > /etc/init.d/tomcat << "EOF"
 #!/bin/bash
 # chkconfig: 234 20 80
 # description: Tomcat Server basic start/shutdown script
-# processname: tomcat6
+# processname: tomcat
 # pidfile: /opt/java/apache-tomcat/temp/pid
 
 . /etc/rc.d/init.d/functions
 
 # Set Tomcat environment.
 USER=root
-export PROCESSNAME=tomcat6
+export PROCESSNAME=tomcat
 export BASEDIR=/opt/java/apache-tomcat
 export CATALINA_HOME=$BASEDIR
 export CATALINA_BASE=$BASEDIR
@@ -62,17 +62,17 @@ exit 0
 
 EOF
 
-chmod a+x /etc/init.d/tomcat6
-chkconfig --add tomcat6
+chmod a+x /etc/init.d/tomcat
+chkconfig --add tomcat
 
-echo "launch tomcat6 at startup"
-systemctl enable tomcat6.service
+echo "launch tomcat service at startup"
+systemctl enable tomcat.service
 
-echo "add service tomcat6 (port 8080) to firewall"
-firewall-cmd --permanent --add-service tomcat6
+echo "add service tomcat (port 8080) to firewall"
+firewall-cmd --permanent --add-service tomcat
 
-echo "launch tomcat6"
-systemctl start tomcat6
+echo "launch tomcat"
+systemctl start tomcat
 
 myip=`hostname -I`
 echo "Now meet you there: http://$myip:8080"

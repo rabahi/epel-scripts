@@ -12,7 +12,6 @@ echo builder | passwd builder --stdin
 echo " 3. Add builder to the group 'mock'"
 usermod -G mock -a builder
 
-echo "Now create mock for centos 6 x64"
+echo "Now create mock for epel 6 (64 bits)"
 runuser -l builder -c 'mock -r epel-6-x86_64 --init'
 runuser -l builder -c 'mock -r epel-6-x86_64 chroot "cat /etc/issue"'
-

@@ -3,8 +3,10 @@
 # load check_functions.
 . ./check_functions/check_functions.bash
 
+# get current device (i.e. ens33)
+currentDevice=`nmcli d | grep connected | awk '{split($1,a,"\t"); print a[1]}'`
 # check network on boot:
-check_grep "ONBOOT=yes" "/etc/sysconfig/network-scripts/ifcfg-ens33"
+check_grep "ONBOOT=yes" "/etc/sysconfig/network-scripts/ifcfg-$currentDevice"
 
 # check selinux
 check_grep "SELINUX=disabled" "/etc/selinux/config"

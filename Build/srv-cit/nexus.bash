@@ -25,7 +25,7 @@ nexusDirectory=`ls /opt/nexus/bundle/ | grep nexus`
 ln -s /opt/nexus/bundle/$nexusDirectory/bin/nexus /etc/init.d/nexus
 sed -i "s/^#\(RUN_AS_USER=\s*\).*/\1nexus/" /opt/nexus/bundle/$nexusDirectory/bin/nexus
 chkconfig --add nexus
-systemctl enable --levels 345 nexus.service
+systemctl enable nexus.service
 
 rm -fr /opt/nexus/bundle/sonatype-work
 ln -s /opt/nexus/sonatype-work /opt/nexus/bundle/sonatype-work

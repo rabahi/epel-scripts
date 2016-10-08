@@ -17,7 +17,7 @@ chown 65534:65534 /opt/nfs
 chmod 755 /opt/nfs
  
 echo "add rule to enable connection for client 192.168.0.10 (must set ip address)"
-cat >> /etc/exports << "EOF"
+cat > /etc/exports << "EOF"
 /opt/nfs           192.168.0.10(rw,sync) 
 EOF
  

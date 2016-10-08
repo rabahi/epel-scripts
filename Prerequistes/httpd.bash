@@ -24,4 +24,5 @@ firewall-cmd --permanent --add-service http
 echo "add service http (port 443) to firewall"
 firewall-cmd --permanent --add-service https
 
+ecgi "reload firewall-cmd"
 firewall-cmd --reload

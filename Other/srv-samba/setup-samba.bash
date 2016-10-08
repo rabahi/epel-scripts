@@ -46,8 +46,10 @@ myprefixIP=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,
 sed -i "s/a.b.c/$myprefixIP/g" /etc/samba/smb.conf
 
 echo "add service smb (port 445) to firewall"
-firewall-cmd --permanent --add-service smb
- 
+firewall-cmd --permanent --add-service samba
+firewall-cmd --reload
+
+
 echo "restart samba"
 systemctl restart smb.service
  

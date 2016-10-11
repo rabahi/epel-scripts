@@ -151,6 +151,11 @@ case $g_server in
       scripts=("setup-nfs.bash")
       shift
       ;;
+  "Prerequistes")    
+      scripts=()
+      g_skipPrerequistes=true;
+      shift
+      ;;
   *)
      echo "invalid server $g_server";
      display_usage

@@ -18,5 +18,10 @@ sed -i "s/\(Deny\s*from\s*All\)/#\1/i" /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i "s/\(Allow\s*from\s*127.0.0.1\)/#\1/i" /etc/httpd/conf.d/phpMyAdmin.conf
 sed -i "s/\(Allow\s*from\s*::1\)/#\1/i" /etc/httpd/conf.d/phpMyAdmin.conf
 
+#Uncomment these following lines to open firewall
+#echo "add service to firewalld"
+#firewall-cmd --permanent --add-service mysql
+#firewall-cmd --reload
+
 echo "Now reload httpd"
 systemctl reload httpd.service

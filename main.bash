@@ -153,7 +153,7 @@ case $g_server in
       ;;
   "Prerequistes")    
       scripts=()
-      g_skipPrerequistes=true;
+      g_skipPrerequistes=false;
       shift
       ;;
   *)

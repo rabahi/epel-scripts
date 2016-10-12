@@ -79,7 +79,8 @@ function check_service()
 {
   local service=$1
   title="Checking service $service"
-  command="pgrep '$service'"
+  #command="pgrep '$service'"
+  command="systemctl status '$service'"
   check "$title" "$command"
 }
 

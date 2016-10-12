@@ -51,8 +51,7 @@ cat > /etc/httpd/conf.d/git.conf << "EOF"
    SetHandler cgi-script
    AllowOverride All
    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-   Order allow,deny
-   Allow from all
+   Require all granted
   </Directory>
   ErrorLog /var/log/httpd/git-error.log
   CustomLog /var/log/httpd/git-access.log common
@@ -61,7 +60,7 @@ cat > /etc/httpd/conf.d/git.conf << "EOF"
    # Load git mod
    DAV On
    Options ExecCGI FollowSymLinks Indexes
-   Allow from all
+   Require all granted
 </Location>
 EOF
  

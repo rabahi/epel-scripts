@@ -11,7 +11,6 @@ currentDevice=`nmcli d | grep connected | awk '{split($1,a,"\t"); print a[1]}'`
 
 echo "add service name (port 53) to firewall"
 firewall-cmd --permanent --add-port=53/tcp
-firewall-cmd --permanent --add-port=53/udp
 firewall-cmd --reload
 
 echo "create my-domain.local.fwd"

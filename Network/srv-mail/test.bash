@@ -8,7 +8,7 @@ check_command sendmail
 
 # check services:
 check_service master    #postfix
-check_service sendmail
+#check_service sendmail
 check_service dovecot
 
 # check tcp port:

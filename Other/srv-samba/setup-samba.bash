@@ -5,6 +5,7 @@ yum -y install samba
  
 echo "activate samba on boot"
 systemctl enable smb.service
+systemctl enable nmb.service
  
 echo "backup /etc/samba/smb.conf (we will change it)"
 mv /etc/samba/smb.conf /etc/samba/smb.conf.backup
@@ -52,6 +53,7 @@ firewall-cmd --reload
 
 echo "restart samba"
 systemctl restart smb.service
+systemctl restart nmb.service
  
 myip=`hostname -I`
 echo "Now meet you here: file://$myip"

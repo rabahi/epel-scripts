@@ -9,9 +9,9 @@ systemctl enable dhcpd.service
 echo "get current network interface"
 currentDevice=`nmcli d | grep connected | awk '{split($1,a,"\t"); print a[1]}'`
 
-echo "configure /etc/sysconfig/dhcpd and /etc/sysconfig/dhcpd6"
-sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd
-sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd6
+#echo "configure /etc/sysconfig/dhcpd and /etc/sysconfig/dhcpd6"
+#sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd
+#sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd6
 
 echo "configure /etc/dhcp/dhcpd.conf"
 

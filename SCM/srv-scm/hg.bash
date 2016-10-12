@@ -42,8 +42,8 @@ cat > /etc/httpd/conf.d/hg.conf << "EOF"
   CustomLog /var/log/httpd/hg-access.log common
 EOF
 
-echo "set selinux permissions. can check permission by using 'ls -alZ /opt/cgi-bin/hgweb.cgi"
-chcon --type=httpd_sys_rw_content_t /opt/cgi-bin/hgweb.cgi
+echo "set selinux permissions. can check permission by using 'ls -alZ /opt/hg/cgi-bin/hgweb.cgi"
+chcon --type=httpd_sys_rw_content_t /opt/hg/cgi-bin/hgweb.cgi
 
 echo "create /opt/hg/bin/create.sh"
 cat > /opt/hg/bin/create.sh << "EOF"

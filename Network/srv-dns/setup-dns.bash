@@ -28,7 +28,7 @@ www                                     IN      A       mylocalIP
 
 EOF
 
-mylocalIP=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+mylocalIP=`hostname -I`
 sed -i "s/mylocalIP/$mylocalIP/g" /var/named/my-domain.local.fwd
 
 echo "create my-domain.local.rev"
@@ -45,10 +45,10 @@ mylocalIP4     IN      PTR     dns.my-domain.local.
 
 EOF
 
-mylocalIP1=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1| awk '{ print $1}'`
-mylocalIP2=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f2| awk '{ print $1}'`
-mylocalIP3=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f3| awk '{ print $1}'`
-mylocalIP4=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f4| awk '{ print $1}'`
+mylocalIP1=`hostname -I | cut -d: -f2 | cut -d. -f1| awk '{ print $1}'`
+mylocalIP2=`hostname -I | cut -d: -f2 | cut -d. -f2| awk '{ print $1}'`
+mylocalIP3=`hostname -I | cut -d: -f2 | cut -d. -f3| awk '{ print $1}'`
+mylocalIP4=`hostname -I | cut -d: -f2 | cut -d. -f4| awk '{ print $1}'`
 
 sed -i "s/mylocalIP1/$mylocalIP1/g" /var/named/my-domain.local.rev
 sed -i "s/mylocalIP2/$mylocalIP2/g" /var/named/my-domain.local.rev

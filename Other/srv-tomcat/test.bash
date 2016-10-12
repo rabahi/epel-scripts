@@ -7,7 +7,7 @@
 check_command java
 
 # check services:
-check_service tomcat6
+check_service tomcat
 
 # check tcp port:
 check_tcp 8080 #apache tomcat

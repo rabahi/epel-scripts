@@ -46,6 +46,9 @@ EOF
 myprefixIP=`hostname -I | cut -d. -f1,2,3| awk '{ print $1}'`
 sed -i "s/a.b.c/$myprefixIP/g" /etc/samba/smb.conf
 
+currentDevice=`nmcli d | grep connected | awk '{split($1,a,"\t"); print a[1]}'`
+sed -i "s/eth0/$currentDevice/g" /etc/samba/smb.conf
+
 echo "add service smb (port 445) to firewall"
 firewall-cmd --permanent --add-service samba
 firewall-cmd --reload

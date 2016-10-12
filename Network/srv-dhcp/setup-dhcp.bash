@@ -7,15 +7,15 @@ echo "start service dhcpd at boot"
 systemctl enable dhcpd.service
 
 echo "get current network interface"
-currentEth=`ls /sys/class/net | grep eth | head -1`
+currentDevice=`nmcli d | grep connected | awk '{split($1,a,"\t"); print a[1]}'`
 
 echo "configure /etc/sysconfig/dhcpd and /etc/sysconfig/dhcpd6"
-sed -i "s/^(DHCPDARGS=\).*/\1$currentEth/" /etc/sysconfig/dhcpd
-sed -i "s/^(DHCPDARGS=\).*/\1$currentEth/" /etc/sysconfig/dhcpd6
+sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd
+sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd6
 
 echo "configure /etc/dhcp/dhcpd.conf"
 
-myprefixIP=`/sbin/ifconfig $currentEth | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
+myprefixIP=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
 
 cat > /etc/dhcp/dhcpd.conf << "EOF"
 ddns-update-style none;

@@ -11,7 +11,10 @@ mkdir -p /opt/hg/bin
 echo "copy hgweb.cgi to /opt/hg/cgi-bin"
 cp /usr/share/doc/mercurial-2.6.2/hgweb.cgi /opt/hg/cgi-bin
 chmod a+x /opt/hg/cgi-bin/hgweb.cgi
- 
+
+echo "configure /opt/hg/cgi-bin/hgweb.cgi"
+sed -i "s/^\(config\s*=\).*/\1\"\/opt\/hg\/cgi-bin\/hgweb.config\"/" /opt/hg/cgi-bin/hgweb.cgi
+
 echo "create file /opt/hg/cgi-bin/hgweb.config"
 cat > /opt/hg/cgi-bin/hgweb.config << "EOF"
 [collections]

@@ -8,6 +8,7 @@ systemctl enable openvpn.service
 
 echo "add service openvpn (port 1194) to firewall"
 firewall-cmd --permanent --add-service openvpn
+firewall-cmd --reload
 
 echo "configure vpn"
 rm -f /etc/openvpn/server.conf

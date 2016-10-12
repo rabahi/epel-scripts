@@ -19,7 +19,8 @@ sed -i "s/^#\(home_mailbox = Maildir\/\)/\1/" /etc/postfix/main.cf
 sed -i "s/^#\(mydestination = \$myhostname, localhost.\$mydomain, localhost, \$mydomain\)$/\1/" /etc/postfix/main.cf
 
 echo "reload postfix"
-service postfix reload
+systemctl reload postfix.service
 
 echo "add service smtp (port 25) to firewall"
 firewall-cmd --permanent --add-service smtp
+firewall-cmd --reload

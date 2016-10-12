@@ -15,7 +15,7 @@ sed -i "s/^(DHCPDARGS=\).*/\1$currentDevice/" /etc/sysconfig/dhcpd6
 
 echo "configure /etc/dhcp/dhcpd.conf"
 
-myprefixIP=`/sbin/ifconfig $currentDevice | grep 'inet addr:' | cut -d: -f2 | cut -d. -f1,2,3| awk '{ print $1}'`
+myprefixIP=`hostname -I | cut -d. -f1,2,3| awk '{ print $1}'`
 
 cat > /etc/dhcp/dhcpd.conf << "EOF"
 ddns-update-style none;

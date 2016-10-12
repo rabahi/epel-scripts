@@ -7,7 +7,8 @@ echo "start service slapd at boot"
 systemctl enable slapd.service
 
 echo "add service slap (port 389) to firewall"
-firewall-cmd --permanent --add-service slap
+firewall-cmd --permanent --add-port=389/tcp
+firewall-cmd --reload
  
 echo "configure ldap"
 rm -f /var/lib/ldap/DB_CONFIG

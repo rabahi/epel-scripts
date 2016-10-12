@@ -47,9 +47,8 @@ LoadModule authz_svn_module   modules/mod_authz_svn.so
 EOF
  
 echo "get svnindex file from here: http://code.google.com/p/tortoisesvn/source/browse/trunk/contrib/svnindex/"
-wget http://tortoisesvn.googlecode.com/svn/trunk/contrib/svnindex/menucheckout.ico -O /var/www/html/menucheckout.ico
-wget http://tortoisesvn.googlecode.com/svn/trunk/contrib/svnindex/svnindex.xsl -O /var/www/html/svnindex.xsl
-wget http://tortoisesvn.googlecode.com/svn/trunk/contrib/svnindex/svnindex.css -O /var/www/html/svnindex.css
+cp /usr/share/doc/subversion-1.7.14/xslt/svnindex.xsl /var/www/html
+cp /usr/share/doc/subversion-1.7.14/xslt/svnindex.css /var/www/html
 chown apache:apache /var/www/html/ -R
  
 echo "create /opt/svn/bin/create.sh"

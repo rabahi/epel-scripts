@@ -41,9 +41,8 @@ LoadModule authz_svn_module   modules/mod_authz_svn.so
    AuthzSVNAccessFile /opt/svn/conf/dav_svn.authz
    AuthType Basic
    AuthName "Subversion repos"
-   Require valid-user
-   Order allow,deny
-   Allow from all
+    #Require valid-user
+   Require all granted
 </Location>
 EOF
  

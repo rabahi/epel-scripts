@@ -33,14 +33,14 @@ echo "3- install rubygem"
 rvm rubygems current
 
 echo "install bundle and nokogiri"
-gem install bundle
+gem install bundle --no-rdoc --no-ri
 
 yum -y install libxml2-devel libxslt-devel
-gem install nokogiri -v '1.5.10'
+gem install nokogiri -v '1.5.10' --no-rdoc --no-ri
 
 echo "install passenger"
 yum -y install curl-devel httpd-devel
-gem install passenger
+gem install passenger --no-rdoc --no-ri
 passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"

@@ -15,7 +15,7 @@ check_grep "SELINUX=disabled" "/etc/selinux/config"
 check_service firewalld
 check_service ntpd
 check_service httpd
-check_service mysqld
+check_service mariadb
 check_service yum-cron
 check_service nrpe
 check_service miniserv.pl #webmin

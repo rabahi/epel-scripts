@@ -17,7 +17,8 @@ mysql --user=root --password=root -e "use redmine; GRANT ALL PRIVILEGES ON redmi
 
 echo "1 - install rvm (Ruby Version Manager)"
 yum -y install curl
-curl -L get.rvm.io | bash -s stable
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable
 
 source ~/.bash_profile
 source /etc/profile.d/rvm.sh

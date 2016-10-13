@@ -35,8 +35,8 @@ rvm rubygems current
 echo "install bundle and nokogiri"
 gem install bundle --no-rdoc --no-ri
 
-yum -y install libxml2-devel libxslt-devel
-gem install nokogiri -v '1.5.10' --no-rdoc --no-ri
+#yum -y install libxml2-devel libxslt-devel
+#gem install nokogiri -v '1.5.10' --no-rdoc --no-ri
 
 echo "install passenger"
 yum -y install curl-devel httpd-devel

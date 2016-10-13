@@ -8,8 +8,8 @@ check_web_function WordPress http://localhost/wordpress
 
 # check services:
 check_service httpd
-check_service mysqld
+check_service mariadb
 
 # check tcp port:
 check_tcp 80 #httpd
-check_tcp 3306 #mysqld
+check_tcp 3306 #mariadb

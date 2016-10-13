@@ -89,7 +89,7 @@ echo "now populate database"
 cd /opt/redmine/redmine
 rake generate_secret_token
 rake db:migrate RAILS_ENV="production"
-rake redmine:load_default_data RAILS_ENV="production"
+rake redmine:load_default_data RAILS_ENV="production" REDMINE_LANG="en"
 
 echo "set chmod on tmp directory"
 chmod 777 /opt/redmine/redmine/tmp/ -R

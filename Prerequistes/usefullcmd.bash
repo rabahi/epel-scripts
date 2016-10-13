@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "install deltarpm"
+yum -y install deltarpm
+
 echo "install ifconfig"
 yum -y install net-tools
 

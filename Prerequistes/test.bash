@@ -18,7 +18,7 @@ check_service httpd
 check_service mariadb
 check_service yum-cron
 check_service nrpe
-check_service miniserv.pl #webmin
+check_service webmin
 
 # check commands:
 check_command firewall-cmd

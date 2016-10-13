@@ -81,7 +81,7 @@ sed -i "s/username: root/username: redmine/g" /opt/redmine/redmine/config/databa
 sed -i "s/password: \"\"/password: redmine/g" /opt/redmine/redmine/config/database.yml
 
 echo "install redmine"
-yum -y install mysql-devel ImageMagick-devel freetds-devel
+yum -y install mariadb-devel ImageMagick-devel freetds-devel
 cd /opt/redmine/redmine
 bundle install
 

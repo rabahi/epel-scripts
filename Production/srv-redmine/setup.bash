@@ -43,30 +43,6 @@ yum -y install curl-devel httpd-devel
 gem install passenger --no-rdoc --no-ri
 passenger-install-apache2-module -a
 
-echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
-cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.0.30/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.0.30
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
-
-<VirtualHost *:80>
-   ServerName redmine.mycompany.com
-   DocumentRoot /opt/redmine/redmine/public
-   <Directory /opt/redmine/redmine/public>
-      # This relaxes Apache security settings.
-      AllowOverride all
-      # MultiViews must be turned off.
-      Options -MultiViews
-      allow from all
-   </Directory>
-
-   ErrorLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-error.%Y-%m-%d.log 86400"
-   CustomLog "|/usr/sbin/rotatelogs /etc/httpd/logs/redmine-access.%Y-%m-%d.log 86400" "%h %l %u %t %D \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
-
-</VirtualHost>
-EOF
-
-
 echo "get redmine"
 mkdir -p /opt/redmine/download
 cd /opt/redmine/download
@@ -94,12 +70,9 @@ rake redmine:load_default_data RAILS_ENV="production" REDMINE_LANG="en"
 echo "set chmod on tmp directory"
 chmod 777 /opt/redmine/redmine/tmp/ -R
 
-echo "start httpd service"
-systemctl restart httpd.service
-
 
 ##################################################
-#      CONFIGURATION SUB-URI
+#      CONFIGURATION APACHE HTTPD
 ##################################################
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
@@ -122,9 +95,6 @@ PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
 </VirtualHost>
 EOF
 ln -s /opt/redmine/redmine/public /var/www/html/redmine
-
-echo "sleep 5s (wait httpd to start and configure redmine)"
-sleep 5
 
 echo "restart httpd service"
 systemctl restart httpd.service

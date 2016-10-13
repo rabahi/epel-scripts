@@ -74,9 +74,6 @@ do
 done
 
 
-echo "server = $g_server"
-echo "skipPrerequistes = $g_skipPrerequistes"
-
 prerequistes_scripts=("external-repos.bash" "firewall.bash" "network.bash" "ntp.bash" "selinux.bash" "usefullcmd.bash" "httpd.bash" "../Database/srv-database/mariadb.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash" "portal.bash")
 case $g_server in
   "Build/srv-build-linux")
@@ -152,8 +149,8 @@ case $g_server in
       shift
       ;;
   "Prerequistes")    
-      scripts=()
-      g_skipPrerequistes=false;
+      scripts=prerequistes_scripts
+      g_skipPrerequistes=true;
       shift
       ;;
   *)
@@ -161,6 +158,8 @@ case $g_server in
      display_usage
 esac
 
+echo "server = $g_server"
+echo "skipPrerequistes = $g_skipPrerequistes"
 
 ###################################################################
 ####################      EXECUTE SCRIPTS     #####################

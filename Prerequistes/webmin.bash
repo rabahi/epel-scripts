@@ -3,11 +3,14 @@
 echo "install webmin"
 yum -y install webmin
 
+myip=`hostname -I`
+
 echo "configure webmin"
 echo "webprefix=/webmin" >> /etc/webmin/config
 echo "webprefixnoredir=1" >> /etc/webmin/config
-echo "referers=localhost" >> /etc/webmin/config
-echo "referer=1" >> /etc/webmin/config
+#echo "referers=localhost" >> /etc/webmin/config
+echo "referer=$myip" >> /etc/webmin/config
+echo "cookiepath=/webmin" >> /etc/webmin/miniserv.conf
 
 echo "configure httpd proxy"
 cat > /etc/httpd/conf.d/webmin.conf << "EOF"

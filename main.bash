@@ -149,7 +149,7 @@ case $g_server in
       shift
       ;;
   "Prerequistes")    
-      scripts=$prerequistes_scripts
+      scripts=("${prerequistes_scripts[@]}")
       g_skipPrerequistes=true;
       shift
       ;;

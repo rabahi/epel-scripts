@@ -10,11 +10,10 @@ echo "referers=localhost" >> /etc/webmin/config
 echo "referer=1" >> /etc/webmin/config
 
 cat > /etc/httpd/conf.d/webmin.conf << "EOF"
-ProxyPass /webmin/ http://localhost:10000/
-ProxyPassReverse /webmin/ http://localhost:10000/
-<Proxy *>
-allow from all
-</Proxy>
+ProxyPreserveHost On
+Proxypass /webmin http://localhost:10000
+Proxypassreverse /webmin http://localhost:10000
+ProxyRequests Off
 EOF
 
 echo "launch webmin"

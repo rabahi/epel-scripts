@@ -15,4 +15,5 @@ rpm --import http://www.webmin.com/jcameron-key.asc
 
 echo "clean all and update"
 yum clean all
+yum -y install deltarpm
 yum -y update

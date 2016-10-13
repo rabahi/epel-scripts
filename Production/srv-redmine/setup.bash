@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://www.redmine.org/releases/redmine-2.4.2.tar.gz
-redmine_version=redmine-2.4.2
+redmine_install_url=http://www.redmine.org/releases/redmine-3.3.1.tar.gz
+redmine_version=redmine-3.3.1
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -26,8 +26,8 @@ rvm get stable --auto
 rvm requirements
 
 echo "2- install ruby"
-rvm install 2.1.0
-rvm use 2.1.0 --default
+rvm install 2.3.1
+rvm use 2.3.1 --default
 
 echo "3- install rubygem"
 rvm rubygems current
@@ -45,9 +45,9 @@ passenger-install-apache2-module -a
 
 echo "configure httpd (create /etc/httpd/conf.d/redmine.conf)"
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.1.0/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
 
 <VirtualHost *:80>
    ServerName redmine.mycompany.com
@@ -104,9 +104,9 @@ systemctl restart httpd.service
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.1.0/gems/passenger-4.0.35
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.1.0/ruby
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-4.0.35/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-4.0.35
+PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
 
 
 <VirtualHost *>

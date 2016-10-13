@@ -17,13 +17,13 @@ systemctl enable sonar.service
 echo "Configure sonar"
 # add # before each sonar.jdbc.url that are not commented:
 sed -i "s/^\(sonar.jdbc.url\)/#\1/" /opt/sonar/conf/sonar.properties
-# add # before each sonar.jdbc.driverClassName that are not commented:
-sed -i "s/^\(sonar.jdbc.driverClassName\)/#\1/" /opt/sonar/conf/sonar.properties
 
 # remove comment for the sonar.jdbc.url in mysql part:
 sed -i "s/^#\(sonar.jdbc.url=.*jdbc:mysql\)/\1/" /opt/sonar/conf/sonar.properties
-# remove comment for the sonar.jdbc.driverClassName in mysql part:
-sed -i "s/^#\(sonar.jdbc.driverClassName=.*com.mysql.jdbc.Driver\)/\1/" /opt/sonar/conf/sonar.properties
+
+# user creditential:
+sed -i "s/^#\(sonar.jdbc.username=\).*/\1sonar/" /opt/sonar/conf/sonar.properties
+sed -i "s/^#\(sonar.jdbc.password=\).*/\1sonar/" /opt/sonar/conf/sonar.properties
 
 # sonar web context
 sed -i "s/^#\(sonar.web.context=\).*/\1\/sonar/" /opt/sonar/conf/sonar.properties

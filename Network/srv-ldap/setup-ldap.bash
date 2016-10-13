@@ -23,6 +23,9 @@ echo olcRootPW: $myRootDnPassword  >> /etc/openldap/slapd.d/cn\=config/olcDataba
 
 sed -i "s/dc=my-domain,dc=com/dc=my-domain,dc=local/g" /etc/openldap/slapd.d/cn\=config/olcDatabase={1}monitor.ldif
 
+echo "check configuration"
+slaptest -u
+
 echo "quick tests"
 echo URI ldap://127.0.0.1 >> /etc/openldap/ldap.conf
 echo BASE dc=my-domain,dc=local >> /etc/openldap/ldap.conf

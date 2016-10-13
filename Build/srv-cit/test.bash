@@ -11,7 +11,7 @@ wait_started sonar /opt/sonar/logs/sonar.log 60
 check_command java
 
 # check pages
-check_web_function jenkins http://localhost/jenkins
+check_web_function jenkins http://localhost/jenkins/login
 check_web_function Nexus http://localhost/nexus
 check_web_function sonar http://localhost/sonar
 

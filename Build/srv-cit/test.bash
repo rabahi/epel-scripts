@@ -17,8 +17,9 @@ check_web_function sonar http://localhost/sonar
 
 # check services:
 check_service sonar
-check_service mysqld
+check_service mariadb
 check_service jenkins
 
 # check tcp port:
-check_tcp 80 #httpd
+check_tcp 80   #httpd
+check_tcp 3306 #mariadb

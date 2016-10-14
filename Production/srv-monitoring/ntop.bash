@@ -32,10 +32,14 @@ yum -y install redis ntopng hiredis-devel
 #            --interface 0
 #EOF
 
+cat >> /etc/ntopng/ntopng.conf << "EOF"
+--http-prefix "/ntopng/"
+EOD
+
 cat > /etc/httpd/conf.d/ntopng.conf << "EOF"
 ProxyPreserveHost On
-Proxypass /ntopng http://localhost:3000
-Proxypassreverse /ntopng http://localhost:3000
+Proxypass /ntopng/ http://localhost:3000/ntopng/
+Proxypassreverse /ntopng/ http://localhost:3000/ntopng/
 ProxyRequests     Off
 EOF
 

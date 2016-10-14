@@ -6,7 +6,7 @@ cat > /etc/yum.repos.d/ntop.repo << "EOF"
 name=ntop packages
 #baseurl=http://www.nmon.net/centos-stable/$releasever/$basearch/
 # use nightly builds until stable version released in el7
-baseurl=http://www.nmon.net/centos-stable/6/$basearch/
+baseurl=http://www.nmon.net/centos-stable/7/$basearch/
 enabled=1
 gpgcheck=1
 gpgkey=http://www.nmon.net/centos-stable/RPM-GPG-KEY-deri

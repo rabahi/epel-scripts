@@ -16,21 +16,8 @@ gpgcheck=1
 gpgkey=http://www.nmon.net/centos-stable/RPM-GPG-KEY-deri
 EOF
 
-echo "install ntop"
-# Some of these packages does not exists in el7 (need to build ourself from source)
+echo "install ntop and redis"
 yum -y install redis ntopng hiredis-devel
-
-#echo "ntop configuration directory"
-#mkdir -p /etc/ntopng
-#mkdir -p /var/ntop
-
-#rm -f /etc/ntopng/ntopng.conf
-#cp /etc/ntopng/ntopng.conf.sample /etc/ntopng/ntopng.conf
-
-#cat > /etc/ntopng/ntopng.start << "EOF"
-#--local-networks "192.168.184.0/24"
-#            --interface 0
-#EOF
 
 cat >> /etc/ntopng/ntopng.conf << "EOF"
 --http-prefix "/ntopng/"
@@ -42,7 +29,6 @@ Proxypass /ntopng/ http://localhost:3000/ntopng/
 Proxypassreverse /ntopng/ http://localhost:3000/ntopng/
 ProxyRequests     Off
 EOF
-
 
 echo "enable start ntopng on boot"
 systemctl enable ntopng.service

@@ -18,19 +18,19 @@ EOF
 
 echo "install ntop"
 # Some of these packages does not exists in el7 (need to build ourself from source)
-yum -y install pfring n2disk nProbe ntopng ntopng-data nbox
+yum -y install redis ntopng hiredis-devel
 
-echo "ntop configuration directory"
-mkdir -p /etc/ntopng
-mkdir -p /var/ntop
+#echo "ntop configuration directory"
+#mkdir -p /etc/ntopng
+#mkdir -p /var/ntop
 
-rm -f /etc/ntopng/ntopng.conf
-cp /etc/ntopng/ntopng.conf.sample /etc/ntopng/ntopng.conf
+#rm -f /etc/ntopng/ntopng.conf
+#cp /etc/ntopng/ntopng.conf.sample /etc/ntopng/ntopng.conf
 
-cat > /etc/ntopng/ntopng.start << "EOF"
---local-networks "192.168.184.0/24"
-            --interface 0
-EOF
+#cat > /etc/ntopng/ntopng.start << "EOF"
+#--local-networks "192.168.184.0/24"
+#            --interface 0
+#EOF
 
 cat > /etc/httpd/conf.d/ntopng.conf << "EOF"
 ProxyPreserveHost On

@@ -132,3 +132,5 @@ Alias /centreon /usr/local/centreon/www/
 </Directory>
 EOF
 
+echo "restart httpd"
+systemctl restart httpd

@@ -116,3 +116,19 @@ cd  centreon-web-$CENTREON_WEB_VERSION
 # install centreon web :
 dos2unix $BASEDIR/centreon-response.txt
 ./install.sh -f $BASEDIR/centreon-response.txt
+
+
+##################################################
+#               APACHE CONFIGURATION
+##################################################
+
+echo "configure apache for apache 2.4"
+cat > /etc/httpd/conf.d/centreon.conf << "EOF"
+Alias /centreon /usr/local/centreon/www/
+<Directory "/usr/local/centreon/www">
+    Options Indexes
+    AllowOverride AuthConfig Options
+    Require all granted
+</Directory>
+EOF
+

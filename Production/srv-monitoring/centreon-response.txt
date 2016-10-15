@@ -77,7 +77,6 @@ BROKER_USER=centreon-broker
 ################# Event log dir
 
 # What is the Monitoring engine log directory ?
-#### ATTENTION : mkdir -p /var/log/centreon-engine
 MONITORINGENGINE_LOG=/var/log/centreon-engine
 
 ################# Plugin folders
@@ -99,15 +98,12 @@ MONITORINGENGINE_INIT_SCRIPT=/etc/init.d/centengine
 MONITORINGENGINE_BINARY=/usr/local/bin/centengine
 
 # What is the Monitoring engine configuration directory ?
-#### ATTENTION : mkdir -p /etc/centreon-engine
 MONITORINGENGINE_ETC=/etc/centreon-engine
 
 # Where is the configuration directory for broker module ?
-#### ATTENTION : mkdir -p /etc/centreon-broker
 BROKER_ETC=/etc/centreon-broker
 
 # Where is the init script for broker module daemon ?
-#### ATTENTION : créer le service à la main avant 
 BROKER_INIT_SCRIPT=/etc/init.d/cbd
 
 # Do you want me to configure your sudo ? (WARNING)

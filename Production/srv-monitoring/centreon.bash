@@ -63,6 +63,9 @@ cmake .
 make
 make install
 
+echo "create required folders"
+mkdir -p /var/log/centreon-engine
+mkdir -p /etc/centreon-engine
 
 ##################################################
 #               CENTREON BROKER
@@ -78,6 +81,9 @@ make install
 
 # hack under centos 7 ("make install" does not create "cdb" service)
 cp $BASEDIR/cdb /etc/init.d
+
+echo "create required folders"
+mkdir -p /etc/centreon-broker
 
 ##################################################
 #               CENTREON CONNECTOR

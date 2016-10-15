@@ -36,6 +36,9 @@ yum -y install gnutls-devel
 # perl
 yum -y install perl-devel perl-ExtUtils-Embed
 
+# mail
+yum -y install mailx
+
 ##################################################
 #               CENTREON ENGINE
 ##################################################

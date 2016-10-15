@@ -132,8 +132,11 @@ Alias /centreon /usr/local/centreon/www/
 </Directory>
 EOF
 
-echo "restart httpd"
-systemctl restart httpd
+echo "configure default timezone in php.ini"
+sed -i "s/^;\(date.timezone =\).*/\1Europe\/Paris/g" /etc/php.ini
 
 echo "enable write to SmartyCache directory"
 chown centreon: /usr/local/centreon/GPL_LIB/SmartyCache/ -R
+
+echo "restart httpd"
+systemctl restart httpd

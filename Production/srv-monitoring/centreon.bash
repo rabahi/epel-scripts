@@ -42,6 +42,9 @@ yum -y install mailx
 # php
 yum -y install php-pear
 
+# snmp
+yum -y install net-snmp
+
 ##################################################
 #               CENTREON ENGINE
 ##################################################

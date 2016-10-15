@@ -12,7 +12,7 @@ check_web_function ntopng http://localhost/ntopng/
 
 # check services:
 check_service httpd
-check_service mysqld
+check_service mariadb
 
 check_service ndo2db
 check_service nagios
@@ -21,4 +21,4 @@ check_service ntopng
 
 # check tcp port:
 check_tcp 80 #httpd
-check_tcp 3306 #mysqld
+check_tcp 3306 #mariadb

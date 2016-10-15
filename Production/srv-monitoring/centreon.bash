@@ -146,3 +146,9 @@ chown centreon: /usr/local/centreon/GPL_LIB/SmartyCache/ -R
 
 echo "restart httpd"
 systemctl restart httpd
+
+echo "add option to innodb_file_per_table=1 mysql"
+if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
+  sed -i 's/\(\[mysqld\]\)/\1\ninnodb_file_per_table=1/' /etc/my.cnf
+  systemctl restart mariadb.service
+fi;

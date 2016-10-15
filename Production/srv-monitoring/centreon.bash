@@ -67,6 +67,7 @@ make install
 cp $BASEDIR/cdb /etc/init.d
 
 echo "create required folders"
+mkdir -p /var/log/centreon-broker
 mkdir -p /etc/centreon-broker
 
 ##################################################

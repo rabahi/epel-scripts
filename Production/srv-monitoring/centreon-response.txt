@@ -1,0 +1,167 @@
+#########################################################################
+#             Please choose what you want to install
+#########################################################################
+
+# Do you want to install : Centreon Web Front
+PROCESS_CENTREON_WWW=1
+
+#Do you want to install : Centreon CentCore
+PROCESS_CENTCORE=1
+
+#Do you want to install : Centreon Nagios Plugins
+PROCESS_CENTREON_PLUGINS=1
+
+#Do you want to install : CentreonTrapd process
+PROCESS_CENTREON_SNMP_TRAPS=1
+
+# CentStorage ?
+PROCESS_CENTSTORAGE=1
+
+########################################################################
+#               Start CentWeb Installation
+########################################################################
+
+################# INSTALLATION PATHS
+
+# Where is your Centreon directory?
+INSTALL_DIR_CENTREON=/usr/local/centreon
+
+# Where is your Centreon log directory
+CENTREON_LOG=/var/log/centreon
+
+# Where is your Centreon etc directory
+CENTREON_ETC=/etc/centreon
+
+# Where is your Centreon binaries directory
+CENTREON_BINDIR=/usr/local/centreon/bin
+
+# Where is your Centreon data information directory
+CENTREON_DATADIR=/usr/local/centreon/data
+
+# Where is your Centreon generation_files directory
+CENTREON_GENDIR=/usr/local/centreon
+
+# Where is your Centreon variable library directory
+CENTREON_VARLIB=/var/lib/centreon	
+
+# Where is your CentPlugins Traps binary
+CENTPLUGINSTRAPS_BINDIR=/usr/local/centreon/bin
+
+################# RRDs.pm
+
+# Where is the RRD perl module installed [RRDs.pm]
+RRD_PERL=`locate RRDs.pm`
+
+# Where is PEAR [PEAR.php]
+PEAR_PATH=/usr/share/pear
+
+################# User and group centreon
+
+# What is the Centreon group ? [centreon]
+CENTREON_GROUP=centreon
+
+# What is the Centreon user ? [centreon]
+CENTREON_USER=centreon
+
+################# Montoring user
+
+# What is the Monitoring engine user ?
+MONITORINGENGINE_USER=centreon-engine
+
+# What is the Broker user ? (optional)
+BROKER_USER=centreon-broker
+
+################# Event log dir
+
+# What is the Monitoring engine log directory ?
+#### ATTENTION : mkdir -p /var/log/centreon-engine
+MONITORINGENGINE_LOG=/var/log/centreon-engine
+
+################# Plugin folders
+
+# Where is your monitoring plugins (libexec) directory ?
+PLUGIN_DIR=/usr/lib64/nagios/plugins
+
+########################################################################
+#               Configure Sudo
+########################################################################
+
+# Where is sudo configuration file
+SUDO_FILE=/etc/sudoers
+
+# What is the Monitoring engine init.d script ?
+MONITORINGENGINE_INIT_SCRIPT=/etc/init.d/centengine
+
+# What is the Monitoring engine binary ?
+MONITORINGENGINE_BINARY=/usr/local/bin/centengine
+
+# What is the Monitoring engine configuration directory ?
+#### ATTENTION : mkdir -p /etc/centreon-engine
+MONITORINGENGINE_ETC=/etc/centreon-engine
+
+# Where is the configuration directory for broker module ?
+#### ATTENTION : mkdir -p /etc/centreon-broker
+BROKER_ETC=/etc/centreon-broker
+
+# Where is the init script for broker module daemon ?
+#### ATTENTION : créer le service à la main avant 
+BROKER_INIT_SCRIPT=/etc/init.d/cbd
+
+# Do you want me to configure your sudo ? (WARNING)
+FORCE_SUDO_CONF=1
+
+########################################################################
+#               Configure Apache server
+########################################################################
+
+# Do you want to reload your Apache ?
+APACHE_RELOAD=1
+
+########################################################################
+#               Start CentStorage Installation
+########################################################################
+
+# Where is your Centreon Run Dir directory?
+CENTREON_RUNDIR=/var/run/centreon
+
+# Where is your CentStorage binary directory
+CENTSTORAGE_BINDIR=/usr/local/centreon/bin
+
+# Where is your CentStorage RRD directory
+CENTSTORAGE_RRD=/var/lib/centreon
+
+########################################################################
+#               Start CentCore Installation
+########################################################################
+
+# Where is your CentCore binary directory
+CENTCORE_BINDIR=/usr/local/centreon/bin
+
+# Do you want me to install CentCore init script ?
+CENTCORE_INSTALL_INIT=1
+
+# Do you want me to install CentCore run level
+CENTCORE_INSTALL_RUNLVL=1
+
+########################################################################
+#               Start CentPlugins Installation
+########################################################################
+
+# Where is your CentPlugins lib directory
+CENTPLUGINS_TMP=/var/lib/centreon/centplugins
+
+########################################################################
+#               Start CentPlugins Traps Installation
+########################################################################
+
+# Where is your SNMP configuration directory
+SNMP_ETC=/etc/snmp
+
+# Where is your CentreonTrapd binaries directory
+CENTREONTRAPD_BINDIR=/usr/local/centreon/bin
+
+# Do you want me to install CentreonTrapd init script ?
+CENTREONTRAPD_INSTALL_INIT=1
+
+# Do you want me to install CentreonTrapd run level ?
+CENTPLUGINSTRAPS_INSTALL_RUNLVL=1

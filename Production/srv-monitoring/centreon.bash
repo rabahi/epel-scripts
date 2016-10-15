@@ -45,6 +45,11 @@ yum -y install php-pear
 # snmp
 yum -y install net-snmp
 
+echo "create user/group centreon/centreon and centreon-engine:centreon"
+groupadd centreon
+useradd -g centreon centreon
+useradd -g centreon centreon-engine
+
 ##################################################
 #               CENTREON ENGINE
 ##################################################

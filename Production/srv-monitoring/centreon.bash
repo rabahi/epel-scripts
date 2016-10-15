@@ -54,37 +54,55 @@ useradd -g centreon centreon-broker
 ##################################################
 #               CENTREON BROKER
 ##################################################
+echo "create required folders"
+mkdir -p /var/log/centreon-broker
+mkdir -p /etc/centreon-broker
+chown centreon-broker: /var/log/centreon-broker/ -R
+chown centreon-broker: /etc/centreon-broker/ -R
+chmod 775 /var/log/centreon-broker/ -R
+chmod 775 /etc/centreon-broker/ -R
+
+echo "download and build centreon broker"
 cd /tmp
 wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-broker/centreon-broker-$CENTREON_BROKER_VERSION.tar.gz
 tar -xvf centreon-broker-$CENTREON_BROKER_VERSION.tar.gz
 rm -f centreon-broker-$CENTREON_BROKER_VERSION.tar.gz
 cd centreon-broker-$CENTREON_BROKER_VERSION/build
-cmake -DWITH_STARTUP_DIR=/etc/init.d .
+cmake                                                           \
+  -DWITH_STARTUP_DIR=/etc/init.d                                \
+  -DWITH_PREFIX_CONF=/etc/centreon-broker                       \
+  -DWITH_PREFIX_LIB=/usr/lib64/nagios                           \
+  -DWITH_PREFIX_MODULES=/usr/share/centreon/lib/centreon-broker \
+  .
 make
 make install
 
 # hack under centos 7 ("make install" does not create "cdb" service)
-cp $BASEDIR/cdb /etc/init.d
+if [ ! -f /etc/init.d/cdb ]; then
+    cp $BASEDIR/cdb /etc/init.d
+	chmod +x /etc/init.d/cdb
+fi
 
-echo "create required folders"
-mkdir -p /var/log/centreon-broker
-mkdir -p /etc/centreon-broker
 
 ##################################################
 #               CENTREON CONNECTOR
 ##################################################
+echo "download and build centreon connector"
 cd /tmp
 wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-connectors/centreon-connector-$CENTREON_CONNECTOR_VERSION.tar.gz
 tar -xvf centreon-connector-$CENTREON_CONNECTOR_VERSION.tar.gz
 rm -f centreon-connector-$CENTREON_CONNECTOR_VERSION.tar.gz
 cd centreon-connector-$CENTREON_CONNECTOR_VERSION/perl/build
-cmake .
+cmake                                                    \
+      -DWITH_PREFIX_BINARY=/usr/lib64/centreon-connector \
+	  .
 make -j 4
 make install
 
 ##################################################
 #               CENTREON CLIB
 ##################################################
+echo "download and build centreon clib"
 cd /tmp
 wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-clib/centreon-clib-$CENTREON_CLIB_VERSION.tar.gz
 tar -xvf centreon-clib-$CENTREON_CLIB_VERSION.tar.gz
@@ -98,18 +116,27 @@ ln -s /usr/local/lib/libcentreon_clib.so /lib64/libcentreon_clib.so
 ##################################################
 #               CENTREON ENGINE
 ##################################################
+echo "create required folders"
+mkdir -p /var/log/centreon-engine
+mkdir -p /etc/centreon-engine
+chown centreon-engine: /var/log/centreon-engine/ -R
+chown centreon-engine: /etc/centreon-engine/ -R
+chmod 775 /var/log/centreon-engine/ -R
+chmod 775 /etc/centreon-engine/ -R
+
+echo "download and build centreon engine"
 cd /tmp
 wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-engine/centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
 tar -xvf centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
 rm -f centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
 cd centreon-engine-$CENTREON_ENGINE_VERSION/build
-cmake .
+cmake                                             \
+     -DWITH_PREFIX_BIN=/usr/sbin                  \
+	 -DWITH_RW_DIR=/var/lib64/centreon-engine/rw  \
+	 -DWITH_PREFIX_LIB=/usr/lib64/centreon-engine \
+	 .
 make
 make install
-
-echo "create required folders"
-mkdir -p /var/log/centreon-engine
-mkdir -p /etc/centreon-engine
 
 ##################################################
 #               CENTREON WEB
@@ -148,7 +175,7 @@ chown centreon: /usr/local/centreon/GPL_LIB/SmartyCache/ -R
 echo "restart httpd"
 systemctl restart httpd
 
-echo "add option to innodb_file_per_table=1 mysql"
+echo "add option 'innodb_file_per_table=1' to /etc/my.cnf"
 if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
   sed -i 's/\(\[mysqld\]\)/\1\ninnodb_file_per_table=1/' /etc/my.cnf
   systemctl restart mariadb.service

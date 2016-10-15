@@ -52,22 +52,6 @@ useradd -g centreon centreon-engine
 useradd -g centreon centreon-broker
 
 ##################################################
-#               CENTREON ENGINE
-##################################################
-cd /tmp
-wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-engine/centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
-tar -xvf centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
-rm -f centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
-cd centreon-engine-$CENTREON_ENGINE_VERSION/build
-cmake .
-make
-make install
-
-echo "create required folders"
-mkdir -p /var/log/centreon-engine
-mkdir -p /etc/centreon-engine
-
-##################################################
 #               CENTREON BROKER
 ##################################################
 cd /tmp
@@ -109,6 +93,22 @@ cmake .
 make
 make install
 ln -s /usr/local/lib/libcentreon_clib.so /lib64/libcentreon_clib.so
+
+##################################################
+#               CENTREON ENGINE
+##################################################
+cd /tmp
+wget https://s3-eu-west-1.amazonaws.com/centreon-download/public/centreon-engine/centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
+tar -xvf centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
+rm -f centreon-engine-$CENTREON_ENGINE_VERSION.tar.gz
+cd centreon-engine-$CENTREON_ENGINE_VERSION/build
+cmake .
+make
+make install
+
+echo "create required folders"
+mkdir -p /var/log/centreon-engine
+mkdir -p /etc/centreon-engine
 
 ##################################################
 #               CENTREON WEB

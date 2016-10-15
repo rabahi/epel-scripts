@@ -99,4 +99,5 @@ rm -f centreon/centreon-web-$CENTREON_WEB_VERSION.tar.gz
 cd  centreon-web-$CENTREON_WEB_VERSION
 
 # install centreon web :
+dos2unix $BASEDIR/centreon-response.txt
 ./install.sh -f $BASEDIR/centreon-response.txt

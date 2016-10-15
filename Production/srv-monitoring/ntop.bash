@@ -20,7 +20,7 @@ echo "install ntop and redis"
 yum -y install redis ntopng hiredis-devel
 
 cat >> /etc/ntopng/ntopng.conf << "EOF"
---http-prefix "/ntopng/"
+--http-prefix /ntopng
 EOF
 
 cat > /etc/httpd/conf.d/ntopng.conf << "EOF"

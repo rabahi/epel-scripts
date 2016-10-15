@@ -119,7 +119,7 @@ dos2unix $BASEDIR/centreon-response.txt
 
 
 ##################################################
-#               APACHE CONFIGURATION
+#  POST INSTALLATION CONFIGURATION
 ##################################################
 
 echo "configure apache for apache 2.4"
@@ -134,3 +134,6 @@ EOF
 
 echo "restart httpd"
 systemctl restart httpd
+
+echo "enable write to SmartyCache directory"
+chown centreon: /usr/local/centreon/GPL_LIB/SmartyCache/ -R

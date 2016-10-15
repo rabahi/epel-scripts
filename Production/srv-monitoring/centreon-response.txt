@@ -21,6 +21,9 @@ PROCESS_CENTSTORAGE=1
 #               Start CentWeb Installation
 ########################################################################
 
+# Where is mail binary
+BIN_MAIL=/usr/bin/mail
+
 ################# INSTALLATION PATHS
 
 # Where is your Centreon directory?

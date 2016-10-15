@@ -93,7 +93,7 @@ case $g_server in
       shift
       ;;
   "Production/srv-monitoring")
-      scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "setup-glpi.bash")
+      scripts=("nagios.bash" "ndoutils.bash" "centreon.bash" "ocsreports.bash" "ntop.bash" "setup-glpi.bash")
       shift
       ;;
   "Production/srv-redmine")

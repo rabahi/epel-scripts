@@ -40,7 +40,7 @@ yum -y install perl-devel perl-ExtUtils-Embed
 yum -y install mailx
 
 # php
-yum -y install php php-pear
+yum -y install php php-pear php-ldap php-intl
 
 # snmp
 yum -y install net-snmp

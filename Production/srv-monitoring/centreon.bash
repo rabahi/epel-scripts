@@ -39,6 +39,9 @@ yum -y install perl-devel perl-ExtUtils-Embed
 # mail
 yum -y install mailx
 
+# php
+yum -y install php-pear
+
 ##################################################
 #               CENTREON ENGINE
 ##################################################

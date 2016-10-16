@@ -3,7 +3,7 @@
 ##################################
 
 echo "install rsyslog"
-yum install rsyslog*
+yum -y install rsyslog*
 
 echo "start nfs on startup"
 systemctl enable rsyslog.service

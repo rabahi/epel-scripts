@@ -19,10 +19,6 @@ EOF
 echo "install ntop and redis"
 yum -y install redis ntopng hiredis-devel
 
-cat >> /etc/ntopng/ntopng.conf << "EOF"
---http-prefix /ntopng
-EOF
-
 cat > /etc/httpd/conf.d/ntopng.conf << "EOF"
 ProxyPreserveHost On
 Proxypass /ntopng/ http://localhost:3000/ntopng/
@@ -38,6 +34,14 @@ echo "start service ntopng and redis"
 systemctl restart httpd.service
 systemctl start ntopng.service
 systemctl start redis.service
+
+echo "configure /etc/ntopng/ntopng.conf, created when service ntopng started".
+cat >> /etc/ntopng/ntopng.conf << "EOF"
+--http-prefix /ntopng
+EOF
+
+echo "restart service ntopng"
+systemctl restart ntopng.service
 
 myip=`hostname -I`
 echo "Now meet you there: http://$myip/ntopng"

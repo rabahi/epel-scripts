@@ -14,11 +14,11 @@ mysql --user=root --password=root < /usr/share/doc/rsyslog-*/mysql-createDB.sql
 mysql --user=root --password=root -e "CREATE USER 'rsyslog'@'localhost' IDENTIFIED BY 'rsyslog';"
 mysql --user=root --password=root -e "use Syslog; GRANT ALL PRIVILEGES ON Syslog.* TO 'rsyslog'@'localhost' WITH GRANT OPTION;"
 
-sed "s/#\(\$ModLoad imudp\)/\1/" /etc/rsyslog.conf
-sed "s/#\(\$UDPServerRun 514\)/\1/" /etc/rsyslog.conf
+sed -i "s/#\(\$ModLoad imudp\)/\1/" /etc/rsyslog.conf
+sed -i "s/#\(\$UDPServerRun 514\)/\1/" /etc/rsyslog.conf
 
-sed "s/#\(\$ModLoad imtcp\)/\1/" /etc/rsyslog.conf
-sed "s/#\(\$InputTCPServerRun 514\)/\1/" /etc/rsyslog.conf
+sed -i "s/#\(\$ModLoad imtcp\)/\1/" /etc/rsyslog.conf
+sed -i "s/#\(\$InputTCPServerRun 514\)/\1/" /etc/rsyslog.conf
 
 cat >> /etc/rsyslog.conf << "EOF"
 $ModLoad ommysql
@@ -26,8 +26,8 @@ $ModLoad ommysql
 EOF
 
 echo "open port 514/tcp and 514 udp"
-firewall-cmd --zone=public --add-port=514/tcp
-firewall-cmd --zone=public --add-port=514/udp
+firewall-cmd --permanent --add-port=514/tcp
+firewall-cmd --permanent --add-port=514/udp
 
 echo "start service"
 systemctl start rsyslog.service

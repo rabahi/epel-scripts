@@ -12,17 +12,16 @@ mv /etc/samba/smb.conf /etc/samba/smb.conf.backup
  
 echo "create smb.conf. Note: this example is not secure"
 cat > /etc/samba/smb.conf << "EOF"
- 
 [global]
 workgroup = MYWORKGROUP
 netbios name = centos
 server string = Samba Server  %v
- 
+
 #security mode:
-security = share
+security = user
 domain logons = no
 encrypt passwords = yes
- 
+
 dns proxy = no
 time server = yes
 os level = 255
@@ -32,8 +31,7 @@ hosts allow = a.b.c.
 hosts deny = ALL
 interfaces = lo eth0
 bind interfaces only = Yes
-socket options = TCP_NODELAY SO_RCVBUF=8192 SO_SNDBUF=8192
- 
+
 # everyone can read system.
 [system]
 comment = The system files

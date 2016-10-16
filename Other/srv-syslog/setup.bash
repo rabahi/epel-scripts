@@ -9,7 +9,7 @@ echo "start nfs on startup"
 systemctl enable rsyslog.service
 
 echo "configure rsyslog"
-mysql --user=root --password=root < /usr/share/doc/rsyslog-mysql-8.18.0/createDB.sql
+mysql --user=root --password=root < /usr/share/doc/rsyslog-*/mysql-createDB.sql
 
 mysql --user=root --password=root -e "CREATE USER 'rsyslog'@'localhost' IDENTIFIED BY 'rsyslog';"
 mysql --user=root --password=root -e "use Syslog; GRANT ALL PRIVILEGES ON Syslog.* TO 'rsyslog'@'localhost' WITH GRANT OPTION;"

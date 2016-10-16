@@ -57,7 +57,7 @@ cat > /etc/httpd/conf.d/repo.conf << "EOF"
 <Directory /var/www/html/>
     Options Indexes
     Options Indexes FollowSymLinks
-    Allow from all
+    Require all granted
 </Directory>
 EOF
 

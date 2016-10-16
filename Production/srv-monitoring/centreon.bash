@@ -180,3 +180,15 @@ if ! grep -q innodb_file_per_table=1 /etc/my.cnf; then
   sed -i 's/\(\[mysqld\]\)/\1\ninnodb_file_per_table=1/' /etc/my.cnf
   systemctl restart mariadb.service
 fi;
+
+echo "create databases and grant amm privileges to user/password centreon/centreon":
+mysql --user=root --password=root -e "CREATE USER 'centreon'@'localhost' IDENTIFIED BY 'centreon';"
+mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS centreon;"
+mysql --user=root --password=root -e "use centreon; GRANT ALL PRIVILEGES ON centreon.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
+
+mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS centreon_status;"
+mysql --user=root --password=root -e "use centreon_status; GRANT ALL PRIVILEGES ON centreon_status.* TO 'centreon'@'localhost' WITH GRANT OPTION;"
+
+## meet you
+myip=`hostname -I`
+echo "Now meet you here: http://$myip/centreon/"

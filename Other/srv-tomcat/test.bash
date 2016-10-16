@@ -3,6 +3,9 @@
 # load check_functions.
 . ./check_functions/check_functions.bash
 
+#wait program started:
+wait_started tomcat /opt/java/apache-tomcat/logs/catalina.out 20
+
 # check commands:
 check_command java
 

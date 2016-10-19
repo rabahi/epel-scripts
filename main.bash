@@ -89,7 +89,7 @@ case $g_server in
       shift
       ;;
   "Production/srv-intranet")
-      scripts=("wordpress.bash")
+      scripts=("wordpress.bash" "mediawiki.bash")
       shift
       ;;
   "Production/srv-monitoring")

@@ -5,6 +5,7 @@
 
 # check pages
 check_web_function WordPress http://localhost/wordpress
+check_web_function mediawiki http://localhost/mediawiki
 
 # check services:
 check_service httpd

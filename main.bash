@@ -32,6 +32,7 @@ display_usage() {
   echo -e "\t-Network/srv-vpn"
   echo -e "\t-Other/srv-ftp"
   echo -e "\t-Other/srv-nfs"
+  echo -e "\t-Other/srv-nodejs"
   echo -e "\t-Other/srv-samba"
   echo -e "\t-Other/srv-snmp"
   echo -e "\t-Other/srv-syslog"
@@ -146,6 +147,10 @@ case $g_server in
       ;;
   "Other/srv-nfs")    
       scripts=("setup-nfs.bash")
+      shift
+      ;;
+  "Other/srv-nodejs")    
+      scripts=("setup-nodejs.bash")
       shift
       ;;
   "Prerequistes")    

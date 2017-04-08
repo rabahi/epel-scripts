@@ -7,7 +7,7 @@
 check_service rsyslog
 
 # check tcp port:
-check_tcp 541 #rsyslog
+check_tcp 514 #rsyslog
 
 # check pages
 check_web_function LogAnalyzer http://localhost/loganalyzer

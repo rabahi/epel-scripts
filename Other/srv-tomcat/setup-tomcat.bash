@@ -5,11 +5,11 @@ yum -y install java-1.8.0-openjdk
 
 echo "install tomcat"
 mkdir -p /opt/java
-wget -O /opt/java/apache-tomcat-8.5.5.tar.gz http://apache.mindstudios.com/tomcat/tomcat-8/v8.5.5/bin/apache-tomcat-8.5.5.tar.gz
+wget -O /opt/java/apache-tomcat-8.5.13.tar.gz http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.13/bin/apache-tomcat-8.5.13.tar.gz
 cd /opt/java
-tar xvfz apache-tomcat-8.5.5.tar.gz
+tar xvfz apache-tomcat-8.5.13.tar.gz
 
-ln -s /opt/java/apache-tomcat-8.5.5 /opt/java/apache-tomcat
+ln -s /opt/java/apache-tomcat-8.5.13 /opt/java/apache-tomcat
 
 echo "create service /etc/init.d/tomcat"
 cat > /etc/init.d/tomcat << "EOF"

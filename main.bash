@@ -102,7 +102,7 @@ case $g_server in
       shift
       ;;
   "SCM/srv-scm")
-      scripts=("subversion.bash" "git.bash" "hg.bash" "gitlab.bah")
+      scripts=("subversion.bash" "git.bash" "hg.bash" "gitlab.bash")
       shift
       ;;
   "Network/srv-mail")

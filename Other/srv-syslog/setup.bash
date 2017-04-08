@@ -37,14 +37,18 @@ systemctl start rsyslog.service
 #       LOG ANALYZER
 ##################################
 
+echo "install prerequistes"
+yum -y install php
+
 echo "download loganalyzer"
-wget http://download.adiscon.com/loganalyzer/loganalyzer-4.1.3.tar.gz -O /tmp/loganalyzer-4.1.3.tar.gz
+wget http://download.adiscon.com/loganalyzer/loganalyzer-4.1.5.tar.gz -O /tmp/loganalyzer-4.1.5.tar.gz
 
 echo "configure loganalyzer"
 cd /tmp
-tar xvfz loganalyzer-4.1.3.tar.gz
+tar xvfz loganalyzer-4.1.5.tar.gz
 
-mv loganalyzer-4.1.3/src/* /var/www/html/loganalyzer
+mkdir -p /var/www/html/loganalyzer
+mv /tmp/loganalyzer-4.1.5/src/* /var/www/html/loganalyzer
 touch /var/www/html/loganalyzer/config.php
 chown apache:apache /var/www/html/loganalyzer/config.php
 chmod 755 /var/www/html/loganalyzer/config.php
@@ -52,6 +56,9 @@ chmod 755 /var/www/html/loganalyzer/config.php
 touch /var/log/syslog
 chown apache:apache /var/log/syslog
 chmod 755 /var/log/syslog
+
+# restart httpd
+systemctl restart httpd.service
 
 myip=`hostname -I`
 echo "Now meet you here: http://$myip/loganalyzer"

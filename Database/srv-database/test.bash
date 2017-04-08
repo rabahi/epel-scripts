@@ -4,12 +4,12 @@
 . ./check_functions/check_functions.bash
 
 # check services
-check_service mysqld
-check_service postgres
+check_service mariadb
+check_service postgresql
 
 # check tcp port:
-check_tcp 3306 #mysqld
-check_tcp 5432 #postgres
+check_tcp 3306 #mariadb
+check_tcp 5432 #postgresql
 
 # check pages
 check_web_function phpMyAdmin "http://localhost/phpMyAdmin/ --http-user=root --http-password=root"

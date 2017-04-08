@@ -64,9 +64,10 @@ sed -i "s/^URL:/URL:            http:\/\/mysite\/hello.html/g" hello.spec
 sed -i "s/^Source0:/Source0:        ./g" hello.spec
 sed -i "s/^\(BuildRequires:\)/#\1/g" hello.spec
 sed -i "s/^\(Requires:\)/#\1/g" hello.spec
+sed "s/^\%description/\%description        Desc to say that my newpackage rocks\!/g" hello.spec
 sed -i "s/^\(\%prep\)/#\1/g" hello.spec
 sed -i "s/^\(\%doc\)/\1\\n\/usr\/bin\/hello/g" hello.spec
-sed -i "s/^\(\%changelog\)/\1\\n* Tue May 02 2014 marc rabahi <marc.rabahi@gmail.com> 1.0-1\n- my hello world change log./g" hello.spec
+sed -i "s/^\(\%changelog\)/\1\\n* Tue May 06 2014 marc rabahi <marc.rabahi@gmail.com> 1.0-1\n- my hello world change log./g" hello.spec
 
 ##################################################
 #      BUILD RPM 

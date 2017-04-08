@@ -32,6 +32,9 @@ sed -i "s/#broker_module=\/somewhere\/module1.o/broker_module=\/usr\/lib64\/nagi
 
 chown nagios:nagios /etc/nagios/ -R
 
-systemctl restart ndo2db.service
-systemctl restart nagios.service
+echo "activate ndo2db at startup and start it"
+systemctl enable ndo2db.service
+systemctl stop ndo2db.service
+systemctl start ndo2db.service
 
+systemctl restart nagios.service

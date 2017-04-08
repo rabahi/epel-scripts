@@ -4,8 +4,8 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://www.redmine.org/releases/redmine-3.3.1.tar.gz
-redmine_version=redmine-3.3.1
+redmine_install_url=http://www.redmine.org/releases/redmine-3.3.2.tar.gz
+redmine_version=redmine-3.3.2
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -77,8 +77,8 @@ chmod 777 /opt/redmine/redmine/tmp/ -R
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
 cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.0.30/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.0.30
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.1.2/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.1.2
 PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
 
 

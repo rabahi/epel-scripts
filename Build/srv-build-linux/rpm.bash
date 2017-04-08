@@ -88,6 +88,6 @@ rpmbuild -ba hello.spec
 #      CHECK RPM 
 ##################################################
 echo "Now check commons errors in RPM packages (rpm software, sources rpm)"
-rpmlint ~/rpmbuild/RPMS/x86_64/hello-1.0-1.el7.x86_64.rpm
-rpmlint ~/rpmbuild/SRPMS/hello-1.0-1.el7.src.rpm
+rpmlint ~/rpmbuild/RPMS/x86_64/hello-1.0-1.el7.centos.x86_64.rpm
+rpmlint ~/rpmbuild/SRPMS/hello-1.0-1.el7.centos.src.rpm
 

@@ -33,7 +33,7 @@ Description=my node.js service
 WantedBy=multi-user.target
  
 [Service]
-ExecStart=/usr/local/bin/node /var/www/nodejs/server.js
+ExecStart=/usr/bin/node /var/www/nodejs/server.js
 Restart=on-success
 StandardOutput=syslog
 StandardError=syslog

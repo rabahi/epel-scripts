@@ -7,6 +7,7 @@
 check_web_function subversion http://localhost/svn/
 check_web_function git http://localhost/git/
 check_web_function hg http://localhost/hg/
+check_web_function GitLab http://localhost/gitlab/
 
 # check services:
 check_service httpd

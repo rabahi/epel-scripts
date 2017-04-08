@@ -7,7 +7,5 @@ systemctl enable snmpd.service
 echo "start service"
 systemctl start snmpd.service
  
-echo "open snmp ports (ports 161 and 162)"
+echo "open snmp port 161/tcp"
 firewall-cmd --permanent --add-port=161/tcp
-firewall-cmd --permanent --add-port=162/tcp
-

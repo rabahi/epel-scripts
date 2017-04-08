@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo "install gitlab"
+curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+yum -y install gitlab-ce
+gitlab-ctl reconfigure
+
+echo "configure external url for gitlab"
+sed -i "s/^\(external_url\s*\).*/\1'http:\/\/localhost:8080\/gitlab'/" /etc/gitlab/gitlab.rb
+gitlab-ctl reconfigure
+
+echo "configure httpd (create /etc/httpd/conf.d/gitlab.conf)"
+cat > /etc/httpd/conf.d/gitlab.conf << "EOF"
+ProxyPreserveHost On
+Proxypass /gitlab http://localhost:8080/gitlab
+Proxypassreverse /gitlab http://localhost:8080/gitlab
+ProxyRequests     Off
+EOF
+
+echo "restart httpd"
+systemctl restart httpd.service
+
+
+myip=`hostname -I`
+echo "Now meet you here: http://$myip/gitlab"

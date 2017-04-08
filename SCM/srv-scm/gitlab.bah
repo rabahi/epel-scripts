@@ -7,6 +7,7 @@ gitlab-ctl reconfigure
 
 echo "configure external url for gitlab"
 sed -i "s/^\(external_url\s*\).*/\1'http:\/\/localhost:8080\/gitlab'/" /etc/gitlab/gitlab.rb
+sed -i "s/^#\s*\(nginx\['enable'\]\s*=\s*\).*/\1false/" /etc/gitlab/gitlab.rb 
 gitlab-ctl reconfigure
 
 echo "configure httpd (create /etc/httpd/conf.d/gitlab.conf)"

@@ -5,6 +5,7 @@ cat > /var/www/html/portal.inc.php << "EOF"
 <ul>
   <li><a href="/svn/">Subversion</a></li>
   <li><a href="/git/">Git</a></li>
+  <li><a href="/gitlab/">GitLab (login:root password: 5iveL!fe)</a></li>
   <li><a href="/hg/">Mercurial</a></li>
 </ul>
 EOF

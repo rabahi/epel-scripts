@@ -7,5 +7,4 @@
 check_service snmpd
 
 # check tcp port:
-check_tcp 161  
-check_tcp 162  
+check_tcp 161

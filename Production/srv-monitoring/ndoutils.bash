@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum -y install ndoutils ndoutils-mysql
+dnf -y install ndoutils ndoutils-mysql
 
 echo "update /etc/nagios/ndomod.cfg"
 sed -i "s/^\(instance_name=\).*/\1Central/g" /etc/nagios/ndomod.cfg

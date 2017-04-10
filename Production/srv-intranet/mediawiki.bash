@@ -13,7 +13,7 @@ database_password=mediawiki
 #             INSTALL MEDIAWIKI
 ##################################################
 echo "install prerequistes"
-yum -y install php-mbstring php-xml php-intl php-gd texlive php-mysqli php-xcache
+dnf -y install php-mbstring php-xml php-intl php-gd texlive php-mysqli php-xcache
 
 
 echo "create database $database_name, user/password $database_username/$database_password":

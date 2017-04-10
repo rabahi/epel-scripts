@@ -2,7 +2,7 @@
 
 echo "install gitlab"
 curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
-yum -y install gitlab-ce
+dnf -y install gitlab-ce
 gitlab-ctl reconfigure
 
 echo "configure external url for gitlab"

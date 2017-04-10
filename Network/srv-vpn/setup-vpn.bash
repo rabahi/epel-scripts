@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install openvpn"
-yum -y install openvpn
+dnf -y install openvpn
 
 echo "start service openvpn at boot"
 systemctl enable openvpn@server.service

@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install tools subversion, mod_dav_svn"
-yum -y install subversion mod_dav_svn
+dnf -y install subversion mod_dav_svn
  
 echo "create trees in /opt/svn"
 mkdir -p /opt/svn/repos

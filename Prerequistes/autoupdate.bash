@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo "install yum-cron"
-yum -y install yum-cron
+echo "install dnf-cron"
+dnf -y install dnf-cron
 
-echo "activate yum-cron at startup"
-systemctl enable yum-cron.service
+echo "activate dnf-cron at startup"
+systemctl enable dnf-cron.service
 
 echo "start service"
-systemctl start yum-cron.service
+systemctl start dnf-cron.service

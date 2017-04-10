@@ -11,7 +11,7 @@
 ##################################################
 
 echo "install openldap"
-yum -y install openldap-servers openldap-clients phpldapadmin
+dnf -y install openldap-servers openldap-clients phpldapadmin
 
 
 ##################################################

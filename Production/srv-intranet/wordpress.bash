@@ -14,7 +14,7 @@ wp_password=wordpress
 ##################################################
 
 echo "install wordpress"
-yum -y install wordpress
+dnf -y install wordpress
  
 echo "create database $wp_database_name, user/password $wp_username/$wp_password":
 mysql --user=root --password=root -e "CREATE USER '$wp_username'@'localhost' IDENTIFIED BY '$wp_password';"

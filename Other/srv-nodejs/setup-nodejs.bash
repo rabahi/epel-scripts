@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install prerequistes"
-yum -y install nodejs
+dnf -y install nodejs
 
 echo "create working directory"
 mkdir -p /var/www/nodejs

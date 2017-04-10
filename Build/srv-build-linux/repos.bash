@@ -11,7 +11,7 @@ REPOSITORY_PATH=/var/www/html/rpm
 ##################################################
 
 echo "install createrepo repoview"
-yum -y install createrepo repoview
+dnf -y install createrepo repoview
 
 echo "create repo file"
 mkdir -p $REPOSITORY_PATH

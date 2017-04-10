@@ -1,5 +1,5 @@
 echo "install nfs tools"
-yum -y install nfs-utils nfs-utils-lib
+dnf -y install nfs-utils nfs-utils-lib
  
 echo "start nfs on startup"
 systemctl enable rpcbind.service

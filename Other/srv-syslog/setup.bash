@@ -3,7 +3,7 @@
 ##################################
 
 echo "install rsyslog"
-yum -y install rsyslog*
+dnf -y install rsyslog*
 
 echo "start nfs on startup"
 systemctl enable rsyslog.service
@@ -38,7 +38,7 @@ systemctl start rsyslog.service
 ##################################
 
 echo "install prerequistes"
-yum -y install php
+dnf -y install php
 
 echo "download loganalyzer"
 wget http://download.adiscon.com/loganalyzer/loganalyzer-4.1.5.tar.gz -O /tmp/loganalyzer-4.1.5.tar.gz

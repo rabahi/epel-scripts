@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install bind"
-yum -y install  bind bind-libs bind-utils
+dnf -y install  bind bind-libs bind-utils
  
 echo "start service named at boot"
 systemctl enable named.service

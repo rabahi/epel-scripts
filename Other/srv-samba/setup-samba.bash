@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install samba"
-yum -y install samba
+dnf -y install samba
  
 echo "activate samba on boot"
 systemctl enable smb.service

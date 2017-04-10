@@ -16,11 +16,12 @@ check_service firewalld
 check_service ntpd
 check_service httpd
 check_service mariadb
-check_service yum-cron
+check_service dnf-cron
 check_service nrpe
 check_service webmin
 
 # check commands:
+check_command dnf
 check_command firewall-cmd
 check_command locate
 check_command wget

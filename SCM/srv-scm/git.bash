@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install tools git gitweb git-daemon"
-yum -y install git gitweb git-daemon
+dnf -y install git gitweb git-daemon
  
 echo "create trees in /opt/git"
 mkdir -p /opt/git/cgi-bin

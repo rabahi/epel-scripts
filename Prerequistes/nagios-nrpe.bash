@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install nrpe"
-yum -y install nrpe nagios-plugins-all
+dnf -y install nrpe nagios-plugins-all
 
 echo "start nrpe on boot"
 systemctl enable nrpe.service

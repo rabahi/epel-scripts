@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install dhcp"
-yum -y install dhcp
+dnf -y install dhcp
  
 echo "start service dhcpd at boot"
 systemctl enable dhcpd.service

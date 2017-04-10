@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install webmin"
-yum -y install webmin
+dnf -y install webmin
 
 myip=`hostname -I`
 

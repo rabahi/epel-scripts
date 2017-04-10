@@ -75,7 +75,7 @@ do
 done
 
 
-prerequistes_scripts=("external-repos.bash" "firewall.bash" "network.bash" "ntp.bash" "selinux.bash" "usefullcmd.bash" "httpd.bash" "../Database/srv-database/mariadb.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash" "portal.bash")
+prerequistes_scripts=("dnf.bash" "external-repos.bash" "firewall.bash" "network.bash" "ntp.bash" "selinux.bash" "usefullcmd.bash" "httpd.bash" "../Database/srv-database/mariadb.bash" "autoupdate.bash" "nagios-nrpe.bash" "webmin.bash" "portal.bash")
 case $g_server in
   "Build/srv-build-linux")
       scripts=("mock.bash" "rpm.bash" "repos.bash")

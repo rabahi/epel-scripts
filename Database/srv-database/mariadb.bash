@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install mariadb-server"
-yum -y install mariadb-server phpMyAdmin
+dnf -y install mariadb-server phpMyAdmin
 
 echo "activate mariadb at startup"
 systemctl enable mariadb.service

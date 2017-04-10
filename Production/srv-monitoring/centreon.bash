@@ -22,28 +22,28 @@ BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ##################################################
 
 # cmake, gcc
-yum -y install cmake make gcc gcc-c++
+dnf -y install cmake make gcc gcc-c++
 
 # qt
-yum -y install qt qt-devel
+dnf -y install qt qt-devel
 
 # librrd
-yum -y install rrdtool rrdtool-devel
+dnf -y install rrdtool rrdtool-devel
 
 # gnutls
-yum -y install gnutls-devel
+dnf -y install gnutls-devel
 
 # perl
-yum -y install perl-devel perl-ExtUtils-Embed
+dnf -y install perl-devel perl-ExtUtils-Embed
 
 # mail
-yum -y install mailx
+dnf -y install mailx
 
 # php
-yum -y install php php-pear php-ldap php-intl
+dnf -y install php php-pear php-ldap php-intl
 
 # snmp
-yum -y install net-snmp
+dnf -y install net-snmp
 
 echo "create users abd groups"
 groupadd centreon

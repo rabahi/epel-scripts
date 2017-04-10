@@ -1,5 +1,5 @@
 echo "install snmp"
-yum -y install net-snmp net-snmp-utils
+dnf -y install net-snmp net-snmp-utils
  
 echo "start snmp on startup"
 systemctl enable snmpd.service

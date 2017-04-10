@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install tools nagios"
-yum -y install nagios nagios-devel nagios-plugins*
+dnf -y install nagios nagios-devel nagios-plugins*
 
 echo "enable start nagios on boot"
 systemctl enable nagios.service

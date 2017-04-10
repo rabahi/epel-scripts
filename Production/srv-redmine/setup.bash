@@ -16,7 +16,7 @@ mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS redmine;"
 mysql --user=root --password=root -e "use redmine; GRANT ALL PRIVILEGES ON redmine.* TO 'redmine'@'localhost' WITH GRANT OPTION;"
 
 echo "1 - install rvm (Ruby Version Manager)"
-yum -y install curl
+dnf -y install curl
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
 
@@ -35,11 +35,11 @@ rvm rubygems current
 echo "install bundle and nokogiri"
 gem install bundle --no-rdoc --no-ri
 
-#yum -y install libxml2-devel libxslt-devel
+#dnf -y install libxml2-devel libxslt-devel
 #gem install nokogiri -v '1.5.10' --no-rdoc --no-ri
 
 echo "install passenger"
-yum -y install curl-devel httpd-devel
+dnf -y install curl-devel httpd-devel
 gem install passenger --no-rdoc --no-ri
 passenger-install-apache2-module -a
 
@@ -57,7 +57,7 @@ sed -i "s/username: root/username: redmine/g" /opt/redmine/redmine/config/databa
 sed -i "s/password: \"\"/password: redmine/g" /opt/redmine/redmine/config/database.yml
 
 echo "install redmine"
-yum -y install mariadb-devel ImageMagick-devel freetds-devel
+dnf -y install mariadb-devel ImageMagick-devel freetds-devel
 cd /opt/redmine/redmine
 bundle install
 

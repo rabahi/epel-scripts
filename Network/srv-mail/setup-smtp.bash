@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "install postfix"
-yum -y install postfix
-yum -y remove sendmail # make postfix the default MTA
+dnf -y install postfix
+dnf -y remove sendmail # make postfix the default MTA
  
 echo "start service"
 systemctl start postfix.service

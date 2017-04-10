@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install glpi"
-yum -y install glpi*
+dnf -y install glpi*
  
 echo "create database glpi, user/password glpi/glpi":
 mysql --user=root --password=root -e "CREATE USER 'glpi'@'localhost' IDENTIFIED BY 'glpi';"

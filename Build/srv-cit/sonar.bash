@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "import sonar repository"
-sudo wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+sudo wget -O /etc/dnf.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
 
 echo "create database sonar, user/password sonar/sonar":
 mysql --user=root --password=root -e "CREATE USER 'sonar'@'localhost' IDENTIFIED BY 'sonar';"
@@ -9,7 +9,7 @@ mysql --user=root --password=root -e "CREATE DATABASE IF NOT EXISTS sonar;"
 mysql --user=root --password=root -e "use sonar; GRANT ALL PRIVILEGES ON sonar.* TO 'sonar'@'localhost' WITH GRANT OPTION;"
 
 echo "install sonar"
-yum -y install sonar
+dnf -y install sonar
 
 echo "start sonar on boot"
 systemctl enable sonar.service

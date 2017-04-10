@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install mock"
-yum -y install mock
+dnf -y install mock
  
 echo "only user who belongs to the group 'mock' can use mock. We add the user 'builder' to the mock group"
 echo " 1. create user builder"

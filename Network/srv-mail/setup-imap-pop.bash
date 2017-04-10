@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install dovecot"
-yum -y install dovecot
+dnf -y install dovecot
 
 echo "configure dovecot"
 sed -i "s/^#\(protocols\s*=\)/\1/" /etc/dovecot/dovecot.conf

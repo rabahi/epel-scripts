@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install vsftpd"
-yum -y install vsftpd pam_mysql
+dnf -y install vsftpd pam_mysql
 
 echo "add service vsftp (port 21) to firewall"
 firewall-cmd --permanent --add-service vsftp

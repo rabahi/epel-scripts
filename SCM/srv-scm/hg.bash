@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "install tools mercurial, mod_wsgi"
-yum -y install mercurial mod_wsgi
+dnf -y install mercurial mod_wsgi
  
 echo "create trees in /opt/hg"
 mkdir -p /opt/hg/cgi-bin

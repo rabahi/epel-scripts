@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install java"
-yum -y install java-1.8.0-openjdk
+dnf -y install java-1.8.0-openjdk
 
 echo "install tomcat"
 mkdir -p /opt/java

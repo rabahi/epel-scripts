@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "import sonar repository"
-sudo wget -O /etc/dnf.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
+sudo wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
 
 echo "create database sonar, user/password sonar/sonar":
 mysql --user=root --password=root -e "CREATE USER 'sonar'@'localhost' IDENTIFIED BY 'sonar';"

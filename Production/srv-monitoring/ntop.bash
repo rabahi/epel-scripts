@@ -1,7 +1,7 @@
 #!/bin/bash
  
 echo "add ntop repository"
-cat > /etc/dnf.repos.d/ntop.repo << "EOF"
+cat > /etc/yum.repos.d/ntop.repo << "EOF"
 [ntop]
 name=ntop packages
 baseurl=http://www.nmon.net/centos-stable/$releasever/$basearch/

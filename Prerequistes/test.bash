@@ -16,7 +16,8 @@ check_service firewalld
 check_service ntpd
 check_service httpd
 check_service mariadb
-check_service dnf-cron
+check_service yum-cron
+check_service dnf-automatic.timer
 check_service nrpe
 check_service webmin
 

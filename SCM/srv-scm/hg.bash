@@ -17,8 +17,8 @@ sed -i "s/^\(config\s*=\).*/\1\"\/opt\/hg\/cgi-bin\/hgweb.config\"/" /opt/hg/cgi
 
 echo "create file /opt/hg/cgi-bin/hgweb.config"
 cat > /opt/hg/cgi-bin/hgweb.config << "EOF"
-[collections]
-/opt/hg/repos = /opt/hg/repos
+[paths]
+myrepos = /opt/hg/repos/*
  
 [web]
 style = monoblue
@@ -56,8 +56,9 @@ chmod -R 750 /opt/hg/repos/$1
 EOF
 chmod a+x /opt/hg/bin/create.sh
  
-echo "create a sample repository named 'myrepos'"
+echo "create two samples repositories named 'myrepos' and 'myrepos2'"
 /opt/hg/bin/create.sh myrepos
+/opt/hg/bin/create.sh myrepos2
  
 echo "Now restart httpd"
 systemctl restart httpd.service

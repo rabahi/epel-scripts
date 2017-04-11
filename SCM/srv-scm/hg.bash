@@ -18,10 +18,10 @@ sed -i "s/^\(config\s*=\).*/\1\"\/opt\/hg\/cgi-bin\/hgweb.config\"/" /opt/hg/cgi
 echo "create file /opt/hg/cgi-bin/hgweb.config"
 cat > /opt/hg/cgi-bin/hgweb.config << "EOF"
 [paths]
-myrepos = /opt/hg/repos/*
+myrepos = /opt/hg/repos/**
  
 [web]
-style = monoblue
+style = paper
 allow_push = *
 push_ssl = false
 encoding = UTF-8

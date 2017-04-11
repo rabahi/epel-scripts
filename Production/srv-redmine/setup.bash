@@ -4,8 +4,9 @@
 #      PARAMETERS 
 ##################################################
 
-redmine_install_url=http://www.redmine.org/releases/redmine-3.3.2.tar.gz
-redmine_version=redmine-3.3.2
+redmine_install_url=http://www.redmine.org/releases/redmine-3.3.3.tar.gz
+redmine_version=redmine-3.3.3
+ruby_version=2.3.4
 
 ##################################################
 #      INSTALLATION SCRIPT
@@ -22,12 +23,12 @@ curl -sSL https://get.rvm.io | bash -s stable
 
 source ~/.bash_profile
 source /etc/profile.d/rvm.sh
-rvm get stable --auto
+rvm get stable --auto-dotfiles
 rvm requirements
 
 echo "2- install ruby"
-rvm install 2.3.1
-rvm use 2.3.1 --default
+rvm install $ruby_version
+rvm use $ruby_version --default
 
 echo "3- install rubygem"
 rvm rubygems current
@@ -76,10 +77,10 @@ chmod 777 /opt/redmine/redmine/tmp/ -R
 ##################################################
 # NOTE REDMINE MUST BE STARTED "NORMALLY" BEFORE THIS STEP.
 
-cat > /etc/httpd/conf.d/redmine.conf << "EOF"
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.1.2/buildout/apache2/mod_passenger.so
-PassengerRoot               /usr/local/rvm/gems/ruby-2.3.1/gems/passenger-5.1.2
-PassengerRuby               /usr/local/rvm/wrappers/ruby-2.3.1/ruby
+cat > /etc/httpd/conf.d/redmine.conf << EOF
+LoadModule passenger_module /usr/local/rvm/gems/ruby-$ruby_version/gems/passenger-5.1.2/buildout/apache2/mod_passenger.so
+PassengerRoot               /usr/local/rvm/gems/ruby-$ruby_version/gems/passenger-5.1.2
+PassengerRuby               /usr/local/rvm/wrappers/ruby-$ruby_version/ruby
 
 
 <VirtualHost *>

@@ -25,6 +25,8 @@ style = monoblue
 allow_push = *
 push_ssl = false
 encoding = UTF-8
+descend = True
+collapse = True
 EOF
  
 echo "configure httpd (create /etc/httpd/conf.d/hg.conf)"

@@ -16,7 +16,7 @@ rm -f /etc/init.d/nexus
 # download latest bundle
 rm -fr /opt/nexus/bundle/*
 mkdir -p /opt/nexus/download
-wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://download.sonatype.com/nexus/oss/nexus-latest-bundle.tar.gz
+wget -O /opt/nexus/download/nexus-latest-bundle.tar.gz http://download.sonatype.com/nexus/3/latest-unix.tar.gz
 tar xvfz /opt/nexus/download/nexus-latest-bundle.tar.gz -C /opt/nexus/bundle
 chown nexus:nexus /opt/nexus/bundle -R
 
@@ -44,7 +44,7 @@ echo "5 8 * * 0 root chmod a+x /opt/nexus/scripts/autoupdate.sh; /opt/nexus/scri
 echo "######## NEXUS #######" >> /etc/crontab
 fi
 
-echo "set nexus_HOME"
+echo "set NEXUS_HOME"
 if ! grep -q NEXUS ~/.bashrc; then
 echo "" >> ~/.bashrc
 echo "######## NEXUS #######" >> ~/.bashrc

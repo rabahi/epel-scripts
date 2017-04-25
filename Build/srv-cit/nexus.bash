@@ -20,7 +20,7 @@ chown nexus:nexus /opt/nexus/bundle -R
 
 #set nexus as a service
 nexusDirectory=`ls /opt/nexus/bundle/ | grep nexus`
-sed -i "s/^#?\(run_as_user=R=\s*\).*/\1\"nexus\"/" /opt/nexus/bundle/$nexusDirectory/bin/nexus.rc
+sed -i "s/^#\(run_as_user=\s*\).*/\1\"nexus\"/" /opt/nexus/bundle/$nexusDirectory/bin/nexus.rc
 
 cat > /etc/systemd/system/nexus.service << EOF
 [Unit]

@@ -7,11 +7,9 @@ mkdir -p /opt/nexus/scripts
 echo "create user nexus"
 useradd nexus
 
-cat > /opt/nexus/scripts/autoupdate.sh << "EOF"
-#remove nexus as a service
+#remove nexus as a service if exists
 systemctl stop nexus.service
-chkconfig --del nexus
-rm -f /etc/init.d/nexus
+systemctl disable nexus.service
 
 # download latest bundle
 rm -fr /opt/nexus/bundle/*
@@ -22,10 +20,27 @@ chown nexus:nexus /opt/nexus/bundle -R
 
 #set nexus as a service
 nexusDirectory=`ls /opt/nexus/bundle/ | grep nexus`
-ln -s /opt/nexus/bundle/$nexusDirectory/bin/nexus /etc/init.d/nexus
-sed -i "s/^#\(RUN_AS_USER=\s*\).*/\1nexus/" /opt/nexus/bundle/$nexusDirectory/bin/nexus
-chkconfig --add nexus
+sed -i "s/^#?\(run_as_user=R=\s*\).*/\1\"nexus\"/" /opt/nexus/bundle/$nexusDirectory/bin/nexus.rc
+
+cat > /etc/systemd/system/nexus.service << EOF
+[Unit]
+Description=nexus service
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/nexus/bundle/$nexusDirectory/bin/nexus start
+ExecStop=/opt/nexus/bundle/$nexusDirectory/bin/nexus stop
+User=nexus
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
 systemctl enable nexus.service
+systemctl start nexus.service
 
 rm -fr /opt/nexus/bundle/sonatype-work
 ln -s /opt/nexus/sonatype-work /opt/nexus/bundle/sonatype-work
@@ -33,25 +48,7 @@ mkdir -p /opt/nexus/sonatype-work
 chown nexus:nexus /opt/nexus/sonatype-work/ -R
 
 systemctl start nexus.service
-EOF
 
-echo "add autoupdate script to crontab"
-if ! grep -q NEXUS /etc/crontab; then
-echo "" >> /etc/crontab
-echo "######## NEXUS #######" >> /etc/crontab
-echo "every sunday at 8h05" >> /etc/crontab
-echo "5 8 * * 0 root chmod a+x /opt/nexus/scripts/autoupdate.sh; /opt/nexus/scripts/autoupdate.sh" >> /etc/crontab
-echo "######## NEXUS #######" >> /etc/crontab
-fi
-
-echo "set NEXUS_HOME"
-if ! grep -q NEXUS ~/.bashrc; then
-echo "" >> ~/.bashrc
-echo "######## NEXUS #######" >> ~/.bashrc
-echo "export NEXUS_HOME=/opt/nexus/home" >> ~/.bashrc
-echo "######## NEXUS #######" >> ~/.bashrc
-source ~/.bashrc
-fi
 
 echo "configure httpd (create /etc/httpd/conf.d/nexus.conf)"
 cat > /etc/httpd/conf.d/nexus.conf << "EOF"
@@ -61,11 +58,6 @@ Proxypassreverse /nexus http://localhost:8081/nexus
 ProxyRequests     Off
 EOF
 systemctl restart httpd.service
-
-echo "install nexus"
-chmod a+x /opt/nexus/scripts/autoupdate.sh
-/opt/nexus/scripts/autoupdate.sh
-
 
 myip=`hostname -I`
 echo "Now meet you here: http://$myip/nexus"

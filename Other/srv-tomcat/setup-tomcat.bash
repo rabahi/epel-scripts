@@ -3,6 +3,10 @@
 echo "install java"
 dnf -y install java-1.8.0-openjdk
 
+echo "create user and group tomcat"
+groupadd tomcat
+useradd -s /bin/false -g tomcat -d /opt/java/apache-tomcat
+
 echo "install tomcat"
 mkdir -p /opt/java
 wget -O /opt/java/apache-tomcat-8.5.13.tar.gz http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.13/bin/apache-tomcat-8.5.13.tar.gz
@@ -10,60 +14,29 @@ cd /opt/java
 tar xvfz apache-tomcat-8.5.13.tar.gz
 
 ln -s /opt/java/apache-tomcat-8.5.13 /opt/java/apache-tomcat
+chown -R tomcat:tomcat /opt/java/apache-tomcat
 
-echo "create service /etc/init.d/tomcat"
-cat > /etc/init.d/tomcat << "EOF"
-#!/bin/bash
-# chkconfig: 234 20 80
-# description: Tomcat Server basic start/shutdown script
-# processname: tomcat
-# pidfile: /opt/java/apache-tomcat/temp/pid
-
-. /etc/rc.d/init.d/functions
-
-# Set Tomcat environment.
-USER=root
-export PROCESSNAME=tomcat
-export BASEDIR=/opt/java/apache-tomcat
-export CATALINA_HOME=$BASEDIR
-export CATALINA_BASE=$BASEDIR
-export CATALINA_PID=$BASEDIR/temp/pid
-export CATALINA_OPTS="-Xmx512m -Djava.awt.headless=true"
-LOCKFILE=$BASEDIR/temp/lockfile
-
-case "$1" in
-  start)
-        echo -n "Starting service $PROCESSNAME: "
-        status -p $CATALINA_PID $PROCESSNAME > /dev/null && failure || (su -p -s /bin/sh $USER -c "cd $CATALINA_HOME && $CATALINA_HOME/bin/catalina.sh start" > /dev/null && (touch $LOCKFILE ; success))
-        echo
-        ;;
-  stop)
-        echo -n "Shutting down service $PROCESSNAME: "
-        status -p $CATALINA_PID $PROCESSNAME > /dev/null && su -p -s /bin/sh $USER -c "cd $CATALINA_HOME && $CATALINA_HOME/bin/catalina.sh stop" > /dev/null && (rm -f $LOCKFILE ; success) || failure
-        echo
-        ;;
-  restart)
-        $0 stop
-        $0 start
-        ;;
-  condrestart)
-       [ -e $LOCKFILE ] && $0 restart
-       ;;
-  status)
-        status -p $CATALINA_PID $PROCESSNAME
-        ;;
-  *)
-        echo "Usage: $0 {start|stop|restart|condrestart|status}"
-        exit 1
-        ;;
-esac
-
-exit 0
-
+echo "create service /etc/systemd/system/tomcat.service"
+cat > /etc/systemd/system/tomcat.service << "EOF"
+[Unit]
+Description=Apache Tomcat
+ 
+[Install]
+WantedBy=multi-user.target
+ 
+[Service]
+User=tomcat
+Group=tomcat
+Type=forking
+Environment=CATALINA_PID=/opt/java/apache-tomcat/tomcat.pid
+Environment=CATALINA_HOME=/opt/java/apache-tomcat
+Environment=CATALINA_BASE=/opt/java/apache-tomcat
+ExecStart=/opt/java/apache-tomcat/bin/startup.sh
+ExecStop=/opt/java/apache-tomcat/bin/shutdown.sh
+Restart=on-failure
 EOF
 
-chmod a+x /etc/init.d/tomcat
-chkconfig --add tomcat
+systemctl daemon-reload
 
 echo "launch tomcat service at startup"
 systemctl enable tomcat.service

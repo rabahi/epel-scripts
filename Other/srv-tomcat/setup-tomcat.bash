@@ -52,6 +52,14 @@ echo "launch tomcat service at startup"
 systemctl enable tomcat.service
 
 echo "add service tomcat (port 8080) to firewall"
+cat > /etc/firewalld/services/tomcat.xml << "EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+ <short>tomcat</short>
+ <description>tomcat server</description>
+ <port protocol="tcp" port="21"/>
+</service>
+EOF
 firewall-cmd --permanent --add-service tomcat
 
 echo "launch tomcat"

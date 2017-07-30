@@ -15,7 +15,7 @@ dnf -y install java-1.8.0-openjdk
 
 echo "create user and group tomcat"
 groupadd tomcat
-useradd -s /bin/false -g tomcat -d /opt/java/apache-tomcat
+useradd -s /bin/false -g tomcat -d /opt/java/apache-tomcat tomcat
 
 echo "install tomcat"
 mkdir -p /opt/java

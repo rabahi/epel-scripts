@@ -24,7 +24,7 @@ cd /opt/java
 tar xvfz apache-tomcat-$tomcat_version.tar.gz
 
 ln -s -f /opt/java/apache-tomcat-$tomcat_version /opt/java/apache-tomcat
-chown -R tomcat:tomcat /opt/java/apache-tomcat
+chown -R -L tomcat:tomcat /opt/java/apache-tomcat
 
 echo "create service /etc/systemd/system/tomcat.service"
 cat > /etc/systemd/system/tomcat.service << "EOF"

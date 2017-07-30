@@ -1,5 +1,15 @@
 #!/bin/bash
 
+##################################################
+#      PARAMETERS 
+##################################################
+ 
+tomcat_version=8.5.16
+ 
+##################################################
+#      INSTALLATION SCRIPT
+##################################################
+
 echo "install java"
 dnf -y install java-1.8.0-openjdk
 
@@ -9,11 +19,11 @@ useradd -s /bin/false -g tomcat -d /opt/java/apache-tomcat
 
 echo "install tomcat"
 mkdir -p /opt/java
-wget -O /opt/java/apache-tomcat-8.5.13.tar.gz http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.13/bin/apache-tomcat-8.5.13.tar.gz
+wget -O /opt/java/apache-tomcat-$tomcat_version.tar.gz http://apache.crihan.fr/dist/tomcat/tomcat-8/v$tomcat_version/bin/apache-tomcat-$tomcat_version.tar.gz
 cd /opt/java
-tar xvfz apache-tomcat-8.5.13.tar.gz
+tar xvfz apache-tomcat-$tomcat_version.tar.gz
 
-ln -s /opt/java/apache-tomcat-8.5.13 /opt/java/apache-tomcat
+ln -s /opt/java/apache-tomcat-$tomcat_version /opt/java/apache-tomcat
 chown -R tomcat:tomcat /opt/java/apache-tomcat
 
 echo "create service /etc/systemd/system/tomcat.service"

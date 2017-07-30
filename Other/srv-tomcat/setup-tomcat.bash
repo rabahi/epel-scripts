@@ -57,7 +57,7 @@ cat > /etc/firewalld/services/tomcat.xml << "EOF"
 <service>
  <short>tomcat</short>
  <description>tomcat server</description>
- <port protocol="tcp" port="21"/>
+ <port protocol="tcp" port="8080"/>
 </service>
 EOF
 firewall-cmd --permanent --add-service tomcat

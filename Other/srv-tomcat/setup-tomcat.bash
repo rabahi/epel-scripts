@@ -23,7 +23,7 @@ wget -O /opt/java/apache-tomcat-$tomcat_version.tar.gz http://apache.crihan.fr/d
 cd /opt/java
 tar xvfz apache-tomcat-$tomcat_version.tar.gz
 
-ln -s /opt/java/apache-tomcat-$tomcat_version /opt/java/apache-tomcat
+ln -s -f /opt/java/apache-tomcat-$tomcat_version /opt/java/apache-tomcat
 chown -R tomcat:tomcat /opt/java/apache-tomcat
 
 echo "create service /etc/systemd/system/tomcat.service"

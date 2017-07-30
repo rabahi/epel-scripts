@@ -1,7 +1,17 @@
 #!/bin/bash
 
 echo "install vsftpd"
-dnf -y install vsftpd pam_mysql
+dnf -y install vsftpd #pam_mysql
+
+echo "create firewall service"
+cat > /etc/firewalld/services/vsftp.xml << "EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+ <short>vsftp</short>
+ <description>ftp server</description>
+ <port protocol="tcp" port="21"/>
+</service>
+EOF
 
 echo "add service vsftp (port 21) to firewall"
 firewall-cmd --permanent --add-service vsftp

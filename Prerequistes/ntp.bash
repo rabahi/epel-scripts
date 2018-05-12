@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install ntp"
-dnf -y install ntp
+yum -y install ntp
 
 echo "activate ntp on boot"
 systemctl enable ntpd.service

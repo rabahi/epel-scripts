@@ -33,7 +33,6 @@ check_tcp 80 #httpd  (http)
 check_tcp 443 #httpd (https)
 check_tcp 3306 #mysqld
 check_tcp 5666 #nrpe
-check_tcp 10000 #webmin
 
 # check pages
 check_web_function phpMyAdmin "http://localhost/phpMyAdmin/ --http-user=root --http-password=root"

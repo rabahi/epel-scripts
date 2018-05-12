@@ -13,8 +13,7 @@ cat > /var/www/html/index.php << "EOF"
 <center><h1>Administration portal</h1></center>
  
 <h2>Prerequistes</h2>
-<ul>
-  <li><a href="webmin/">Webmin</a> (use login: root; password: root)</li>
+<ul>  
   <li><a href="phpMyAdmin/">phpMyAdmin</a> (use login: root; password: root)</li>
 </ul>
 

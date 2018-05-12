@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "install postgresql server"
-dnf -y install postgresql-server phpPgAdmin
+yum -y install postgresql-server phpPgAdmin
 
 echo "initialize database"
 postgresql-setup initdb

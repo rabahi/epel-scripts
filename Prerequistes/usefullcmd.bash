@@ -1,20 +1,20 @@
 #!/bin/bash
 
 echo "install ifconfig"
-dnf -y install net-tools
+yum -y install net-tools
 
 echo "install locate"
-dnf -y install mlocate
+yum -y install mlocate
 updatedb
 
 echo "install wget"
-dnf -y install wget
+yum -y install wget
 
 echo "install dos2unix"
-dnf -y install dos2unix
+yum -y install dos2unix
 
 echo "install telnet client"
-dnf -y install telnet
+yum -y install telnet
 
 echo "install zip tools"
-dnf -y install zip unzip
+yum -y install zip unzip

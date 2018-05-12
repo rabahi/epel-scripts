@@ -5,7 +5,7 @@
 ########################
 
 echo "install httpd"
-dnf -y install httpd mod_ssl
+yum -y install httpd mod_ssl
 
 echo "activate httpd at startup"
 systemctl enable httpd.service
